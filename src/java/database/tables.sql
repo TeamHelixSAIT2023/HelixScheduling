@@ -29,4 +29,4 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organization` (
     `name` VARCHAR(20) NOT NULL,
     `description` VARCHAR(100) NOT NULL,
     `public` BOOLEAN NOT NULL
-)
+);
