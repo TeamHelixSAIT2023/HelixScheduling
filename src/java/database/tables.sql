@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organization` (
-    `organizationID` INT(10) NOT NULL AUTO_INCEMENT,
+    `organizationID` INT(10) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(20) NOT NULL,
     `description` VARCHAR(100) NOT NULL,
-    `public` BOOLEAN NOT NULL
+    `public` BOOLEAN NOT NULL,
+    PRIMARY KEY(organizationID)
 );
