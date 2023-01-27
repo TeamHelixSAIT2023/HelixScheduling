@@ -23,3 +23,10 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
     `public` BOOLEAN,
     PRIMARY KEY(userID)
 );
+
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organization` (
+    `organizationID` INT(10) NOT NULL AUTO_INCEMENT,
+    `name` VARCHAR(20) NOT NULL,
+    `description` VARCHAR(100) NOT NULL,
+    `public` BOOLEAN NOT NULL
+)
