@@ -6,16 +6,21 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -60,6 +65,8 @@ public class User implements Serializable {
     private Boolean active;
     @Column(name = "public")
     private Boolean public1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    private List<OrganizationUser> organizationUserList;
 
     public User() {
     }
@@ -138,6 +145,15 @@ public class User implements Serializable {
 
     public void setPublic1(Boolean public1) {
         this.public1 = public1;
+    }
+
+    @XmlTransient
+    public List<OrganizationUser> getOrganizationUserList() {
+        return organizationUserList;
+    }
+
+    public void setOrganizationUserList(List<OrganizationUser> organizationUserList) {
+        this.organizationUserList = organizationUserList;
     }
 
     @Override
