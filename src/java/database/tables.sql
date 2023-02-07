@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
     `firstName` VARCHAR(20) NOT NULL,
     `lastName` VARCHAR(20) NOT NULL,
     `password` VARCHAR(40) NOT NULL,
+    `salt` VARCHAR(32) NOT NULL,
     `phone` VARCHAR(10),
     `active` BOOLEAN,
     `public` BOOLEAN,

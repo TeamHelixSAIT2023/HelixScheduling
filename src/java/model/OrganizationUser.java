@@ -36,7 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "OrganizationUser.findByOrganizationUserID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationUserID = :organizationUserID")
     , @NamedQuery(name = "OrganizationUser.findByScheduleID", query = "SELECT o FROM OrganizationUser o WHERE o.scheduleID = :scheduleID")
     , @NamedQuery(name = "OrganizationUser.findByHourly", query = "SELECT o FROM OrganizationUser o WHERE o.hourly = :hourly")
-    , @NamedQuery(name = "OrganizationUser.findByAvailability", query = "SELECT o FROM OrganizationUser o WHERE o.availability = :availability")})
+    , @NamedQuery(name = "OrganizationUser.findByAvailability", query = "SELECT o FROM OrganizationUser o WHERE o.availability = :availability")
+    , @NamedQuery(name = "OrganizationUser.findByUserIDOrgID", query = "SELECT o FROM OrganizationUser o WHERE o.userID = :userID AND o.organizationID = :organziationID")
+    , @NamedQuery(name = "OrganizationUser.findByOrganizationID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationID = :organizationID")})
 public class OrganizationUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
