@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
     }
 
     @Override
@@ -45,16 +45,24 @@ public class LoginServlet extends HttpServlet {
         if (user == null) {
             session.setAttribute("email", email);
             session.setAttribute("message", "Invalid credentials");
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
             return;
         } else if (!user.getActive()) {
             session.setAttribute("message", "Account deactivated, contact an administrator for reactivation");
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
             return;
         }
 
         session.setAttribute("user", user);
 
         response.sendRedirect("home");
+    }
+    
+    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = null;
+        if (user == null) {
+            request.setAttribute("Error", "Email not found"); 
+            
+        }
     }
 }

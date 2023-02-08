@@ -8,6 +8,7 @@ package services;
 import dataaccess.UserDB;
 import java.util.List;
 import model.User;
+import sun.security.util.Debug;
 import util.PasswordUtil;
 
 /**
@@ -21,8 +22,9 @@ public class UserService {
 
         try {
             User user = userDB.get(email);
-            String hashedPassword = PasswordUtil.hashAndSaltPassword(password, user.getSalt());
-            if (hashedPassword.equals(user.getPassword())) {
+            //String hashedPassword = PasswordUtil.hashAndSaltPassword(password, user.getSalt());
+            if (password.equals(user.getPassword())) {
+            //if (hashedPassword.equals(user.getPassword())) {
                 return user;
             }
         } catch (Exception e) {
@@ -47,8 +49,9 @@ public class UserService {
         if (email.length() > 40 || password.length() > 40 || firstName.length() > 20 || lastName.length() > 20) {
             throw new Exception("One or more entries exceed max length");
         }
-        String salt = PasswordUtil.getSalt();
-        password = PasswordUtil.hashAndSaltPassword(password, salt);
+        //String salt = PasswordUtil.getSalt();
+        //password = PasswordUtil.hashAndSaltPassword(password, salt);
+        String salt = "hi";
         User user = new User(0, email, firstName, lastName, password, salt);
         UserDB userDB = new UserDB();
         try {

@@ -21,7 +21,7 @@ public class UserDB {
         User user;
         
         try {
-            user = em.find(User.class, email);
+            user = em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).getSingleResult();
         } finally {
             em.close();
         }
