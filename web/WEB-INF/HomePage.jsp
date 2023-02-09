@@ -6,7 +6,6 @@
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <title>Home</title>
-        
     </head>
     <body>
     <teamLogo>Team Helix</teamLogo>
