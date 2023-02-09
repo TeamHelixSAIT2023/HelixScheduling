@@ -38,22 +38,40 @@ teamLogo {
     overflow-x: hidden;
     align-items:center;
     justify-content:center;
+    display: block;
+   
 }
 
 button{
     background-color: inherit;
     padding: 10px;
     display: inline-block;
-}
+    margin: auto;  
+
+    }
+
 
 button:hover{
-    background:white;
+    background:#525252;
 
 }
 
+
 .homeButton{
-    top: 80px;
+    top: 150px;
     border:none;
     position: fixed;
     cursor: pointer;
+    width: 180px;
+    margin: auto;  
+ 
+    
+}
+.form{
+        top: 150px;
+    border:none;
+    position: fixed;
+    cursor: pointer;
+    width: 180px;
+    margin: auto;  
 }

@@ -15,10 +15,12 @@
     </div>
 
     <div class="sideBar">
+       
+       <form action="login">
         <button class="homeButton">Home</button>
-
-
+       </form>
+        
     </div>
 
     </body>
-</html>
+</html> 
