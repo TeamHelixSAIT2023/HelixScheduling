@@ -3,23 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/dataaccess/AvailabilityDB.java</file>
             <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/database/tables.sql</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/services/UserService.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/model/User.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/web/WEB-INF/HomePage.jsp</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/web/META-INF/context.xml</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/servlets/LoginServlet.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/database/userTestData.sql</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/dataaccess/UserDB.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/filters/AuthenticationFilter.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/model/OrganizationUser.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/web/WEB-INF/web.xml</file>
+            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/model/Organizationuser.java</file>
             <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/conf/persistence.xml</file>
             <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/dataaccess/DBUtil.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/web/WEB-INF/LoginPage.jsp</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/model/Availability.java</file>
-            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/src/java/servlets/HomeServlet.java</file>
+            <file>file:/G:/Documents/School%20Shit/SAIT/Capstone%20Project/HelixScheduling/web/META-INF/context.xml</file>
         </group>
     </open-files>
 </project-private>

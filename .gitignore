@@ -1,5 +1,4 @@
 
-<<<<<<< Updated upstream
 # NetBeans specific #
 nbproject/private/
 build/
@@ -16,7 +15,3 @@ nb-configuration.xml
 *.jar
 *.war
 *.ear
-=======
-nbproject/private/private.xml
-/dist/
->>>>>>> Stashed changes
