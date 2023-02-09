@@ -17,7 +17,7 @@
                 <input type="submit" value="Log in">
                 <inp
             </form>
-                <p>${error}</p>
+                <p>${message}</p>
         
     </body>
 </html>
