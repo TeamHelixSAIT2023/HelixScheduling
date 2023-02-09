@@ -6,16 +6,21 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
+    , @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt")
     , @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")
     , @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")
     , @NamedQuery(name = "User.findByPublic1", query = "SELECT u FROM User u WHERE u.public1 = :public1")})
@@ -54,12 +60,17 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @Basic(optional = false)
+    @Column(name = "salt")
+    private String salt;
     @Column(name = "phone")
     private String phone;
     @Column(name = "active")
     private Boolean active;
     @Column(name = "public")
     private Boolean public1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    private List<OrganizationUser> organizationUserList;
 
     public User() {
     }
@@ -68,12 +79,13 @@ public class User implements Serializable {
         this.userID = userID;
     }
 
-    public User(Integer userID, String email, String firstName, String lastName, String password) {
+    public User(Integer userID, String email, String firstName, String lastName, String password, String salt) {
         this.userID = userID;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.salt = salt;
     }
 
     public Integer getUserID() {
@@ -116,6 +128,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -138,6 +158,15 @@ public class User implements Serializable {
 
     public void setPublic1(Boolean public1) {
         this.public1 = public1;
+    }
+
+    @XmlTransient
+    public List<OrganizationUser> getOrganizationUserList() {
+        return organizationUserList;
+    }
+
+    public void setOrganizationUserList(List<OrganizationUser> organizationUserList) {
+        this.organizationUserList = organizationUserList;
     }
 
     @Override
