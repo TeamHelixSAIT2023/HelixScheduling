@@ -1,0 +1,89 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3-Dec-2022, 5:09:03 PM
+    Author     : Eric
+*/
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: powderblue;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+    padding: 2em;
+}
+
+.header {
+    background-color: #333333;
+    display: flex;
+    justify-content: center;
+    height: 20vh;
+}
+
+.header > div {
+    width: 15%;
+    height: 3em;
+    margin: auto 0;
+    text-align: center;
+}
+
+.header-link > a {
+    color: ghostwhite;
+    font-size: 1.5em;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.container {
+    background-color: dimgray;
+    color: ghostwhite;
+    width: 60%;
+    height: 80vh;
+    margin: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+table, td, th {
+    border: 1px solid ghostwhite;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 0.4em;
+}
+
+table a {
+    color: lightskyblue;
+}
+
+#footer {
+    text-align: center;
+    padding: 2em;
+}
+
+#logout {
+    background-color: ghostwhite;
+    color: #333333;
+    margin: 0.5em;
+    padding: 0.5em;
+    text-decoration: none;
+    border-radius: 0.25em;
+}
+
+#logout:hover {
+    background-color: #333333;
+    color: ghostwhite;
+}

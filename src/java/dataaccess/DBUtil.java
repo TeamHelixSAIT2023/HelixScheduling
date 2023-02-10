@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
  * @author Eric
  */
 public class DBUtil {
-    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("InventoryPU");
+    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("HelixSchedulingPU");
     
     public static EntityManagerFactory getEmFactory() {
         return EMF;

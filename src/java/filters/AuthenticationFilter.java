@@ -34,7 +34,7 @@ public class AuthenticationFilter implements Filter {
             
             if (user == null) {
                 HttpServletResponse httpResponse = (HttpServletResponse)response;
-                httpResponse.sendRedirect("login");
+                httpResponse.sendRedirect("LoginPage");
                 return;
             }
             chain.doFilter(request, response);

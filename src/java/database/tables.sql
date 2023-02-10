@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
     `password` VARCHAR(40) NOT NULL,
     `salt` VARCHAR(32) NOT NULL,
     `phone` VARCHAR(10),
-    `active` BOOLEAN,
-    `public` BOOLEAN,
+    `active` BOOLEAN NOT NULL DEFAULT 1,
+    `public` BOOLEAN NOT NULL DEFAULT 1,
     PRIMARY KEY(`userID`),
     CONSTRAINT uk_user_email UNIQUE(`email`),
     CONSTRAINT uk_user_phone UNIQUE(`phone`)
