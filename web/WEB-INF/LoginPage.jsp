@@ -13,12 +13,14 @@
                 padding: 15px;
             }
             label{
-               color: black;
+                color: black;
             }
         </style>
     </head>
     <body>
-            <h1 style="color:black">Login</h1>
+        <div class="d-flex justify-content-center">
+            <div>
+                <h1 class="text-center" style="color:black">Login</h1>
                 <form method="POST" action="login">
                     <div class="row mb-3">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
@@ -26,16 +28,16 @@
                             <input type="email" class="form-control" name="email" placeholder="Enter Email">
                         </div>
                     </div>
-                      <div class="row mb-3">
+                    <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                        <input type="password" class="form-control" name="password" placeholder="Password"> 
+                            <input type="password" class="form-control" name="password" placeholder="Password"> 
                         </div>            
                     </div>
                     <input class="btn btn-primary" type="submit" value="Log in">
                 </form>
-            </nav>
                 <p>${message}</p>
-        
+            </div>
+        </div>
     </body>
 </html>
