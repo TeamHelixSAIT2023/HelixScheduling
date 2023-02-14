@@ -87,14 +87,9 @@ public class OrganizationUserDB {
     public void update (OrganizationUser uo) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        List<Availability> availabilityList;
         
         try {
-            availabilityList = uo.getAvailabilityList();
             trans.begin();
-            for (Availability a : availabilityList){
-                em.merge(a);
-            }
             em.merge(uo);
             trans.commit();
         } catch (Exception e) {

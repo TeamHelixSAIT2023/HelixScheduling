@@ -6,11 +6,10 @@
 package services;
 
 import dataaccess.OrganizationUserDB;
-import dataaccess.AvailabilityDB;
-import dataaccess.UserDB;
 import java.util.List;
 import model.OrganizationUser;
 import model.Availability;
+import model.Department;
 /**
  *
  * @author Eric
@@ -27,5 +26,34 @@ public class OrganizationUserService {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByUserIDOrgID(userID, orgID);
         return uo;
+    }
+    
+    public void insert(int organizationID, int userID, Department dept, int scheduleID, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+        OrganizationUser uo = new OrganizationUser(organizationID, userID);
+        uo.setDeptID(dept);
+        uo.setScheduleID(scheduleID);
+        uo.setManagedBy(managedBy);
+        uo.setHourly(hourly);
+        uo.setAvailabilityList(availabilityList);
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        uoDB.insert(uo);
+    }
+
+    public void update(int organizationID, int userID, Department dept, int scheduleID, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        OrganizationUser uo = uoDB.getByUserIDOrgID(userID, organizationID);
+        uo.setDeptID(dept);
+        uo.setScheduleID(scheduleID);
+        uo.setManagedBy(managedBy);
+        uo.setHourly(hourly);
+        uo.setAvailabilityList(availabilityList);
+        
+        uoDB.update(uo);
+    }
+    
+    public void delete (int organizationID, int userID) {
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        OrganizationUser uo = uoDB.getByUserIDOrgID(userID, organizationID);
+        uoDB.delete(uo);
     }
 }

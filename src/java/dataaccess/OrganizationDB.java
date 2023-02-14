@@ -8,52 +8,50 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Availability;
+import model.Department;
+import model.Organization;
 import model.OrganizationUser;
 
 /**
  *
  * @author Eric
  */
-public class AvailabilityDB {
-    public Availability get (int availabilityID){
+public class OrganizationDB {
+
+    public Organization get(int availabilityID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Availability availability;
-        
+        Organization organization;
+
         try {
-            availability = em.find(Availability.class, availabilityID);
+            organization = em.find(Organization.class, availabilityID);
         } finally {
             em.close();
         }
-        
-        return availability;
+
+        return organization;
     }
-    
-    public List<Availability> getAll (){
+
+    public List<Organization> getAll() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<Availability> availabilityList;
-        
+        List<Organization> organizationList;
+
         try {
-            availabilityList = em.createNamedQuery("Availability.findAll", Availability.class).getResultList();
+            organizationList = em.createNamedQuery("Availability.findAll", Organization.class).getResultList();
         } finally {
             em.close();
         }
-        
-        return availabilityList;
+
+        return organizationList;
     }
-    
-    public void insert (Availability availability){
+
+    public void insert(Organization organization) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo;
-        
+
         try {
-            uo = availability.getOrganizationUserID();
             trans.begin();
-            uo.getAvailabilityList().add(availability);
-            uoDB.update(uo);
-            em.persist(availability);
+            em.persist(organization);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -61,18 +59,24 @@ public class AvailabilityDB {
             em.close();
         }
     }
-    
-    public void update (Availability availability) {
+
+    public void update(Organization organization) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUserDB uoDB = new OrganizationUserDB();
-        OrganizationUser uo;
+        List<OrganizationUser> uoList;
+        List<Department> deptList;
         
         try {
-            uo = availability.getOrganizationUserID();
+            uoList = organization.getOrganizationUserList();
+            deptList = organization.getDepartmentList();
             trans.begin();
-            uoDB.update(uo);
-            em.merge(availability);
+            for (OrganizationUser uo : uoList) {
+                em.merge(uo);
+            }
+            for (Department dept : deptList){
+                em.merge(dept);
+            }
+            em.merge(organization);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -80,19 +84,22 @@ public class AvailabilityDB {
             em.close();
         }
     }
-    
-    public void delete (Availability availability) {
+
+    public void delete(Organization organization) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUser uo;
-        OrganizationUserDB uoDB = new OrganizationUserDB();
-        
+        List<Department> deptList;
+
         try {
-            uo = availability.getOrganizationUserID();
+            deptList = organization.getDepartmentList();
             trans.begin();
-            uo.getAvailabilityList().remove(availability);
-            uoDB.update(availability.getOrganizationUserID());
-            em.remove(em.merge(availability));
+            for (OrganizationUser uo : organization.getOrganizationUserList()){
+                em.remove(em.merge(uo));
+            }
+            for (Department dept : organization.getDepartmentList()){
+                em.remove(em.merge(dept));
+            }
+            em.remove(em.merge(organization));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

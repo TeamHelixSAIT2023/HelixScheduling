@@ -65,7 +65,7 @@ public class UserDB {
         try {
             trans.begin();
             for (OrganizationUser ou : user.getOrganizationUserList()){
-                orgUserDB.delete(em.merge(ou));
+                orgUserDB.update(em.merge(ou));
             }
             em.merge(user);
             trans.commit();
