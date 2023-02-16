@@ -63,17 +63,13 @@ public class OrganizationDB {
     public void update(Organization organization) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        List<OrganizationUser> uoList;
-        List<Department> deptList;
         
         try {
-            uoList = organization.getOrganizationUserList();
-            deptList = organization.getDepartmentList();
             trans.begin();
-            for (OrganizationUser uo : uoList) {
+            for (OrganizationUser uo : organization.getOrganizationUserList()) {
                 em.merge(uo);
             }
-            for (Department dept : deptList){
+            for (Department dept : organization.getDepartmentList()){
                 em.merge(dept);
             }
             em.merge(organization);
@@ -88,16 +84,16 @@ public class OrganizationDB {
     public void delete(Organization organization) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        List<Department> deptList;
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        DepartmentDB deptDB = new DepartmentDB();
 
         try {
-            deptList = organization.getDepartmentList();
             trans.begin();
             for (OrganizationUser uo : organization.getOrganizationUserList()){
-                em.remove(em.merge(uo));
+                uoDB.delete(em.merge(uo));
             }
             for (Department dept : organization.getDepartmentList()){
-                em.remove(em.merge(dept));
+                deptDB.delete(em.merge(dept));
             }
             em.remove(em.merge(organization));
             trans.commit();

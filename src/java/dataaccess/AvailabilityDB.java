@@ -65,13 +65,9 @@ public class AvailabilityDB {
     public void update (Availability availability) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUserDB uoDB = new OrganizationUserDB();
-        OrganizationUser uo;
         
         try {
-            uo = availability.getOrganizationUserID();
             trans.begin();
-            uoDB.update(uo);
             em.merge(availability);
             trans.commit();
         } catch (Exception e) {
@@ -84,14 +80,11 @@ public class AvailabilityDB {
     public void delete (Availability availability) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUser uo;
-        OrganizationUserDB uoDB = new OrganizationUserDB();
         
         try {
-            uo = availability.getOrganizationUserID();
+            OrganizationUser uo = availability.getOrganizationUserID();
             trans.begin();
             uo.getAvailabilityList().remove(availability);
-            uoDB.update(availability.getOrganizationUserID());
             em.remove(em.merge(availability));
             trans.commit();
         } catch (Exception e) {

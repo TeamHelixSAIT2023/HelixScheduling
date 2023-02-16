@@ -68,14 +68,28 @@ public class OrganizationUserDB {
         return uoList;
     }
     
-    public void insert (OrganizationUser uo){
+    public List<OrganizationUser> getAllByUser (int userID){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        List<OrganizationUser> uoList;
+        
+        try {
+            uoList = em.createNamedQuery("OrganizationUser.findByUserID", OrganizationUser.class).setParameter("organizationID", userID).getResultList();
+        } finally {
+            em.close();
+        }
+        
+        return uoList;
+    }
+    
+    public void insert (OrganizationUser ou){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        List<Availability> availabilityList;
         
         try {
             trans.begin();
-            em.persist(uo);
+            em.persist(ou);
+            em.merge(ou.getOrganizationID().getOrganizationUserList().add(ou));
+            em.merge(ou.getUserID().getOrganizationUserList().add(ou));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -84,13 +98,13 @@ public class OrganizationUserDB {
         }
     }
     
-    public void update (OrganizationUser uo) {
+    public void update (OrganizationUser ou) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
         try {
             trans.begin();
-            em.merge(uo);
+            em.merge(ou);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -99,17 +113,19 @@ public class OrganizationUserDB {
         }
     }
     
-    public void delete (OrganizationUser uo) {
+    public void delete (OrganizationUser ou) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         AvailabilityDB avDB = new AvailabilityDB();
         
         try {
             trans.begin();
-            for (Availability a : uo.getAvailabilityList()){
+            em.remove(em.merge(ou));
+            for (Availability a : ou.getAvailabilityList()){
                 avDB.delete(em.merge(a));
             }
-            em.remove(em.merge(uo));
+            em.merge(ou.getOrganizationID().getOrganizationUserList().remove(ou));
+            em.merge(ou.getUserID().getOrganizationUserList().remove(ou));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

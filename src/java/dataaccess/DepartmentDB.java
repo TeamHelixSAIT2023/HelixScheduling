@@ -53,8 +53,8 @@ public class DepartmentDB {
             organization = department.getOrganizationID();
             trans.begin();
             organization.getDepartmentList().add(department);
-            em.persist(organization);
             em.persist(department);
+            em.merge(organization);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -66,17 +66,9 @@ public class DepartmentDB {
     public void update(Department department) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        List<OrganizationUser> ouList;
-        Organization organization;
 
         try {
-            ouList = department.getOrganizationUserList();
-            organization = department.getOrganizationID();
             trans.begin();
-            for (OrganizationUser ou : ouList) {
-                em.merge(ou);
-            }
-            em.merge(organization);
             em.merge(department);
             trans.commit();
         } catch (Exception e) {
@@ -101,7 +93,7 @@ public class DepartmentDB {
                 em.merge(ou);
             }
             organization.getDepartmentList().remove(department);
-            em.persist(organization);
+            em.merge(organization);
             em.remove(em.merge(department));
             trans.commit();
         } catch (Exception e) {
