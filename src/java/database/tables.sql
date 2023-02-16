@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
     `public` BOOLEAN NOT NULL DEFAULT 1,
     PRIMARY KEY(`userID`),
     CONSTRAINT uk_user_email UNIQUE(`email`),
+    --CONSTRAINT email_field_pattern CHECK (email_field ~* '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'),
     CONSTRAINT uk_user_phone UNIQUE(`phone`)
 );
 
