@@ -18,9 +18,9 @@
         </style>
     </head>
     <body>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-5">
             <div>
-                <h1 class="text-center" style="color:black">Login</h1>
+                <h1 class="text-center p-2" style="color:black">Login</h1>
                 <form method="POST" action="login">
                     <div class="row mb-3">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
