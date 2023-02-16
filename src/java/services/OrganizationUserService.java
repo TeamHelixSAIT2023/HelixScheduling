@@ -24,8 +24,20 @@ public class OrganizationUserService {
     
     public OrganizationUser getByUserIDOrgID (int userID, int orgID){
         OrganizationUserDB uoDB = new OrganizationUserDB();
-        OrganizationUser uo = uoDB.getByUserIDOrgID(userID, orgID);
-        return uo;
+        OrganizationUser ou = uoDB.getByUserIDOrgID(userID, orgID);
+        return ou;
+    }
+    
+    public List<OrganizationUser> getByOrg (int orgID) {
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        List<OrganizationUser> ouList = uoDB.getAllByOrg(orgID);
+        return ouList;
+    }
+    
+    public List<OrganizationUser> getByUser (int userID) {
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        List<OrganizationUser> ouList = uoDB.getAllByUser(userID);
+        return ouList;
     }
     
     public void insert(int organizationID, int userID, Department dept, int scheduleID, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
