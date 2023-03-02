@@ -10,6 +10,7 @@ import java.util.List;
 import model.OrganizationUser;
 import model.Availability;
 import model.Department;
+import model.Schedule;
 /**
  *
  * @author Eric
@@ -40,10 +41,10 @@ public class OrganizationUserService {
         return ouList;
     }
     
-    public void insert(int organizationID, int userID, Department dept, int scheduleID, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+    public void insert(int organizationID, int userID, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
         OrganizationUser uo = new OrganizationUser(organizationID, userID);
-        uo.setDeptID(dept);
-        uo.setScheduleID(scheduleID);
+        uo.setDept(dept);
+        uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
         uo.setAvailabilityList(availabilityList);
@@ -51,11 +52,11 @@ public class OrganizationUserService {
         uoDB.insert(uo);
     }
 
-    public void update(int organizationID, int userID, Department dept, int scheduleID, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+    public void update(int organizationID, int userID, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByUserIDOrgID(userID, organizationID);
-        uo.setDeptID(dept);
-        uo.setScheduleID(scheduleID);
+        uo.setDept(dept);
+        uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
         uo.setAvailabilityList(availabilityList);

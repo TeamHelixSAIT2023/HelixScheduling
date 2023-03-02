@@ -44,7 +44,6 @@ public class OrganizationService {
         org.setName(name);
         org.setDescription(description);
         org.setPublic1(public1);
-        org.setShiftSwapBoardID(shiftSwapBoardID);
         org.setOrganizationUserList(uoList);
         org.setDepartmentList(deptList);
         

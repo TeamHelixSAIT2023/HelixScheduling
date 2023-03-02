@@ -49,11 +49,11 @@ public class AvailabilityDB {
         OrganizationUser uo;
         
         try {
-            uo = availability.getOrganizationUserID();
+            uo = availability.getOrganizationUser();
             trans.begin();
+            em.persist(availability);
             uo.getAvailabilityList().add(availability);
             uoDB.update(uo);
-            em.persist(availability);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -82,10 +82,10 @@ public class AvailabilityDB {
         EntityTransaction trans = em.getTransaction();
         
         try {
-            OrganizationUser uo = availability.getOrganizationUserID();
+            OrganizationUser uo = availability.getOrganizationUser();
             trans.begin();
-            uo.getAvailabilityList().remove(availability);
             em.remove(em.merge(availability));
+            uo.getAvailabilityList().remove(availability);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

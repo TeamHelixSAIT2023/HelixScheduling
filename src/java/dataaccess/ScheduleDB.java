@@ -8,53 +8,54 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Department;
 import model.Organization;
 import model.OrganizationUser;
+import model.Schedule;
 
 /**
  *
  * @author Eric
  */
-public class DepartmentDB {
-
-    public Department get(int departmentID) {
+public class ScheduleDB {
+    public Schedule get (int scheduleID){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Department availability;
-
+        Schedule schedule;
+        
         try {
-            availability = em.find(Department.class, departmentID);
+            schedule = em.find(Schedule.class, scheduleID);
         } finally {
             em.close();
         }
-
-        return availability;
+        
+        return schedule;
     }
-
-    public List<Department> getAll() {
+    
+    public List<Schedule> getAll (){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<Department> departmentList;
-
+        List<Schedule> schedules;
+        
         try {
-            departmentList = em.createNamedQuery("Availability.findAll", Department.class).getResultList();
+            schedules = em.createNamedQuery("schedules.findAll", Schedule.class).getResultList();
         } finally {
             em.close();
         }
-
-        return departmentList;
+        
+        return schedules;
     }
-
-    public void insert(Department department) {
+    
+    public void insert (Schedule schedule){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        Organization organization;
-
+        OrganizationDB orgDB = new OrganizationDB();
+        Organization org;
+        
         try {
-            organization = department.getOrganization();
+            
             trans.begin();
-            organization.getDepartmentList().add(department);
-            em.persist(department);
-            em.merge(organization);
+            em.persist(schedule);
+            org = schedule.getOrganization();
+            org.getScheduleList().add(schedule);
+            orgDB.update(org);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -62,39 +63,41 @@ public class DepartmentDB {
             em.close();
         }
     }
-
-    public void update(Department department) {
+    
+    public void update (Schedule schedule) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-
+        OrganizationUserDB orgUserDB = new OrganizationUserDB();
+        OrganizationDB orgDB = new OrganizationDB();
+        
         try {
             trans.begin();
-            em.merge(department);
-            trans.commit();
-        } catch (Exception e) {
-            trans.rollback();
-        } finally {
-            em.close();
-        }
-    }
-
-    public void delete(Department department) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        EntityTransaction trans = em.getTransaction();
-        List<OrganizationUser> ouList;
-        Organization organization;
-
-        try {
-            ouList = department.getOrganizationUserList();
-            organization = department.getOrganization();
-            trans.begin();
-            for (OrganizationUser ou : ouList) {
-                ou.setDept(null);
-                em.merge(ou);
+            em.merge(schedule);
+            for (OrganizationUser ou : schedule.getOrganizationUserList()){
+                orgUserDB.update(em.merge(ou));
             }
-            organization.getDepartmentList().remove(department);
-            em.merge(organization);
-            em.remove(em.merge(department));
+            orgDB.update(em.merge(schedule.getOrganization()));
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public void delete (Schedule schedule) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        OrganizationUserDB orgUserDB = new OrganizationUserDB();
+        OrganizationDB orgDB = new OrganizationDB();
+        
+        try {
+            trans.begin();
+            for (OrganizationUser ou : schedule.getOrganizationUserList()){
+                orgUserDB.update(em.merge(ou));
+            }
+            em.remove(em.merge(schedule));
+            orgDB.update(schedule.getOrganization());
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

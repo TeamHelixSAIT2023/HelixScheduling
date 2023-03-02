@@ -64,10 +64,10 @@ public class UserDB {
         
         try {
             trans.begin();
+            em.merge(user);
             for (OrganizationUser ou : user.getOrganizationUserList()){
                 orgUserDB.update(em.merge(ou));
             }
-            em.merge(user);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -83,10 +83,10 @@ public class UserDB {
         
         try {
             trans.begin();
+            em.remove(em.merge(user));
             for (OrganizationUser ou : user.getOrganizationUserList()){
                 orgUserDB.delete(em.merge(ou));
             }
-            em.remove(em.merge(user));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

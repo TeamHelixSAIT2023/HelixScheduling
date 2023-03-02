@@ -34,9 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "OrganizationUser.findAll", query = "SELECT o FROM OrganizationUser o")
     , @NamedQuery(name = "OrganizationUser.findByOrganizationUserID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationUserID = :organizationUserID")
-    , @NamedQuery(name = "OrganizationUser.findByScheduleID", query = "SELECT o FROM OrganizationUser o WHERE o.scheduleID = :scheduleID")
     , @NamedQuery(name = "OrganizationUser.findByHourly", query = "SELECT o FROM OrganizationUser o WHERE o.hourly = :hourly")
-    , @NamedQuery(name = "OrganizationUser.findByAvailability", query = "SELECT o FROM OrganizationUser o WHERE o.availability = :availability")
     , @NamedQuery(name = "OrganizationUser.findByUserIDOrgID", query = "SELECT o FROM OrganizationUser o WHERE o.userID = :userID AND o.organizationID = :organziationID")
     , @NamedQuery(name = "OrganizationUser.findByOrganizationID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationID = :organizationID")
     , @NamedQuery(name = "OrganizationUser.findByUserID", query = "SELECT o FROM OrganizationUser o WHERE o.userID = :userID")})
@@ -48,29 +46,29 @@ public class OrganizationUser implements Serializable {
     @Basic(optional = false)
     @Column(name = "organizationUserID")
     private Integer organizationUserID;
-    @Basic(optional = false)
-    @Column(name = "scheduleID")
-    private int scheduleID;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "hourly")
     private Double hourly;
-    @Column(name = "availability")
-    private Integer availability;
-    @JoinColumn(name = "deptID", referencedColumnName = "deptID")
+    @JoinColumn(name = "dept", referencedColumnName = "deptID")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Department deptID;
+    private Department dept;
     @OneToMany(mappedBy = "managedBy", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
     @JoinColumn(name = "managedBy", referencedColumnName = "organizationUserID")
     @ManyToOne(fetch = FetchType.EAGER)
     private OrganizationUser managedBy;
-    @JoinColumn(name = "organizationID", referencedColumnName = "organizationID")
+    @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Organization organizationID;
-    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    private Organization organization;
+    @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private User userID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUserID", fetch = FetchType.EAGER)
+    private Schedule schedule;
+    @JoinColumn(name = "user", referencedColumnName = "userID")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
+    private List<Shift> shiftList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
     private List<Availability> availabilityList;
 
     public OrganizationUser() {
@@ -80,9 +78,8 @@ public class OrganizationUser implements Serializable {
         this.organizationUserID = organizationUserID;
     }
 
-    public OrganizationUser(Integer organizationUserID, int scheduleID) {
-        this.organizationUserID = organizationUserID;
-        this.scheduleID = scheduleID;
+    public OrganizationUser(int organizationID, int userID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getOrganizationUserID() {
@@ -93,14 +90,6 @@ public class OrganizationUser implements Serializable {
         this.organizationUserID = organizationUserID;
     }
 
-    public int getScheduleID() {
-        return scheduleID;
-    }
-
-    public void setScheduleID(int scheduleID) {
-        this.scheduleID = scheduleID;
-    }
-
     public Double getHourly() {
         return hourly;
     }
@@ -109,20 +98,12 @@ public class OrganizationUser implements Serializable {
         this.hourly = hourly;
     }
 
-    public Integer getAvailability() {
-        return availability;
+    public Department getDept() {
+        return dept;
     }
 
-    public void setAvailability(Integer availability) {
-        this.availability = availability;
-    }
-
-    public Department getDeptID() {
-        return deptID;
-    }
-
-    public void setDeptID(Department deptID) {
-        this.deptID = deptID;
+    public void setDept(Department dept) {
+        this.dept = dept;
     }
 
     @XmlTransient
@@ -142,20 +123,37 @@ public class OrganizationUser implements Serializable {
         this.managedBy = managedBy;
     }
 
-    public Organization getOrganizationID() {
-        return organizationID;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationID(Organization organizationID) {
-        this.organizationID = organizationID;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
-    public User getUserID() {
-        return userID;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setUserID(User userID) {
-        this.userID = userID;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @XmlTransient
+    public List<Shift> getShiftList() {
+        return shiftList;
+    }
+
+    public void setShiftList(List<Shift> shiftList) {
+        this.shiftList = shiftList;
     }
 
     @XmlTransient

@@ -88,8 +88,8 @@ public class OrganizationUserDB {
         try {
             trans.begin();
             em.persist(ou);
-            em.merge(ou.getOrganizationID().getOrganizationUserList().add(ou));
-            em.merge(ou.getUserID().getOrganizationUserList().add(ou));
+            em.merge(ou.getOrganization().getOrganizationUserList().add(ou));
+            em.merge(ou.getUser().getOrganizationUserList().add(ou));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -124,8 +124,8 @@ public class OrganizationUserDB {
             for (Availability a : ou.getAvailabilityList()){
                 avDB.delete(em.merge(a));
             }
-            em.merge(ou.getOrganizationID().getOrganizationUserList().remove(ou));
-            em.merge(ou.getUserID().getOrganizationUserList().remove(ou));
+            em.merge(ou.getOrganization().getOrganizationUserList().remove(ou));
+            em.merge(ou.getUser().getOrganizationUserList().remove(ou));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

@@ -55,9 +55,9 @@ public class Availability implements Serializable {
     @Column(name = "endTime")
     @Temporal(TemporalType.TIME)
     private Date endTime;
-    @JoinColumn(name = "organizationUserID", referencedColumnName = "organizationUserID")
+    @JoinColumn(name = "organizationUser", referencedColumnName = "organizationUserID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private OrganizationUser organizationUserID;
+    private OrganizationUser organizationUser;
 
     public Availability() {
     }
@@ -105,12 +105,12 @@ public class Availability implements Serializable {
         this.endTime = endTime;
     }
 
-    public OrganizationUser getOrganizationUserID() {
-        return organizationUserID;
+    public OrganizationUser getOrganizationUser() {
+        return organizationUser;
     }
 
-    public void setOrganizationUserID(OrganizationUser organizationUserID) {
-        this.organizationUserID = organizationUserID;
+    public void setOrganizationUser(OrganizationUser organizationUser) {
+        this.organizationUser = organizationUser;
     }
 
     @Override
