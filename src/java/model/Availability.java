@@ -46,7 +46,7 @@ public class Availability implements Serializable {
     private Integer availabilityID;
     @Basic(optional = false)
     @Column(name = "dayOfWeek")
-    private short dayOfWeek;
+    private String dayOfWeek;
     @Basic(optional = false)
     @Column(name = "startTime")
     @Temporal(TemporalType.TIME)
@@ -55,9 +55,9 @@ public class Availability implements Serializable {
     @Column(name = "endTime")
     @Temporal(TemporalType.TIME)
     private Date endTime;
-    @JoinColumn(name = "organizationUserID", referencedColumnName = "organizationUserID")
+    @JoinColumn(name = "organizationUser", referencedColumnName = "organizationUserID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private OrganizationUser organizationUserID;
+    private OrganizationUser organizationUser;
 
     public Availability() {
     }
@@ -66,7 +66,7 @@ public class Availability implements Serializable {
         this.availabilityID = availabilityID;
     }
 
-    public Availability(Integer availabilityID, short dayOfWeek, Date startTime, Date endTime) {
+    public Availability(Integer availabilityID, String dayOfWeek, Date startTime, Date endTime) {
         this.availabilityID = availabilityID;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
@@ -81,11 +81,11 @@ public class Availability implements Serializable {
         this.availabilityID = availabilityID;
     }
 
-    public short getDayOfWeek() {
+    public String getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(short dayOfWeek) {
+    public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
@@ -105,12 +105,12 @@ public class Availability implements Serializable {
         this.endTime = endTime;
     }
 
-    public OrganizationUser getOrganizationUserID() {
-        return organizationUserID;
+    public OrganizationUser getOrganizationUser() {
+        return organizationUser;
     }
 
-    public void setOrganizationUserID(OrganizationUser organizationUserID) {
-        this.organizationUserID = organizationUserID;
+    public void setOrganizationUser(OrganizationUser organizationUser) {
+        this.organizationUser = organizationUser;
     }
 
     @Override

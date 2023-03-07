@@ -8,47 +8,53 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.User;
+import model.Department;
+import model.Organization;
 import model.OrganizationUser;
 
 /**
  *
  * @author Eric
  */
-public class UserDB {
-    public User get (String email){
+public class DepartmentDB {
+
+    public Department get(int departmentID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        User user;
-        
+        Department availability;
+
         try {
-            user = em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).getSingleResult();
+            availability = em.find(Department.class, departmentID);
         } finally {
             em.close();
         }
-        
-        return user;
+
+        return availability;
     }
-    
-    public List<User> getAll (){
+
+    public List<Department> getAll() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<User> users;
-        
+        List<Department> departmentList;
+
         try {
-            users = em.createNamedQuery("User.findAll", User.class).getResultList();
+            departmentList = em.createNamedQuery("Availability.findAll", Department.class).getResultList();
         } finally {
             em.close();
         }
-        
-        return users;
+
+        return departmentList;
     }
-    
-    public void insert (User user){
+
+    public void insert(Department department) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        
+        Organization organization;
+
         try {
+            organization = department.getOrganization();
             trans.begin();
-            em.persist(user);
+            organization.getDepartmentList().add(department);
+            em.persist(department);
+            em.merge(organization);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -56,18 +62,14 @@ public class UserDB {
             em.close();
         }
     }
-    
-    public void update (User user) {
+
+    public void update(Department department) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUserDB orgUserDB = new OrganizationUserDB();
-        
+
         try {
             trans.begin();
-            em.merge(user);
-            for (OrganizationUser ou : user.getOrganizationUserList()){
-                orgUserDB.update(em.merge(ou));
-            }
+            em.merge(department);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -75,18 +77,24 @@ public class UserDB {
             em.close();
         }
     }
-    
-    public void delete (User user) {
+
+    public void delete(Department department) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUserDB orgUserDB = new OrganizationUserDB();
-        
+        List<OrganizationUser> ouList;
+        Organization organization;
+
         try {
+            ouList = department.getOrganizationUserList();
+            organization = department.getOrganization();
             trans.begin();
-            em.remove(em.merge(user));
-            for (OrganizationUser ou : user.getOrganizationUserList()){
-                orgUserDB.delete(em.merge(ou));
+            for (OrganizationUser ou : ouList) {
+                ou.setDept(null);
+                em.merge(ou);
             }
+            organization.getDepartmentList().remove(department);
+            em.merge(organization);
+            em.remove(em.merge(department));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

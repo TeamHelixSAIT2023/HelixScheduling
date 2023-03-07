@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.Availability;
+import model.OrganizationUser;
 
 /**
  *
@@ -44,10 +45,15 @@ public class AvailabilityDB {
     public void insert (Availability availability){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
+        OrganizationUserDB uoDB = new OrganizationUserDB();
+        OrganizationUser uo;
         
         try {
+            uo = availability.getOrganizationUser();
             trans.begin();
             em.persist(availability);
+            uo.getAvailabilityList().add(availability);
+            uoDB.update(uo);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -76,8 +82,10 @@ public class AvailabilityDB {
         EntityTransaction trans = em.getTransaction();
         
         try {
+            OrganizationUser uo = availability.getOrganizationUser();
             trans.begin();
             em.remove(em.merge(availability));
+            uo.getAvailabilityList().remove(availability);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

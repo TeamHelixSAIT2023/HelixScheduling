@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,11 +54,15 @@ public class Department implements Serializable {
     @Basic(optional = false)
     @Column(name = "description")
     private String description;
-    @OneToMany(mappedBy = "deptID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dept", fetch = FetchType.EAGER)
+    private List<Schedule> scheduleList;
+    @OneToMany(mappedBy = "dept", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
-    @JoinColumn(name = "organizationID", referencedColumnName = "organizationID")
+    @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Organization organizationID;
+    private Organization organization;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dept", fetch = FetchType.EAGER)
+    private List<ShiftSwapBoard> shiftSwapBoardList;
 
     public Department() {
     }
@@ -106,6 +111,15 @@ public class Department implements Serializable {
     }
 
     @XmlTransient
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
+    }
+
+    @XmlTransient
     public List<OrganizationUser> getOrganizationUserList() {
         return organizationUserList;
     }
@@ -114,12 +128,21 @@ public class Department implements Serializable {
         this.organizationUserList = organizationUserList;
     }
 
-    public Organization getOrganizationID() {
-        return organizationID;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationID(Organization organizationID) {
-        this.organizationID = organizationID;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    @XmlTransient
+    public List<ShiftSwapBoard> getShiftSwapBoardList() {
+        return shiftSwapBoardList;
+    }
+
+    public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
+        this.shiftSwapBoardList = shiftSwapBoardList;
     }
 
     @Override

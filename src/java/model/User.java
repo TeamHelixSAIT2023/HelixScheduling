@@ -65,11 +65,13 @@ public class User implements Serializable {
     private String salt;
     @Column(name = "phone")
     private String phone;
+    @Basic(optional = false)
     @Column(name = "active")
-    private Boolean active;
+    private boolean active;
+    @Basic(optional = false)
     @Column(name = "public")
-    private Boolean public1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    private boolean public1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
 
     public User() {
@@ -79,13 +81,15 @@ public class User implements Serializable {
         this.userID = userID;
     }
 
-    public User(Integer userID, String email, String firstName, String lastName, String password, String salt) {
+    public User(Integer userID, String email, String firstName, String lastName, String password, String salt, boolean active, boolean public1) {
         this.userID = userID;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.salt = salt;
+        this.active = active;
+        this.public1 = public1;
     }
 
     public Integer getUserID() {
@@ -144,19 +148,19 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public Boolean getPublic1() {
+    public boolean getPublic1() {
         return public1;
     }
 
-    public void setPublic1(Boolean public1) {
+    public void setPublic1(boolean public1) {
         this.public1 = public1;
     }
 
