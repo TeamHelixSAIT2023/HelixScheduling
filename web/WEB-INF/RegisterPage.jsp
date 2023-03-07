@@ -21,7 +21,7 @@
         <div class="d-flex justify-content-center mt-5">
             <div>
                 <h1 class="text-center p-2" style="color:black">Create Account</h1>
-                <form method="POST" action="login">
+                <form method="POST" action="register">
                     <div class="row mb-3">
                         <label for="staticEmail" class="col-sm-2 col-form-label">First Name:</label>
                         <div class="col-sm-10">

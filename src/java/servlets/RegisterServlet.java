@@ -47,67 +47,15 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        boolean status = true;
-
-        
         
         UserService us = new UserService();
         try {
-            User user = us.register(email, status , password, fname, lname);
+            User user = us.register(email, password, fname, lname, phone);
         } catch (Exception ex) {
             Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
-            
-            
-            
-            
-            
-//        String url = "jdbc:mysql://localhost:3306/helixschedulingdb";
-//        String user = "admin";
-//        String dbpassword = "password";
-//        
-//        try{
-//        String fname = request.getParameter("fName");
-//        String lname = request.getParameter("lName");
-//        String phone = request.getParameter("phoneNumber");
-//        String email = request.getParameter("email");
-//        String password = request.getParameter("password");
-//        int userID = 5;
-//        String salt = "fdas";
-//        boolean active = true;
-//        boolean visible = true;
-//        
-//        Connection con = DriverManager.getConnection(url,user,dbpassword);
-//
-//        
-//        String sql = "INSERT INTO user(userID, email, firstName, lastName, password, salt, phone, active, public) VALUES(?,?,?,?,?,?,?,?,?)";
-//        PreparedStatement statement = con.prepareStatement(sql);
-//        
-//        statement.setInt(1, userID);
-//        statement.setString(2, email);
-//        statement.setString(3, fname);
-//        statement.setString(4, lname);
-//        statement.setString(5, password);
-//        statement.setString(6, email);
-//        statement.setString(7, phone);
-//        statement.setBoolean(8, active);
-//        statement.setBoolean(9, visible);
-//
-//
-//        
-//        statement.executeUpdate();
-//        statement.close();
-//        con.close();
-//        
-//        response.sendRedirect("/login");
-//
-//        
-//        }
-//        catch (Exception e){
-//            
-//        }
+        
+        response.sendRedirect("login");
        
    }
    

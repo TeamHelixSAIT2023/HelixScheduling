@@ -44,7 +44,7 @@ public class UserService {
         return users;
     }
 
-    public User register(String email, boolean status, String password, String firstName, String lastName) throws Exception {
+    public User register(String email, String password, String firstName, String lastName, String phone) throws Exception {
         if (email.length() > 40 || password.length() > 40 || firstName.length() > 20 || lastName.length() > 20) {
             throw new Exception("One or more entries exceed max length");
         }
@@ -52,6 +52,9 @@ public class UserService {
         //password = PasswordUtil.hashAndSaltPassword(password, salt);
         String salt = "hi";
         User user = new User(0, email, firstName, lastName, password, salt);
+        user.setPhone(phone);
+        user.setActive(true);
+        user.setPublic1(false);
         UserDB userDB = new UserDB();
         try {
             userDB.insert(user);
