@@ -8,6 +8,10 @@
     <class>model.Department</class>
     <class>model.Availability</class>
     <class>model.OrganizationUser</class>
+    <class>model.ShiftSwapBoard</class>
+    <class>model.Schedule</class>
+    <class>model.Shift</class>
+    <class>model.Unavailable</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

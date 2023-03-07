@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name")
     , @NamedQuery(name = "Organization.findByDescription", query = "SELECT o FROM Organization o WHERE o.description = :description")
     , @NamedQuery(name = "Organization.findByPublic1", query = "SELECT o FROM Organization o WHERE o.public1 = :public1")
-    , @NamedQuery(name = "Organization.findByShiftSwapBoardID", query = "SELECT o FROM Organization o WHERE o.shiftSwapBoardID = :shiftSwapBoardID")})
+    , @NamedQuery(name = "Organization.findByManagerApprovedAvailabilityChange", query = "SELECT o FROM Organization o WHERE o.managerApprovedAvailabilityChange = :managerApprovedAvailabilityChange")
+    , @NamedQuery(name = "Organization.findByManagerApprovedShiftSwap", query = "SELECT o FROM Organization o WHERE o.managerApprovedShiftSwap = :managerApprovedShiftSwap")
+    , @NamedQuery(name = "Organization.findByManagerApprovedTimeOff", query = "SELECT o FROM Organization o WHERE o.managerApprovedTimeOff = :managerApprovedTimeOff")})
 public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,12 +55,23 @@ public class Organization implements Serializable {
     @Basic(optional = false)
     @Column(name = "public")
     private boolean public1;
-    @Column(name = "shiftSwapBoardID")
-    private Integer shiftSwapBoardID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationID", fetch = FetchType.EAGER)
+    @Basic(optional = false)
+    @Column(name = "managerApprovedAvailabilityChange")
+    private boolean managerApprovedAvailabilityChange;
+    @Basic(optional = false)
+    @Column(name = "managerApprovedShiftSwap")
+    private boolean managerApprovedShiftSwap;
+    @Basic(optional = false)
+    @Column(name = "managerApprovedTimeOff")
+    private boolean managerApprovedTimeOff;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
+    private List<Schedule> scheduleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<Department> departmentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
+    private List<ShiftSwapBoard> shiftSwapBoardList;
 
     public Organization() {
     }
@@ -67,11 +80,14 @@ public class Organization implements Serializable {
         this.organizationID = organizationID;
     }
 
-    public Organization(Integer organizationID, String name, String description, boolean public1) {
+    public Organization(Integer organizationID, String name, String description, boolean public1, boolean managerApprovedAvailabilityChange, boolean managerApprovedShiftSwap, boolean managerApprovedTimeOff) {
         this.organizationID = organizationID;
         this.name = name;
         this.description = description;
         this.public1 = public1;
+        this.managerApprovedAvailabilityChange = managerApprovedAvailabilityChange;
+        this.managerApprovedShiftSwap = managerApprovedShiftSwap;
+        this.managerApprovedTimeOff = managerApprovedTimeOff;
     }
 
     public Integer getOrganizationID() {
@@ -106,12 +122,37 @@ public class Organization implements Serializable {
         this.public1 = public1;
     }
 
-    public Integer getShiftSwapBoardID() {
-        return shiftSwapBoardID;
+    public boolean getManagerApprovedAvailabilityChange() {
+        return managerApprovedAvailabilityChange;
     }
 
-    public void setShiftSwapBoardID(Integer shiftSwapBoardID) {
-        this.shiftSwapBoardID = shiftSwapBoardID;
+    public void setManagerApprovedAvailabilityChange(boolean managerApprovedAvailabilityChange) {
+        this.managerApprovedAvailabilityChange = managerApprovedAvailabilityChange;
+    }
+
+    public boolean getManagerApprovedShiftSwap() {
+        return managerApprovedShiftSwap;
+    }
+
+    public void setManagerApprovedShiftSwap(boolean managerApprovedShiftSwap) {
+        this.managerApprovedShiftSwap = managerApprovedShiftSwap;
+    }
+
+    public boolean getManagerApprovedTimeOff() {
+        return managerApprovedTimeOff;
+    }
+
+    public void setManagerApprovedTimeOff(boolean managerApprovedTimeOff) {
+        this.managerApprovedTimeOff = managerApprovedTimeOff;
+    }
+
+    @XmlTransient
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
     }
 
     @XmlTransient
@@ -130,6 +171,15 @@ public class Organization implements Serializable {
 
     public void setDepartmentList(List<Department> departmentList) {
         this.departmentList = departmentList;
+    }
+
+    @XmlTransient
+    public List<ShiftSwapBoard> getShiftSwapBoardList() {
+        return shiftSwapBoardList;
+    }
+
+    public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
+        this.shiftSwapBoardList = shiftSwapBoardList;
     }
 
     @Override

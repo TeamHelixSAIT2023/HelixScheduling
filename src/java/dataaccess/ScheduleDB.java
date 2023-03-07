@@ -8,47 +8,54 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.User;
+import model.Organization;
 import model.OrganizationUser;
+import model.Schedule;
 
 /**
  *
  * @author Eric
  */
-public class UserDB {
-    public User get (String email){
+public class ScheduleDB {
+    public Schedule get (int scheduleID){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        User user;
+        Schedule schedule;
         
         try {
-            user = em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).getSingleResult();
+            schedule = em.find(Schedule.class, scheduleID);
         } finally {
             em.close();
         }
         
-        return user;
+        return schedule;
     }
     
-    public List<User> getAll (){
+    public List<Schedule> getAll (){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<User> users;
+        List<Schedule> schedules;
         
         try {
-            users = em.createNamedQuery("User.findAll", User.class).getResultList();
+            schedules = em.createNamedQuery("schedules.findAll", Schedule.class).getResultList();
         } finally {
             em.close();
         }
         
-        return users;
+        return schedules;
     }
     
-    public void insert (User user){
+    public void insert (Schedule schedule){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
+        OrganizationDB orgDB = new OrganizationDB();
+        Organization org;
         
         try {
+            
             trans.begin();
-            em.persist(user);
+            em.persist(schedule);
+            org = schedule.getOrganization();
+            org.getScheduleList().add(schedule);
+            orgDB.update(org);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -57,17 +64,19 @@ public class UserDB {
         }
     }
     
-    public void update (User user) {
+    public void update (Schedule schedule) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         OrganizationUserDB orgUserDB = new OrganizationUserDB();
+        OrganizationDB orgDB = new OrganizationDB();
         
         try {
             trans.begin();
-            em.merge(user);
-            for (OrganizationUser ou : user.getOrganizationUserList()){
+            em.merge(schedule);
+            for (OrganizationUser ou : schedule.getOrganizationUserList()){
                 orgUserDB.update(em.merge(ou));
             }
+            orgDB.update(em.merge(schedule.getOrganization()));
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -76,17 +85,19 @@ public class UserDB {
         }
     }
     
-    public void delete (User user) {
+    public void delete (Schedule schedule) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         OrganizationUserDB orgUserDB = new OrganizationUserDB();
+        OrganizationDB orgDB = new OrganizationDB();
         
         try {
             trans.begin();
-            em.remove(em.merge(user));
-            for (OrganizationUser ou : user.getOrganizationUserList()){
-                orgUserDB.delete(em.merge(ou));
+            for (OrganizationUser ou : schedule.getOrganizationUserList()){
+                orgUserDB.update(em.merge(ou));
             }
+            em.remove(em.merge(schedule));
+            orgDB.update(schedule.getOrganization());
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

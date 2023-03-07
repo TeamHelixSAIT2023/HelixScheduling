@@ -55,6 +55,8 @@ public class UserService {
         user.setPhone(phone);
         user.setActive(true);
         user.setPublic1(false);
+        User user = new User(0, email, firstName, lastName, password, salt, true, true);
+
         UserDB userDB = new UserDB();
         try {
             userDB.insert(user);
