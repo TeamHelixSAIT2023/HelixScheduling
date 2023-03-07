@@ -39,7 +39,7 @@
                 <a href="/register">
                     <button class="btn btn-primary">Register</button>
                 </a>
-                <p>${message}</p>
+                <p style="color:white">${message}</p>
             </div>
         </div>
     </body>

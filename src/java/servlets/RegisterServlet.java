@@ -19,6 +19,8 @@ import java.sql.Connection;
 import java.sql.DriverManager; 
 import java.sql.SQLException; 
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class RegisterServlet extends HttpServlet {
@@ -45,40 +47,70 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        
-        try{
-        String url = "jdbc:mysql://localhost:3306/helixschedulingdb";
-        String user = "admin";
-        String dbpassword = "password";
-        Connection con = DriverManager.getConnection(url,user,dbpassword);
-        
-        String sql = "INSERT INTO user VALUES(15,email,fname,lname,password,sadafas,phone,true,true)";
-        PreparedStatement statement = con.prepareStatement(sql);
-        
-        statement.executeUpdate();
-        statement.close();
-        con.close();
-        
-        response.sendRedirect("/login");
+        boolean status = true;
+
         
         
+        UserService us = new UserService();
+        try {
+            User user = us.register(email, status , password, fname, lname);
+        } catch (Exception ex) {
+            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (Exception e){
             
-        }
-        
-        
+            
+            
+            
+            
+            
+            
+//        String url = "jdbc:mysql://localhost:3306/helixschedulingdb";
+//        String user = "admin";
+//        String dbpassword = "password";
+//        
+//        try{
+//        String fname = request.getParameter("fName");
+//        String lname = request.getParameter("lName");
+//        String phone = request.getParameter("phoneNumber");
+//        String email = request.getParameter("email");
+//        String password = request.getParameter("password");
+//        int userID = 5;
+//        String salt = "fdas";
+//        boolean active = true;
+//        boolean visible = true;
+//        
+//        Connection con = DriverManager.getConnection(url,user,dbpassword);
+//
+//        
+//        String sql = "INSERT INTO user(userID, email, firstName, lastName, password, salt, phone, active, public) VALUES(?,?,?,?,?,?,?,?,?)";
+//        PreparedStatement statement = con.prepareStatement(sql);
+//        
+//        statement.setInt(1, userID);
+//        statement.setString(2, email);
+//        statement.setString(3, fname);
+//        statement.setString(4, lname);
+//        statement.setString(5, password);
+//        statement.setString(6, email);
+//        statement.setString(7, phone);
+//        statement.setBoolean(8, active);
+//        statement.setBoolean(9, visible);
+//
+//
+//        
+//        statement.executeUpdate();
+//        statement.close();
+//        con.close();
+//        
+//        response.sendRedirect("/login");
+//
+//        
+//        }
+//        catch (Exception e){
+//            
+//        }
        
-    }
-    
-    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = null;
-        if (user == null) {
-            request.setAttribute("Error", "Email not found"); 
-            
-        }
-    }
-    
+   }
+   
     
 }
 
