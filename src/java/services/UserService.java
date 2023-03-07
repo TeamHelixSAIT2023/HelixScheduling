@@ -44,20 +44,26 @@ public class UserService {
         return users;
     }
 
-    public void register(String email, boolean status, String password, String firstName, String lastName) throws Exception {
+    public User register(String email, String password, String firstName, String lastName, String phone) throws Exception {
         if (email.length() > 40 || password.length() > 40 || firstName.length() > 20 || lastName.length() > 20) {
             throw new Exception("One or more entries exceed max length");
         }
         //String salt = PasswordUtil.getSalt();
         //password = PasswordUtil.hashAndSaltPassword(password, salt);
         String salt = "hi";
+        
+        
         User user = new User(0, email, firstName, lastName, password, salt, true, true);
+        user.setPhone(phone);
+        
+
         UserDB userDB = new UserDB();
         try {
             userDB.insert(user);
         } catch (Exception ex) {
             throw new Exception("User could not be registered");
         }
+        return user;
     }
 
     public void update(String email, String firstName, String lastName, String phone, boolean active, boolean pub) throws Exception {

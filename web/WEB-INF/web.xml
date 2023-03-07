@@ -9,6 +9,22 @@
         <servlet-class>servlets.HomeServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>TaskServlet</servlet-name>
+        <servlet-class>servlets.TaskServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <servlet-class>servlets.ScheduleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GanntServlet</servlet-name>
+        <servlet-class>servlets.GanntServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>servlets.RegisterServlet</servlet-class>
+	</servlet>
+    <servlet>
         <servlet-name>OrganizationListServlet</servlet-name>
         <servlet-class>servlets.OrganizationListServlet</servlet-class>
     </servlet>
@@ -25,6 +41,22 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>TaskServlet</servlet-name>
+        <url-pattern>/task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <url-pattern>/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GanntServlet</servlet-name>
+        <url-pattern>/gannt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
         <servlet-name>OrganizationListServlet</servlet-name>
         <url-pattern>/organizationlist</url-pattern>
     </servlet-mapping>

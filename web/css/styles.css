@@ -1,13 +1,14 @@
 
 body {
     background-color: white;
+    height: 100vh;
 }
 * {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 10px;
     box-sizing: border-box;
 }
-.header {
+header {
     overflow-y:hidden;
     height: 50px;
     width: 100%;
@@ -16,8 +17,9 @@ body {
     align-items:center;
 }
 
-.header .searchHeader{
+.searchHeader{
     background-color: inherit;
+    left: 40px;
 }
 teamLogo {
     text-align: center;
@@ -57,7 +59,8 @@ button:hover{
 
 
 .homeButton{
-    top: 150px;
+    top: 70px;
+    
     border:none;
     position: fixed;
     cursor: pointer;
