@@ -9,7 +9,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.Availability;
+import model.Organization;
 import model.OrganizationUser;
+import model.User;
 
 /**
  *
@@ -29,12 +31,12 @@ public class OrganizationUserDB {
         return uo;
     }
     
-    public OrganizationUser getByUserIDOrgID (int userID, int organizationID){
+    public OrganizationUser getByOrgUser (Organization org, User user){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         OrganizationUser uo;
         
         try {
-            uo = em.createNamedQuery("OrganizationUser.findByUserIDOrgID", OrganizationUser.class).setParameter("userID", userID).setParameter("orgID", organizationID).getSingleResult();
+            uo = em.createNamedQuery("OrganizationUser.findByOrgUser", OrganizationUser.class).setParameter("organization", org).setParameter("user", user).getSingleResult();
         } finally {
             em.close();
         }
@@ -55,12 +57,12 @@ public class OrganizationUserDB {
         return uoList;
     }
     
-    public List<OrganizationUser> getAllByOrg (int orgID){
+    public List<OrganizationUser> getAllByOrg (Organization org){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         List<OrganizationUser> uoList;
         
         try {
-            uoList = em.createNamedQuery("OrganizationUser.findByOrganizationID", OrganizationUser.class).setParameter("organizationID", orgID).getResultList();
+            uoList = em.createNamedQuery("OrganizationUser.findByOrganization", OrganizationUser.class).setParameter("organization", org).getResultList();
         } finally {
             em.close();
         }
@@ -68,12 +70,12 @@ public class OrganizationUserDB {
         return uoList;
     }
     
-    public List<OrganizationUser> getAllByUser (int userID){
+    public List<OrganizationUser> getAllByUser (User user){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         List<OrganizationUser> uoList;
         
         try {
-            uoList = em.createNamedQuery("OrganizationUser.findByUserID", OrganizationUser.class).setParameter("organizationID", userID).getResultList();
+            uoList = em.createNamedQuery("OrganizationUser.findByUser", OrganizationUser.class).setParameter("user", user).getResultList();
         } finally {
             em.close();
         }

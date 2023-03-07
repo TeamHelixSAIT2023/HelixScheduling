@@ -30,6 +30,19 @@ public class OrganizationDB {
 
         return organization;
     }
+    
+    public Organization getByName (String name){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        Organization org;
+        
+        try {
+            org = em.createNamedQuery("Organization.findByName", Organization.class).setParameter("name", name).getSingleResult();
+        } finally {
+            em.close();
+        }
+        
+        return org;
+    }
 
     public List<Organization> getAll() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();

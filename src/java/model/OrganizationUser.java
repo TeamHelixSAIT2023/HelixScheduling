@@ -35,9 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrganizationUser.findAll", query = "SELECT o FROM OrganizationUser o")
     , @NamedQuery(name = "OrganizationUser.findByOrganizationUserID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationUserID = :organizationUserID")
     , @NamedQuery(name = "OrganizationUser.findByHourly", query = "SELECT o FROM OrganizationUser o WHERE o.hourly = :hourly")
-    , @NamedQuery(name = "OrganizationUser.findByUserIDOrgID", query = "SELECT o FROM OrganizationUser o WHERE o.userID = :userID AND o.organizationID = :organziationID")
-    , @NamedQuery(name = "OrganizationUser.findByOrganizationID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationID = :organizationID")
-    , @NamedQuery(name = "OrganizationUser.findByUserID", query = "SELECT o FROM OrganizationUser o WHERE o.userID = :userID")})
+    , @NamedQuery(name = "OrganizationUser.findByOrgUser", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization AND o.user = :user")
+    , @NamedQuery(name = "OrganizationUser.findByOrganization", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization")
+    , @NamedQuery(name = "OrganizationUser.findByUser", query = "SELECT o FROM OrganizationUser o WHERE o.user = :user")})
+
 public class OrganizationUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,11 +62,13 @@ public class OrganizationUser implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Organization organization;
     @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Schedule schedule;
     @JoinColumn(name = "user", referencedColumnName = "userID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
+    private List<Unavailable> unavailableList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
     private List<Shift> shiftList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
@@ -78,8 +81,9 @@ public class OrganizationUser implements Serializable {
         this.organizationUserID = organizationUserID;
     }
 
-    public OrganizationUser(int organizationID, int userID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OrganizationUser(Organization org, User user) {
+        this.organization = org;
+        this.user = user;
     }
 
     public Integer getOrganizationUserID() {
@@ -145,6 +149,15 @@ public class OrganizationUser implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @XmlTransient
+    public List<Unavailable> getUnavailableList() {
+        return unavailableList;
+    }
+
+    public void setUnavailableList(List<Unavailable> unavailableList) {
+        this.unavailableList = unavailableList;
     }
 
     @XmlTransient

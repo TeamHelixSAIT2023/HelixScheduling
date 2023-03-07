@@ -5,12 +5,17 @@
  */
 package services;
 
+import dataaccess.AvailabilityDB;
 import dataaccess.OrganizationUserDB;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.OrganizationUser;
 import model.Availability;
 import model.Department;
+import model.Organization;
 import model.Schedule;
+import model.User;
 /**
  *
  * @author Eric
@@ -23,38 +28,54 @@ public class OrganizationUserService {
         return uo;
     }
     
-    public OrganizationUser getByUserIDOrgID (int userID, int orgID){
+    public OrganizationUser getByOrgUser (Organization org, User user){
         OrganizationUserDB uoDB = new OrganizationUserDB();
-        OrganizationUser ou = uoDB.getByUserIDOrgID(userID, orgID);
+        OrganizationUser ou = uoDB.getByOrgUser(org, user);
         return ou;
     }
     
-    public List<OrganizationUser> getByOrg (int orgID) {
+    public List<OrganizationUser> getByOrg (Organization org) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
-        List<OrganizationUser> ouList = uoDB.getAllByOrg(orgID);
+        List<OrganizationUser> ouList = uoDB.getAllByOrg(org);
         return ouList;
     }
     
-    public List<OrganizationUser> getByUser (int userID) {
+    public List<OrganizationUser> getByUser (User user) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
-        List<OrganizationUser> ouList = uoDB.getAllByUser(userID);
+        List<OrganizationUser> ouList = uoDB.getAllByUser(user);
         return ouList;
     }
     
-    public void insert(int organizationID, int userID, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
-        OrganizationUser uo = new OrganizationUser(organizationID, userID);
+    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly) throws Exception {
+        OrganizationUser uo = new OrganizationUser(org, user);
         uo.setDept(dept);
         uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
+        
+        //generate Availability objects
+        List<Availability> availabilityList = new ArrayList<Availability>();
+        String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        for (int i = 0; i < daysOfWeek.length; i++){
+            availabilityList.add(new Availability(0, daysOfWeek[i], new Date(), new Date()));
+            availabilityList.get(i).setOrganizationUser(uo);
+        }
         uo.setAvailabilityList(availabilityList);
+        
+        //insert new OrganizationUser
         OrganizationUserDB uoDB = new OrganizationUserDB();
         uoDB.insert(uo);
+        
+        //insert Availability objects
+        AvailabilityDB aDB = new AvailabilityDB();
+        for (Availability a : availabilityList){
+            aDB.insert(a);
+        }
     }
 
-    public void update(int organizationID, int userID, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+    public void update(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
         OrganizationUserDB uoDB = new OrganizationUserDB();
-        OrganizationUser uo = uoDB.getByUserIDOrgID(userID, organizationID);
+        OrganizationUser uo = uoDB.getByOrgUser(org, user);
         uo.setDept(dept);
         uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
@@ -64,9 +85,9 @@ public class OrganizationUserService {
         uoDB.update(uo);
     }
     
-    public void delete (int organizationID, int userID) {
+    public void delete (Organization org, User user) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
-        OrganizationUser uo = uoDB.getByUserIDOrgID(userID, organizationID);
+        OrganizationUser uo = uoDB.getByOrgUser(org, user);
         uoDB.delete(uo);
     }
 }

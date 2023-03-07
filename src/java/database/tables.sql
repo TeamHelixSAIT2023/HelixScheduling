@@ -25,10 +25,10 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
     PRIMARY KEY(`userID`),
     CONSTRAINT uk_user_email UNIQUE(`email`),
     CONSTRAINT uk_user_phone UNIQUE(`phone`),
-    CONSTRAINT ck_user_email CHECK (`email` LIKE '^[^@]+@[^@]+\.[^@]{2,}$'),
-    CONSTRAINT ck_user_firstName CHECK (`firstName` LIKE '^[\w''\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$'),
-    CONSTRAINT ck_user_lasName CHECK (`lastName` LIKE '^[\w''\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$'),
-    CONSTRAINT ck_user_phone CHECK (`phone` LIKE '[0-9]{10}')
+    CONSTRAINT ck_user_email CHECK (`email` REGEXP '^[^@]+@[^@]+\.[^@]{2,}$'),
+    CONSTRAINT ck_user_firstName CHECK (`firstName` NOT REGEXP '^[\w''\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$'),
+    CONSTRAINT ck_user_lasName CHECK (`lastName` NOT REGEXP '^[\w''\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$'),
+    CONSTRAINT ck_user_phone CHECK (`phone` REGEXP '[0-9]{10}')
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organization` (
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
     `organization` INT(10) NOT NULL,
     `user` INT(10) NOT NULL,
     `dept` INT(2),
-    `schedule` INT(10) NOT NULL,
+    `schedule` INT(10),
     `managedBy` INT(10),
-    `hourly` DOUBLE(5,2),
+    `hourly` DOUBLE(5,2) DEFAULT 0,
     PRIMARY KEY(`organizationUserID`),
     CONSTRAINT fk_organizationUser_organizationID
         FOREIGN KEY (`organization`)
@@ -103,23 +103,39 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
     CONSTRAINT uk_organizationUser_organization_user
         UNIQUE (`organization`, `user`),
     CONSTRAINT ck_organizationUser_hourly_above_zero
-        CHECK (`hourly` > 0)
+        CHECK (`hourly` >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`availability` (
     `availabilityID` INT(10) NOT NULL AUTO_INCREMENT,
     `organizationUser` INT(10) NOT NULL,
-    `dayOfWeek` TINYINT NOT NULL,
-    `startTime` TIME NOT NULL,
-    `endTime` TIME NOT NULL,
+    `dayOfWeek` VARCHAR(9) NOT NULL,
+    `startTime` TIME NOT NULL DEFAULT '00:00:00',
+    `endTime` TIME NOT NULL DEFAULT '00:00:00',
     PRIMARY KEY (`availabilityID`),
     CONSTRAINT fk_availability_organizationUser
         FOREIGN KEY (`organizationUser`)
         REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`),
+    CONSTRAINT uk_availability_orgUser_dayOfWeek
+        UNIQUE (organizationUser, dayOfWeek),
     CONSTRAINT ck_availability_dayOfWeek 
-        CHECK (`dayOfWeek` BETWEEN 1 AND 7),
-    CONSTRAINT ck_availability_startTime_less_than_endTime
-        CHECK (`startTime` < `endTime`)
+        CHECK (`dayOfWeek` IN ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')),
+    CONSTRAINT ck_availability_startTime_valid
+        CHECK (`startTime` BETWEEN '00:00:00' AND '23:59:59'),
+    CONSTRAINT ck_availability_endTime_valid
+        CHECK (`endTime` BETWEEN '00:00:00' AND '23:59:59'),
+    CONSTRAINT ck_availability_startTime_less_than_endTime_or_zeros
+        CHECK ((`startTime` < `endTime`) OR ((`startTime` = '00:00:00') AND (`endTime` = '00:00:00')))
+);
+
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`unavailable` (
+    `unavailableID` INT(10) NOT NULL AUTO_INCREMENT,
+    `organizationUser` INT(10) NOT NULL,
+    `date` DATE NOT NULL,
+    PRIMARY KEY (`unavailableID`),
+    CONSTRAINT fk_unavailable_organizationUser
+        FOREIGN KEY (`organizationUser`)
+        REFERENCES `helixschedulingdb`.`organizationUser` (`organizationUserID`)
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shift` (

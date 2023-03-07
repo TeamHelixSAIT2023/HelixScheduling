@@ -22,6 +22,12 @@ public class OrganizationService {
         return org;
     }
     
+    public Organization getByName (String name) {
+        OrganizationDB orgDB = new OrganizationDB();
+        Organization org = orgDB.getByName(name);
+        return org;
+    }
+    
     public List<Organization> getAll (){
         OrganizationDB orgDB = new OrganizationDB();
         List<Organization> orgList = orgDB.getAll();
