@@ -21,10 +21,6 @@
         <servlet-class>servlets.GanntServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AvailabilitySevlet</servlet-name>
-        <servlet-class>servlets.AvailabilitySevlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlets.RegisterServlet</servlet-class>
 	</servlet>
@@ -55,10 +51,6 @@
     <servlet-mapping>
         <servlet-name>GanntServlet</servlet-name>
         <url-pattern>/gannt</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AvailabilitySevlet</servlet-name>
-        <url-pattern>/availability</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>

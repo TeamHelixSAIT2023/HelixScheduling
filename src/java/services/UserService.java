@@ -53,11 +53,9 @@ public class UserService {
         String salt = "hi";
         
         
-        User user = new User(0, email, firstName, lastName, password, salt);
-        user.setPhone(phone);
-        user.setActive(true);
-        user.setPublic1(false);
         User user = new User(0, email, firstName, lastName, password, salt, true, true);
+        user.setPhone(phone);
+        
 
         UserDB userDB = new UserDB();
         try {

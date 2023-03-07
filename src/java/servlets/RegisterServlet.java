@@ -13,12 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
 import services.UserService;
-import util.DBConnection;
-
-import java.sql.Connection; 
-import java.sql.DriverManager; 
-import java.sql.SQLException; 
-import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
