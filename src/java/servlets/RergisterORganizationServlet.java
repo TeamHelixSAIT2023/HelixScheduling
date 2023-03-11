@@ -41,14 +41,14 @@ public class RergisterORganizationServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         
-        String oganizationName = request.getParameter("orgName");
-        String organizationDesc = request.getParameter("orgDesc");
+        String orgName = request.getParameter("orgName");
+        String orgDesc = request.getParameter("orgDesc");
         String pub = request.getParameter("public");
         
         
         OrganizationService os = new OrganizationService();
         try {
-            Organization Organization = os.register(orgName, orgDesc, pub);
+            Organization organization = os.register(orgName, orgDesc, pub);
         } catch (Exception ex) {
             Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

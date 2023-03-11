@@ -61,4 +61,8 @@ public class OrganizationService {
         Organization org = orgDB.get(organizationID);
         orgDB.delete(org);
     }
+
+    public Organization register(String orgName, String orgDesc, String pub) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
