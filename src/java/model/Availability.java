@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Availability.findByDayOfWeek", query = "SELECT a FROM Availability a WHERE a.dayOfWeek = :dayOfWeek")
     , @NamedQuery(name = "Availability.findByStartTime", query = "SELECT a FROM Availability a WHERE a.startTime = :startTime")
     , @NamedQuery(name = "Availability.findByEndTime", query = "SELECT a FROM Availability a WHERE a.endTime = :endTime")
-    , @NamedQuery(name = "Availability.findByOrgUser", query = "SELECT o FROM Availability o WHERE o.organization = :organization AND o.user = :user")})
+    , @NamedQuery(name = "Availability.findByOrgUser", query = "SELECT o FROM Availability o WHERE o.organizationUser = :organizationUser")})
 
 public class Availability implements Serializable {
 

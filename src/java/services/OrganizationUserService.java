@@ -80,7 +80,9 @@ public class OrganizationUserService {
         uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
-        uo.setAvailabilityList(availabilityList);
+        
+        AvailabilityService as = new AvailabilityService();
+        as.update(uo, availabilityList);
         
         uoDB.update(uo);
     }

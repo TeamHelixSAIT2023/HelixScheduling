@@ -115,6 +115,11 @@
                                 <input type="hidden" name="action" value="availability">
                                 <input type="submit" value="Update">
                             </form>
+                            <div>
+                                <c:if test="${availabilityUpdateMessage != null}">
+                                    <p>${availabilityUpdateMessage}</p>
+                                </c:if>
+                            </div>
                         </div>
                     </section>
                     <section>
