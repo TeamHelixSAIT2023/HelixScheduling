@@ -19,28 +19,28 @@
             <div>
                 <h1 class="text-center p-2" style="color:black">Create Organization</h1>
                 <form method="POST" action="register">
-                    <div class="row mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Organization Name:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="orgName" placeholder="Organization Name:">
+                    <div>
+                        <label>Organization Name:</label>
+                        <div>
+                            <input name="orgName" placeholder="Organization Name:">
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Organization Description:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="orgDesc" placeholder="Organization Description:">
+                    <div >
+                        <label>Organization Description:</label>
+                        <div >
+                            <input type="text" name="orgDesc" placeholder="Organization Description:">
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Public Organization:</label>
-                        <div class="col-sm-10">
-                            <input type="checkbox" class="form-control" name="public" checked="checked">
+                    <div>
+                        <label>Public Organization:</label>
+                        <div>
+                            <input type="checkbox" name="pub" value="pub"/>
                         </div>
                     </div>
                     
                     <input class="btn btn-primary" type="submit" value="Create Organization">
                 </form>
-                <p>${message}</p>
+                
             </div>
         </div>
     </body>

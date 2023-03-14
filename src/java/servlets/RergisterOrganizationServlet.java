@@ -24,7 +24,7 @@ import services.OrganizationService;
  * @author Sukhpal
  */
 
-public class RergisterORganizationServlet extends HttpServlet {
+public class RergisterOrganizationServlet extends HttpServlet {
 
 @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,7 +32,7 @@ public class RergisterORganizationServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        getServletContext().getRequestDispatcher("/WEB-INF/RegisterOrganizationpage.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/RegisterOrganization.jsp").forward(request, response);
     }
 
     @Override
@@ -43,17 +43,18 @@ public class RergisterORganizationServlet extends HttpServlet {
         
         String orgName = request.getParameter("orgName");
         String orgDesc = request.getParameter("orgDesc");
-        String pub = request.getParameter("public");
+        boolean pub;
+    pub = (request.getParameter("public") != null);
         
         
         OrganizationService os = new OrganizationService();
         try {
             Organization organization = os.register(orgName, orgDesc, pub);
-        } catch (Exception ex) {
-            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception exc) {
+            Logger.getLogger(RergisterOrganizationServlet.class.getName()).log(Level.SEVERE, null, exc);
         }
         
-        response.sendRedirect("home");
+        response.sendRedirect("/home");
        
    }
    

@@ -65,4 +65,8 @@ public class OrganizationService {
     public Organization register(String orgName, String orgDesc, String pub) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public Organization register(String orgName, String orgDesc, boolean pub) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

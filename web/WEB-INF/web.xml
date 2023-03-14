@@ -23,7 +23,11 @@
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlets.RegisterServlet</servlet-class>
-	</servlet>
+    </servlet>
+    <servlet>
+        <servlet-name>RergisterOrganizationServlet</servlet-name>
+        <servlet-class>servlets.RergisterOrganizationServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>OrganizationListServlet</servlet-name>
         <servlet-class>servlets.OrganizationListServlet</servlet-class>
@@ -56,13 +60,17 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>OrganizationListServlet</servlet-name>
         <url-pattern>/organizationlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AvailabilityServlet</servlet-name>
         <url-pattern>/availability</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RergisterOrganizationServlet</servlet-name>
+        <url-pattern>/registerorganization</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

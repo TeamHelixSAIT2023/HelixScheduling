@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <a href="RegisterOrganization.jsp">
+        <a href="/registerorganization">
             <button>Register organization></button>
         </a>
 
