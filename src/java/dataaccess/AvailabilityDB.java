@@ -5,11 +5,14 @@
  */
 package dataaccess;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.Availability;
+import model.Organization;
 import model.OrganizationUser;
+import model.User;
 
 /**
  *
@@ -27,6 +30,19 @@ public class AvailabilityDB {
         }
         
         return availability;
+    }
+    
+    public List<Availability> getByOrgUser (Organization org, User user) {
+         EntityManager em = DBUtil.getEmFactory().createEntityManager();
+         List<Availability> availabilityList;
+         
+         try {
+            availabilityList = em.createNamedQuery("Availability.findByOrgUser", Availability.class).setParameter("organization", org).setParameter("user", user).getResultList();
+        } finally {
+            em.close();
+        }
+        
+        return availabilityList;
     }
     
     public List<Availability> getAll (){

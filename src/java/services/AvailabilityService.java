@@ -6,9 +6,9 @@
 package services;
 
 import dataaccess.AvailabilityDB;
-import dataaccess.UserDB;
 import java.util.List;
 import model.Availability;
+import model.OrganizationUser;
 /**
  *
  * @author Eric
@@ -19,5 +19,11 @@ public class AvailabilityService {
         AvailabilityDB availabilityDB = new AvailabilityDB();
         Availability availability = availabilityDB.get(availabilityID);
         return availability;
+    }
+    
+    public List<Availability> getByOrgUser (OrganizationUser ou) {
+        AvailabilityDB availabilityDB = new AvailabilityDB();
+        List<Availability> availabilityList = availabilityDB.getByOrgUser(ou.getOrganization(), ou.getUser());
+        return availabilityList;
     }
 }
