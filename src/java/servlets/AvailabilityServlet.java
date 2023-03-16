@@ -50,7 +50,7 @@ public class AvailabilityServlet extends HttpServlet {
         if ((organizationName == null || organizationName.equals("")) && orgList != null) {
             org = orgList.get(0);
         } else {
-            org = orgService.getByName(organizationName.toLowerCase());
+            org = orgService.getByName(organizationName);
         }
 
         if (org != null) {
