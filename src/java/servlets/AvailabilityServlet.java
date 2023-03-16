@@ -22,6 +22,7 @@ import model.OrganizationUser;
 import model.User;
 import services.OrganizationService;
 import services.OrganizationUserService;
+import services.UnavailableService;
 
 /**
  *
@@ -67,6 +68,7 @@ public class AvailabilityServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
+        OrganizationUserService ouService = new OrganizationUserService();
         User user = (User) session.getAttribute("user");
         OrganizationUser ou = (OrganizationUser) session.getAttribute("orgUser");
 
@@ -129,22 +131,34 @@ public class AvailabilityServlet extends HttpServlet {
                     }
                 }
                 if (!failed) {
-                    OrganizationUserService ouService = new OrganizationUserService();
+
                     try {
                         ouService.update(ou.getOrganization(), user, ou.getDept(), ou.getSchedule(), ou.getManagedBy(), ou.getHourly(), availabilityList);
                         session.setAttribute("availabilityUpdateMessage", "Availability updated");
-                        
-                        ou = ouService.get(ou.getOrganizationUserID());
-                        session.setAttribute("orgUser", ou);
                     } catch (Exception e) {
                         session.setAttribute("availabilityUpdateMessage", "Failed to update availability");
                     }
                 }
-            }
-            else if (action != null && action.equals("unavailable")){
-                
+            } else if (action != null && action.equals("unavailable")) {
+                String dateString = request.getParameter("date");
+                String reason = request.getParameter("reason");
+
+                if (dateString != null && !dateString.equals("")) {
+                    int year = Integer.parseInt(dateString.substring(0, 4));
+                    int month = Integer.parseInt(dateString.substring(5, 7));
+                    int day = Integer.parseInt(dateString.substring(8));
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(year, month, day);
+                    Date date = cal.getTime();
+
+                    UnavailableService us = new UnavailableService();
+                    us.insert(ou, date, reason);
+                }
             }
         }
+        ou = ouService.get(ou.getOrganizationUserID());
+        session.setAttribute("orgUser", ou);
         getServletContext().getRequestDispatcher("/WEB-INF/availability.jsp").forward(request, response);
     }
 }

@@ -47,7 +47,9 @@ public class OrganizationUserService {
     }
     
     public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly) throws Exception {
-        OrganizationUser uo = new OrganizationUser(org, user);
+        OrganizationUser uo = new OrganizationUser();
+        uo.setOrganization(org);
+        uo.setUser(user);
         uo.setDept(dept);
         uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);

@@ -136,7 +136,9 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`unavailable` (
     PRIMARY KEY (`unavailableID`),
     CONSTRAINT fk_unavailable_organizationUser
         FOREIGN KEY (`organizationUser`)
-        REFERENCES `helixschedulingdb`.`organizationUser` (`organizationUserID`)
+        REFERENCES `helixschedulingdb`.`organizationUser` (`organizationUserID`),
+    CONSTRAINT uk_unavailable_orgUser_date
+        UNIQUE (`organizationUser`, `date`)
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shift` (
