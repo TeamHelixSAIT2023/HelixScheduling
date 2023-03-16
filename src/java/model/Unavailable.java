@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Unavailable.findAll", query = "SELECT u FROM Unavailable u")
     , @NamedQuery(name = "Unavailable.findByUnavailableID", query = "SELECT u FROM Unavailable u WHERE u.unavailableID = :unavailableID")
-    , @NamedQuery(name = "Unavailable.findByDate", query = "SELECT u FROM Unavailable u WHERE u.date = :date")})
+    , @NamedQuery(name = "Unavailable.findByDate", query = "SELECT u FROM Unavailable u WHERE u.date = :date")
+    , @NamedQuery(name = "Unavailable.findByReason", query = "SELECT u FROM Unavailable u WHERE u.reason = :reason")})
 public class Unavailable implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,8 @@ public class Unavailable implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Column(name = "reason")
+    private String reason;
     @JoinColumn(name = "organizationUser", referencedColumnName = "organizationUserID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private OrganizationUser organizationUser;
@@ -76,6 +79,14 @@ public class Unavailable implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public OrganizationUser getOrganizationUser() {

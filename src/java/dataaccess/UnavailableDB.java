@@ -5,69 +5,68 @@
  */
 package dataaccess;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Availability;
 import model.Organization;
 import model.OrganizationUser;
+import model.Unavailable;
 import model.User;
 
 /**
  *
  * @author Eric
  */
-public class AvailabilityDB {
-    public Availability get (int availabilityID){
+public class UnavailableDB {
+    public Unavailable get (int unavailableID){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Availability availability;
+        Unavailable unavailable;
         
         try {
-            availability = em.find(Availability.class, availabilityID);
+            unavailable = em.find(Unavailable.class, unavailableID);
         } finally {
             em.close();
         }
         
-        return availability;
+        return unavailable;
     }
     
-    public List<Availability> getByOrgUser (Organization org, User user) {
+    public List<Unavailable> getByOrgUser (Organization org, User user) {
          EntityManager em = DBUtil.getEmFactory().createEntityManager();
-         List<Availability> availabilityList;
+         List<Unavailable> unavailableList;
          
          try {
-            availabilityList = em.createNamedQuery("Availability.findByOrgUser", Availability.class).setParameter("organization", org).setParameter("user", user).getResultList();
+            unavailableList = em.createNamedQuery("Unavailable.findByOrgUser", Unavailable.class).setParameter("organization", org).setParameter("user", user).getResultList();
         } finally {
             em.close();
         }
         
-        return availabilityList;
+        return unavailableList;
     }
     
-    public List<Availability> getAll (){
+    public List<Unavailable> getAll (){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<Availability> availabilityList;
+        List<Unavailable> unavailableList;
         
         try {
-            availabilityList = em.createNamedQuery("Availability.findAll", Availability.class).getResultList();
+            unavailableList = em.createNamedQuery("Unavailable.findAll", Unavailable.class).getResultList();
         } finally {
             em.close();
         }
         
-        return availabilityList;
+        return unavailableList;
     }
     
-    public void insert (Availability availability){
+    public void insert (OrganizationUser ou, Unavailable unavailable){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        OrganizationUser ou;
+        OrganizationUser uo;
         
         try {
-            ou = availability.getOrganizationUser();
+            uo = unavailable.getOrganizationUser();
             trans.begin();
-            em.persist(availability);
-            ou.getAvailabilityList().add(availability);
+            em.persist(unavailable);
+            uo.getUnavailableList().add(unavailable);
             em.merge(ou);
             trans.commit();
         } catch (Exception e) {
@@ -77,13 +76,13 @@ public class AvailabilityDB {
         }
     }
     
-    public void update (Availability availability) {
+    public void update (Unavailable unavailable) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
         try {
             trans.begin();
-            em.merge(availability);
+            em.merge(unavailable);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -92,15 +91,15 @@ public class AvailabilityDB {
         }
     }
     
-    public void delete (Availability availability) {
+    public void delete (Unavailable unavailable) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
         try {
-            OrganizationUser uo = availability.getOrganizationUser();
+            OrganizationUser uo = unavailable.getOrganizationUser();
             trans.begin();
-            em.remove(em.merge(availability));
-            uo.getAvailabilityList().remove(availability);
+            em.remove(em.merge(unavailable));
+            uo.getUnavailableList().remove(unavailable);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

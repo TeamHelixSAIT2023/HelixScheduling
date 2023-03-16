@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -77,37 +78,72 @@
                 </c:when>
                 <c:otherwise>
                     <div>
+                        <!-- currently does not work as intended, make into a drop down of links using bootstrap -->
                         <select name="org-list-dropdown" id="org-list-dropdown">
                             <c:forEach var="org" items="${orgList}">
                                 <option value="${org.name}"><a href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></option>
                             </c:forEach>  
                         </select>
                     </div>
-                    <div>
+                    <section>
+                        <div>
+                            <h2>Availability</h2>
+                            <form method="POST">
+                                <c:forEach var="day" items="${orgUser.availabilityList}">
+                                    <div>
+                                        <p>${day.dayOfWeek}</p>
+                                        <div>
+                                            <fmt:formatDate type="time" var="startTime" pattern="HH:mm" value="${day.startTime}"/>
+                                            <fmt:formatDate type="time" var="endTime" pattern="HH:mm" value="${day.endTime}"/>
+                                            <label for="${day.dayOfWeek}-unavailable">Unavailable:</label>
+                                            <input type="checkbox" id="${day.dayOfWeek}-unavailable" name="${day.dayOfWeek}-unavailable"
+                                                   <c:if test="${(startTime == '00:00') && (endTime == '00:00')}">
+                                                       checked
+                                                   </c:if>
+                                                   >
+                                        </div>
+                                        <div>
+                                            <label for="${day.dayOfWeek}-start">Start:</label>
+                                            <input type="time" id="${day.dayOfWeek}-start" name="${day.dayOfWeek}-start" value="${startTime}">
+                                        </div>
+                                        <div>
+                                            <label for="${day.dayOfWeek}-end">End:</label>
+                                            <input type="time" id="${day.dayOfWeek}-end" name="${day.dayOfWeek}-end"  value="${endTime}">
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                                <input type="hidden" name="action" value="availability">
+                                <input type="submit" value="Update">
+                            </form>
+                            <div>
+                                <c:if test="${availabilityUpdateMessage != null}">
+                                    <p>${availabilityUpdateMessage}</p>
+                                </c:if>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Unavailable Dates</h2>
+                        <c:forEach var="unavailable" items="${orgUser.unavailableList}">
+                            <div>
+                                <p><fmt:formatDate type="date" dateStyle="short" value="${unavailable.date}"/></p>
+                                <p>${unavailable.reason}</p>
+                            </div>
+                        </c:forEach>
                         <form method="POST">
-                            <c:forEach var="day" items="${availabilityList}">
-                                <div>
-                                    <p>${day.dayOfWeek}</p>
-                                    <div>
-                                        <label for="${day.dayOfWeek}-unavailable">Unavailable:</label>
-                                        <input type="checkbox" id="${day.dayOfWeek}-unavailable" name="${day.dayOfWeek}-unavailable"
-                                               <c:if test="${(availabilityList[0].startTime == '00:00:00') && (availabilityList[0].endTime == '00:00:00')}">
-                                                   checked
-                                               </c:if>
-                                               >
-                                    </div>
-                                    <div>
-                                        <label for="${day.dayOfWeek}-start">Start:</label>
-                                        <input type="time" id="${day.dayOfWeek}-start" name="${day.dayOfWeek}-start" value="${availabilityList[0].startTime}">
-                                    </div>
-                                    <div>
-                                        <label for="${day.dayOfWeek}-end">End:</label>
-                                        <input type="time" id="${day.dayOfWeek}-end" name="${day.dayOfWeek}-end"  value="${availabilityList[0].endTime}">
-                                    </div>
-                                </div>
-                            </c:forEach>
+                            <div>
+                                <!-- would be nice to use bootstraps datepicker here -->
+                                <label for="date">Date:</label>
+                                <input type="date" name="date" id="date" required>
+                            </div>
+                            <div>
+                                <label for="reason">Reason (optional):</label>
+                                <input type="text" name="reason" id="reason">
+                            </div>
+                            <input type="hidden" name="action" value="unavailable">
+                            <input type="submit" value="Submit">
                         </form>
-                    </div>
+                    </section>
                 </c:otherwise>
             </c:choose>
 
