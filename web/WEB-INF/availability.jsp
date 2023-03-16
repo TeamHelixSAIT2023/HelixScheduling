@@ -78,7 +78,7 @@
                 </c:when>
                 <c:otherwise>
                     <div>
-                        <!-- not sure if select is the best way to do this, probably a better way to make a dropdown with bootstrap -->
+                        <!-- currently does not work as intended, make into a drop down of links using bootstrap -->
                         <select name="org-list-dropdown" id="org-list-dropdown">
                             <c:forEach var="org" items="${orgList}">
                                 <option value="${org.name}"><a href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></option>
