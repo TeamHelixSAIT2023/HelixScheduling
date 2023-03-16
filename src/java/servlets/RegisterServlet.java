@@ -36,6 +36,7 @@ public class RegisterServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         
+        
         String fname = request.getParameter("fName");
         String lname = request.getParameter("lName");
         String phone = request.getParameter("phoneNumber");

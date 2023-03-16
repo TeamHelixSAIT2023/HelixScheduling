@@ -69,15 +69,9 @@
                 </div>
             </div>
             <div class="row mb-3" style="position: relative; left:250px; top: 15px;">
-                <form method="POST" action="login">
-                    <div class="row mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" placeholder="Enter Email">
-                        </div>
-                    </div>
+                <form method="POST" action="account">
 <!--                    <div class="row mb-3">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Old Password</label>
+                        <label for="oldPassword" class="col-sm-2 col-form-label">Old Password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" name="oldPassword" placeholder="Old Password"> 
                         </div>            

@@ -13,9 +13,6 @@ import model.User;
 
 import services.UserService;
 
-
-
-
 public class AccountServlet extends HttpServlet {
 
 
@@ -23,8 +20,7 @@ public class AccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.invalidate();
-
+       
         getServletContext().getRequestDispatcher("/WEB-INF/AccountPage.jsp").forward(request, response);
     }
 
@@ -33,8 +29,10 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
             
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         
-        String email = request.getParameter("email");
+        
+        String email = user.getEmail();
 //        String oldPassword = request.getParameter("oldPassword");
 //        String newPassword1 = request.getParameter("newPassword1");
 //        String newPassword2 = request.getParameter("newPassword2");
@@ -43,7 +41,7 @@ public class AccountServlet extends HttpServlet {
        
         UserService us = new UserService();
         try {
-            User user = us.updatePassword(email, password);
+            us.updatePassword(email, password);
         } catch (Exception ex) {
             Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

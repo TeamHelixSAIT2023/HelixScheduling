@@ -88,11 +88,14 @@ public class UserService {
         if (password.length() > 20){
             throw new Exception("Password is too long");
         }
+
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
-        String salt = PasswordUtil.getSalt();
-        String hashedPassword = PasswordUtil.hashAndSaltPassword(password, salt);
-        user.setPassword(hashedPassword);
+        
+        
+//        String salt = PasswordUtil.getSalt();
+//        String hashedPassword = PasswordUtil.hashAndSaltPassword(password, salt);
+        user.setPassword(password);
         
         userDB.update(user);
         
