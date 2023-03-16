@@ -143,7 +143,7 @@ public class AvailabilityServlet extends HttpServlet {
                 String dateString = request.getParameter("date");
                 String reason = request.getParameter("reason");
 
-                if (dateString != null && !dateString.equals("")) {
+                if (dateString != null && !dateString.equals("") && dateString.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
                     int year = Integer.parseInt(dateString.substring(0, 4));
                     int month = Integer.parseInt(dateString.substring(5, 7));
                     int day = Integer.parseInt(dateString.substring(8));
