@@ -60,7 +60,7 @@ public class AvailabilityServlet extends HttpServlet {
             session.setAttribute("orgUser", ou);
         }
 
-        getServletContext().getRequestDispatcher("/WEB-INF/availability.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AvailabilityPage.jsp").forward(request, response);
     }
 
     @Override
@@ -159,6 +159,6 @@ public class AvailabilityServlet extends HttpServlet {
         }
         ou = ouService.get(ou.getOrganizationUserID());
         session.setAttribute("orgUser", ou);
-        getServletContext().getRequestDispatcher("/WEB-INF/availability.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AvailabilityPage.jsp").forward(request, response);
     }
 }
