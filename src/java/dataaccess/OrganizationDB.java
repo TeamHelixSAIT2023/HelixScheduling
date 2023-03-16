@@ -18,12 +18,12 @@ import model.OrganizationUser;
  */
 public class OrganizationDB {
 
-    public Organization get(int availabilityID) {
+    public Organization get(int orgID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         Organization organization;
 
         try {
-            organization = em.find(Organization.class, availabilityID);
+            organization = em.find(Organization.class, orgID);
         } finally {
             em.close();
         }

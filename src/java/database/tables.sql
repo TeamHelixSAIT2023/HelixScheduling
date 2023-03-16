@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`user` (
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organization` (
     `organizationID` INT(10) NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(20) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     `description` VARCHAR(100) NOT NULL,
     `public` BOOLEAN NOT NULL DEFAULT 1,
     `managerApprovedAvailabilityChange` BOOLEAN NOT NULL DEFAULT 1,
@@ -132,10 +132,13 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`unavailable` (
     `unavailableID` INT(10) NOT NULL AUTO_INCREMENT,
     `organizationUser` INT(10) NOT NULL,
     `date` DATE NOT NULL,
+    `reason` VARCHAR(100),
     PRIMARY KEY (`unavailableID`),
     CONSTRAINT fk_unavailable_organizationUser
         FOREIGN KEY (`organizationUser`)
-        REFERENCES `helixschedulingdb`.`organizationUser` (`organizationUserID`)
+        REFERENCES `helixschedulingdb`.`organizationUser` (`organizationUserID`),
+    CONSTRAINT uk_unavailable_orgUser_date
+        UNIQUE (`organizationUser`, `date`)
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shift` (
