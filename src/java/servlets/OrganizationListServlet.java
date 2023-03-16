@@ -42,7 +42,7 @@ public class OrganizationListServlet extends HttpServlet {
         
         session.setAttribute("orgList", orgList);
         
-        getServletContext().getRequestDispatcher("/WEB-INF/OrganizationList.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AvailabilityPage.jsp").forward(request, response);
     }
 
    

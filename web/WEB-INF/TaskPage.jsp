@@ -46,12 +46,18 @@
                   Availability
                 </a>
               </li>
+              <li>
+                <a href="/account" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                  Account
+                </a>
+              </li>
             </ul>
             <hr>
             <div class="dropdown">
               <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="" class="rounded-circle me-2" width="32" height="32">
-                <strong>mdo</strong>
+                <strong>${user.firstName}</strong>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                 <li><a class="dropdown-item" href="#">New project...</a></li>

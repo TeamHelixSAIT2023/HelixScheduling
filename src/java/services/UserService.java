@@ -80,9 +80,11 @@ public class UserService {
         user.setPublic1(pub);
 
         userDB.update(user);
+        
+        
     }
     
-    public void updatePassword(String email, String password) throws Exception{
+    public User updatePassword(String email, String password) throws Exception{
         if (password.length() > 20){
             throw new Exception("Password is too long");
         }
@@ -93,6 +95,8 @@ public class UserService {
         user.setPassword(hashedPassword);
         
         userDB.update(user);
+        
+        return user;
     }
 
     public void delete(String email) throws Exception {

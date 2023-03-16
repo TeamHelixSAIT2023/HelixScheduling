@@ -50,7 +50,7 @@ public class AvailabilityServlet extends HttpServlet {
                 List<Availability> availabilityList = ou.getAvailabilityList();
                 session.setAttribute("availabilityList", availabilityList);
                 
-                getServletContext().getRequestDispatcher("/WEB-INF/availability.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("/WEB-INF/AvailabilityPage.jsp").forward(request, response);
             } else {
                 response.sendRedirect("organizationList");
             }
