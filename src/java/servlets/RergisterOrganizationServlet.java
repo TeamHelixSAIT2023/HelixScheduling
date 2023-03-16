@@ -41,20 +41,21 @@ public class RergisterOrganizationServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         
-        String orgName = request.getParameter("orgName");
-        String orgDesc = request.getParameter("orgDesc");
-        boolean pub;
-    pub = (request.getParameter("public") != null);
+        String name = request.getParameter("orgName");
+        String description = request.getParameter("orgDesc");
+        
+        boolean public1 = Boolean.parseBoolean(request.getParameter("pub"));
+        
         
         
         OrganizationService os = new OrganizationService();
         try {
-            Organization organization = os.register(orgName, orgDesc, pub);
+            Organization organization = os.register(name,description,public1);
         } catch (Exception exc) {
             Logger.getLogger(RergisterOrganizationServlet.class.getName()).log(Level.SEVERE, null, exc);
         }
         
-        response.sendRedirect("/home");
+        response.sendRedirect("home");
        
    }
    
