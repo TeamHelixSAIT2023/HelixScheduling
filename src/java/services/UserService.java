@@ -37,6 +37,12 @@ public class UserService {
         User user = userDB.get(email);
         return user;
     }
+    
+    public User get (int userID) {
+        UserDB userDB = new UserDB();
+        User user = userDB.get(userID);
+        return user;
+    }
 
     public List<User> getAll() throws Exception {
         UserDB userDB = new UserDB();
@@ -80,19 +86,26 @@ public class UserService {
         user.setPublic1(pub);
 
         userDB.update(user);
+        
+        
     }
     
-    public void updatePassword(String email, String password) throws Exception{
+    public User updatePassword(String email, String password) throws Exception{
         if (password.length() > 20){
             throw new Exception("Password is too long");
         }
+
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
-        String salt = PasswordUtil.getSalt();
-        String hashedPassword = PasswordUtil.hashAndSaltPassword(password, salt);
-        user.setPassword(hashedPassword);
+        
+        
+//        String salt = PasswordUtil.getSalt();
+//        String hashedPassword = PasswordUtil.hashAndSaltPassword(password, salt);
+        user.setPassword(password);
         
         userDB.update(user);
+        
+        return user;
     }
 
     public void delete(String email) throws Exception {

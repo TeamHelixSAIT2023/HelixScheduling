@@ -23,7 +23,7 @@
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlets.RegisterServlet</servlet-class>
-	</servlet>
+    </servlet>
     <servlet>
         <servlet-name>OrganizationListServlet</servlet-name>
         <servlet-class>servlets.OrganizationListServlet</servlet-class>
@@ -31,6 +31,14 @@
     <servlet>
         <servlet-name>AvailabilityServlet</servlet-name>
         <servlet-class>servlets.AvailabilityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountServlet</servlet-name>
+        <servlet-class>servlets.AccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <servlet-class>servlets.OrganizationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -56,13 +64,21 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>OrganizationListServlet</servlet-name>
         <url-pattern>/organizationlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AvailabilityServlet</servlet-name>
         <url-pattern>/availability</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountServlet</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <url-pattern>/organization</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

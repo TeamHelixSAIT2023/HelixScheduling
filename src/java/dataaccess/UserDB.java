@@ -16,6 +16,19 @@ import model.OrganizationUser;
  * @author Eric
  */
 public class UserDB {
+    public User get (int userID){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        User user;
+        
+        try {
+            user = em.find(User.class, userID);
+        } finally {
+            em.close();
+        }
+        
+        return user;
+    }
+    
     public User get (String email){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         User user;

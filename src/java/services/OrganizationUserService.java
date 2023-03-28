@@ -8,8 +8,10 @@ package services;
 import dataaccess.AvailabilityDB;
 import dataaccess.OrganizationUserDB;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import model.OrganizationUser;
 import model.Availability;
 import model.Department;
@@ -46,32 +48,31 @@ public class OrganizationUserService {
         return ouList;
     }
     
-    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly) throws Exception {
-        OrganizationUser uo = new OrganizationUser();
-        uo.setOrganization(org);
-        uo.setUser(user);
-        uo.setDept(dept);
-        uo.setSchedule(schedule);
-        uo.setManagedBy(managedBy);
-        uo.setHourly(hourly);
+    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) throws Exception {
+        OrganizationUser ou = new OrganizationUser();
+        ou.setOrganization(org);
+        ou.setUser(user);
+        ou.setDept(dept);
+        ou.setSchedule(schedule);
+        ou.setManagedBy(managedBy);
+        ou.setHourly(hourly);
+        ou.setAdmin(admin);
+        ou.setOwner(owner);
+        
+        //insert new OrganizationUser
+        OrganizationUserDB ouDB = new OrganizationUserDB();
+        ouDB.insert(ou);
         
         //generate Availability objects
+        AvailabilityService as = new AvailabilityService();
         List<Availability> availabilityList = new ArrayList<Availability>();
         String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         for (int i = 0; i < daysOfWeek.length; i++){
-            availabilityList.add(new Availability(0, daysOfWeek[i], new Date(), new Date()));
-            availabilityList.get(i).setOrganizationUser(uo);
-        }
-        uo.setAvailabilityList(availabilityList);
-        
-        //insert new OrganizationUser
-        OrganizationUserDB uoDB = new OrganizationUserDB();
-        uoDB.insert(uo);
-        
-        //insert Availability objects
-        AvailabilityDB aDB = new AvailabilityDB();
-        for (Availability a : availabilityList){
-            aDB.insert(a);
+            Calendar defaultTime = Calendar.getInstance();
+            defaultTime.set(Calendar.HOUR_OF_DAY, 0);
+            defaultTime.set(Calendar.MINUTE, 0);
+            defaultTime.set(Calendar.SECOND, 0);
+            as.insert(ou, daysOfWeek[i], defaultTime.getTime(), defaultTime.getTime());
         }
     }
 

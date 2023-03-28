@@ -42,12 +42,13 @@ public class AvailabilityServlet extends HttpServlet {
         for (OrganizationUser orgUser : user.getOrganizationUserList()) {
             orgList.add(orgUser.getOrganization());
         }
+        
         session.setAttribute("orgList", orgList);
 
         OrganizationService orgService = new OrganizationService();
         Organization org;
 
-        if ((organizationName == null || organizationName.equals("")) && orgList != null) {
+        if ((organizationName == null || organizationName.equals("")) && !orgList.isEmpty()) {
             org = orgList.get(0);
         } else {
             org = orgService.getByName(organizationName);
@@ -60,7 +61,7 @@ public class AvailabilityServlet extends HttpServlet {
             session.setAttribute("orgUser", ou);
         }
 
-        getServletContext().getRequestDispatcher("/WEB-INF/availability.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AvailabilityPage.jsp").forward(request, response);
     }
 
     @Override
@@ -159,6 +160,6 @@ public class AvailabilityServlet extends HttpServlet {
         }
         ou = ouService.get(ou.getOrganizationUserID());
         session.setAttribute("orgUser", ou);
-        getServletContext().getRequestDispatcher("/WEB-INF/availability.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AvailabilityPage.jsp").forward(request, response);
     }
 }

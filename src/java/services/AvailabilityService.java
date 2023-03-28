@@ -7,6 +7,7 @@ package services;
 
 import dataaccess.AvailabilityDB;
 import dataaccess.OrganizationUserDB;
+import java.util.Date;
 import java.util.List;
 import model.Availability;
 import model.OrganizationUser;
@@ -26,6 +27,18 @@ public class AvailabilityService {
         AvailabilityDB availabilityDB = new AvailabilityDB();
         List<Availability> availabilityList = availabilityDB.getByOrgUser(ou.getOrganization(), ou.getUser());
         return availabilityList;
+    }
+    
+    public void insert (OrganizationUser ou, String dayOfWeek, Date start, Date end) {
+        AvailabilityDB aDB = new AvailabilityDB();
+        Availability a = new Availability();
+        
+        a.setOrganizationUser(ou);
+        a.setDayOfWeek(dayOfWeek);
+        a.setStartTime(start);
+        a.setEndTime(end);
+        
+        aDB.insert(a);
     }
     
     public void update (OrganizationUser ou, List<Availability> updateList) {

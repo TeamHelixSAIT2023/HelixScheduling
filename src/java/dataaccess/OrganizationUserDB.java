@@ -90,8 +90,12 @@ public class OrganizationUserDB {
         try {
             trans.begin();
             em.persist(ou);
-            em.merge(ou.getOrganization().getOrganizationUserList().add(ou));
-            em.merge(ou.getUser().getOrganizationUserList().add(ou));
+            ou.getOrganization().getOrganizationUserList().add(ou);
+            em.merge(ou.getOrganization());
+            ou.getUser().getOrganizationUserList().add(ou);
+            em.merge(ou.getUser());
+            ou.getDept().getOrganizationUserList().add(ou);
+            em.merge(ou.getDept());
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
