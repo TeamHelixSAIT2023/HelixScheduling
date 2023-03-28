@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
     `schedule` INT(10),
     `managedBy` INT(10),
     `hourly` DOUBLE(5,2) DEFAULT 0,
+    `admin` BOOLEAN DEFAULT FALSE,
+    `owner` BOOLEAN DEFAULT FALSE,
     PRIMARY KEY(`organizationUserID`),
     CONSTRAINT fk_organizationUser_organizationID
         FOREIGN KEY (`organization`)
@@ -121,9 +123,9 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`availability` (
     CONSTRAINT ck_availability_dayOfWeek 
         CHECK (`dayOfWeek` IN ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')),
     CONSTRAINT ck_availability_startTime_valid
-        CHECK (`startTime` BETWEEN '00:00:00' AND '23:59:59'),
+        CHECK (`startTime` BETWEEN '00:00:00' AND '24:00:00'),
     CONSTRAINT ck_availability_endTime_valid
-        CHECK (`endTime` BETWEEN '00:00:00' AND '23:59:59'),
+        CHECK (`endTime` BETWEEN '00:00:00' AND '24:00:00'),
     CONSTRAINT ck_availability_startTime_less_than_endTime_or_zeros
         CHECK ((`startTime` < `endTime`) OR ((`startTime` = '00:00:00') AND (`endTime` = '00:00:00')))
 );
@@ -172,4 +174,36 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shiftSwapBoard` (
      CONSTRAINT fk_shiftSwapBoard_shift
         FOREIGN KEY (`shift`)
         REFERENCES `helixschedulingdb`.`shift`(`shiftID`)
+);
+
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`notification` (
+    `notificationID` INTEGER(10) NOT NULL AUTO_INCREMENT,
+    `user` INTEGER(10) NOT NULL,
+    `title` VARCHAR(50) NOT NULL,
+    `description` VARCHAR(100),
+    `dimissed` BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (`notificationID`),
+    CONSTRAINT fk_notification_user
+        FOREIGN KEY (`user`)
+        REFERENCES `helixschedulingdb`.`user`(`userID`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`request` (
+    `requestID` INT(10) NOT NULL AUTO_INCREMENT,
+    `notification` INT(10) NOT NULL,
+    `type` VARCHAR(50) NOT NULL,
+    `sender` INT(10) NOT NULL,
+    `receiver` INT(10) NOT NULL,
+    `approved` BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (`requestID`),
+    CONSTRAINT fk_request_notification
+        FOREIGN KEY (`notification`)
+        REFERENCES `helixschedulingdb`.`notification`(`notificationID`),
+    CONSTRAINT fk_request_sender
+        FOREIGN KEY (`sender`)
+        REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`),
+    CONSTRAINT fk_request_receiver
+        FOREIGN KEY (`receiver`)
+        REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`)
 );
