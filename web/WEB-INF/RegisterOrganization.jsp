@@ -18,7 +18,7 @@
                 <div class="d-flex justify-content-center mt-5">
             <div>
                 <h1 class="text-center p-2" style="color:black">Create Organization</h1>
-                <form method="POST" action="register">
+                <form method="POST" action="registerorganization">
                     <div>
                         <label>Organization Name:</label>
                         <div>
@@ -34,11 +34,11 @@
                     <div>
                         <label>Public Organization:</label>
                         <div>
-                            <input type="checkbox" name="pub" value="pub"/>
+                            <input type="checkbox" name="public" value="public"/>
                         </div>
                     </div>
                     
-                    <input class="btn btn-primary" type="submit" value="Create Organization">
+                    <input class="btn btn-primary" type="submit" value="Create Organization" name="submit">
                 </form>
                 
             </div>

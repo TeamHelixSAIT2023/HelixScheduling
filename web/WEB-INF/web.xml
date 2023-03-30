@@ -36,6 +36,14 @@
         <servlet-name>AvailabilityServlet</servlet-name>
         <servlet-class>servlets.AvailabilityServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JoinOrganizationServlet</servlet-name>
+        <servlet-class>servlets.JoinOrganizationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>joinConfirmationServlet</servlet-name>
+        <servlet-class>servlets.JoinConfirmationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>RergisterOrganizationServlet</servlet-name>
         <url-pattern>/registerorganization</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JoinOrganizationServlet</servlet-name>
+        <url-pattern>/joinOrganization</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>joinConfirmationServlet</servlet-name>
+        <url-pattern>/joinConfirmation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -170,3 +170,7 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shiftSwapBoard` (
         FOREIGN KEY (`shift`)
         REFERENCES `helixschedulingdb`.`shift`(`shiftID`)
 );
+
+
+
+    

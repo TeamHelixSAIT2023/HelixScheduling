@@ -52,7 +52,7 @@
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="" class="rounded-circle me-2" width="32" height="32">
-                    <strong>User</strong>
+                    <strong>${Fname}</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -64,8 +64,11 @@
             </div>
         </div>
 
-        <a href="/registerorganization">
-            <button>Register organization></button>
+        <a href="registerorganization">
+            <button>Register organization</button>
+        </a>
+        <a href="joinOrganization">
+            <button>Join Organization</button>
         </a>
 
 
