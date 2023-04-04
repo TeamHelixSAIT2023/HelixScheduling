@@ -207,7 +207,138 @@
                         </table>
                         <!--End: Table of Archived Tasks -->
                     </div>
-                    <i class="bi bi-plus-circle" style="font-size: 3rem; color: #0275d8;"></i>
+
+                    <!--Circle ADD icon-->
+                    <a href="#"><i class="bi bi-plus-circle" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="font-size: 3rem; color: #0275d8;"></i></a>
+
+                    <!-- Modal (ADD task pop up menu) -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Task Details</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="row mt-2">
+                                            <label for="title" class="col-3 col-form-label"> Title</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" placeholder="" aria-label="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="description" class="col-3 col-form-label"> Description</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" placeholder="" aria-label="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="organization" class="col-3 col-form-label"> Organization</label>
+                                            <div class="dropdown col-sm-8">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Select
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button">Company A</button></li>
+                                                    <li><button class="dropdown-item" type="button">Company B</button></li>
+                                                    <li><button class="dropdown-item" type="button">Company C</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="priority" class="col-3 col-form-label"> Priority</label>
+                                            <div class="dropdown col-sm-8">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Select
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button">Hight</button></li>
+                                                    <li><button class="dropdown-item" type="button">Normal</button></li>
+                                                    <li><button class="dropdown-item" type="button">Low</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="assign_to" class="col-3 col-form-label"> Assign to</label>
+                                            <div class="dropdown col-sm-8">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Select
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button">Staff A</button></li>
+                                                    <li><button class="dropdown-item" type="button">Staff B</button></li>
+                                                    <li><button class="dropdown-item" type="button">Staff C</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="start_date" class="col-3 col-form-label"> Start date</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="due_date" class="col-3 col-form-label"> Due date</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <label for="recurring" class="col-3 col-form-label"> Recurring</label>
+                                            <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
+                                            <label for="repeat" class="col-2 col-form-label"> Repeat</label>
+
+                                            <div class="dropdown col-sm-6">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Daily
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button">Daily</button></li>
+                                                    <li><button class="dropdown-item" type="button">Weekly</button></li>
+                                                    <li><button class="dropdown-item" type="button">Monthly</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <label for="recurring" class="col-3 col-form-label"> </label>
+                                            <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
+                                            <label for="until" class="col-2 col-form-label"> Until</label>
+
+                                            <div class="dropdown col-sm-6">
+                                                <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <label for="status" class="col-3 col-form-label"> Status</label>
+                                            <div class="dropdown col-sm-8">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Select
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button">Open</button></li>
+                                                    <li><button class="dropdown-item" type="button">Completed</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Modal (ADD task pop up menu) -->
 
                 </div>
                 <!--End: Table display area-->
