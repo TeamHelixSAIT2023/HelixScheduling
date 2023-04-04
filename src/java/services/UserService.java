@@ -37,6 +37,12 @@ public class UserService {
         User user = userDB.get(email);
         return user;
     }
+    
+    public User get (int userID) {
+        UserDB userDB = new UserDB();
+        User user = userDB.get(userID);
+        return user;
+    }
 
     public List<User> getAll() throws Exception {
         UserDB userDB = new UserDB();

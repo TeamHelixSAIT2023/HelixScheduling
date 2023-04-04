@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrganizationUser.findAll", query = "SELECT o FROM OrganizationUser o")
     , @NamedQuery(name = "OrganizationUser.findByOrganizationUserID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationUserID = :organizationUserID")
     , @NamedQuery(name = "OrganizationUser.findByHourly", query = "SELECT o FROM OrganizationUser o WHERE o.hourly = :hourly")
-        , @NamedQuery(name = "OrganizationUser.findByOrgUser", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization AND o.user = :user")
+    , @NamedQuery(name = "OrganizationUser.findByAdmin", query = "SELECT o FROM OrganizationUser o WHERE o.admin = :admin")
+    , @NamedQuery(name = "OrganizationUser.findByOwner", query = "SELECT o FROM OrganizationUser o WHERE o.owner = :owner")
+    , @NamedQuery(name = "OrganizationUser.findByOrgUser", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization AND o.user = :user")
     , @NamedQuery(name = "OrganizationUser.findByOrganization", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization")
     , @NamedQuery(name = "OrganizationUser.findByUser", query = "SELECT o FROM OrganizationUser o WHERE o.user = :user")})
 
@@ -50,6 +52,10 @@ public class OrganizationUser implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "hourly")
     private Double hourly;
+    @Column(name = "admin")
+    private Boolean admin;
+    @Column(name = "owner")
+    private Boolean owner;
     @JoinColumn(name = "dept", referencedColumnName = "deptID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Department dept;
@@ -95,6 +101,22 @@ public class OrganizationUser implements Serializable {
 
     public void setHourly(Double hourly) {
         this.hourly = hourly;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public Boolean getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Boolean owner) {
+        this.owner = owner;
     }
 
     public Department getDept() {
@@ -197,5 +219,5 @@ public class OrganizationUser implements Serializable {
     public String toString() {
         return "model.OrganizationUser[ organizationUserID=" + organizationUserID + " ]";
     }
-    
+
 }

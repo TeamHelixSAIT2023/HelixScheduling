@@ -47,7 +47,7 @@ INSERT INTO helixschedulingdb.user (email, firstName, lastName, password, salt, 
     `managerApprovedTimeOff` BOOLEAN NOT NULL DEFAULT 1,*/
 
 INSERT INTO helixschedulingdb.organization (name, description, public, managerApprovedAvailabilityChange, managerApprovedShiftSwap, managerApprovedTimeOff) VALUES
-('AcmeInc.', 'A company that makes widgets', 1, 0, 1, 1),
+('Acme Inc.', 'A company that makes widgets', 1, 0, 1, 1),
 ('Apex Co.', 'A consulting firm', 1, 1, 1, 1),
 ('Bayside Industries', 'A manufacturer of chemicals', 0, 1, 0, 0),
 ('Cascade LLC', 'A marketing agency', 1, 0, 1, 1),
@@ -118,8 +118,10 @@ INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedu
 (4, 7, 4, 4, NULL, 22.00),
 (4, 8, 4, 4, 7, 25.00),
 (5, 9, 5, 5, NULL, 40.00),
-(5, 10, 5, 5, 9, 45.00),
-(1, 11, 1, NULL, NULL, 20);
+(5, 10, 5, 5, 9, 45.00);
+
+INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedule, managedBy, hourly, admin, owner) VALUES
+(1, 11, 1, NULL, NULL, 20, true, true);
 
 -- availability Table 
 

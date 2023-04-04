@@ -10,6 +10,7 @@ import java.util.List;
 import model.Department;
 import model.Organization;
 import model.OrganizationUser;
+import model.User;
 
 /**
  *
@@ -34,13 +35,30 @@ public class OrganizationService {
         return orgList;
     }
     
-    public void insert (String name, String description, boolean public1){
+    public void insert (User user, String name, String description, boolean public1) throws Exception{
         OrganizationDB orgDB = new OrganizationDB();
         Organization org = new Organization();
         org.setName(name);
         org.setDescription(description);
         org.setPublic1(public1);
         orgDB.insert(org);
+        
+        OrganizationUserService ous = new OrganizationUserService();
+        ous.insert(org, user, null, null, null, 0, true, true);
+    }
+    
+    public void updateInfo(int organizationID, String name, String description, boolean public1, boolean managerApprovedAvailabilityChange, boolean managerApprovedShiftSwap, boolean managerApprovedTimeOff){
+        OrganizationDB orgDB = new OrganizationDB();
+        Organization org = orgDB.get(organizationID);
+        
+        org.setName(name);
+        org.setDescription(description);
+        org.setPublic1(public1);
+        org.setManagerApprovedAvailabilityChange(managerApprovedAvailabilityChange);
+        org.setManagerApprovedShiftSwap(managerApprovedShiftSwap);
+        org.setManagerApprovedTimeOff(managerApprovedTimeOff);
+        
+        orgDB.update(org);
     }
     
     public void update (int organizationID, String name, String description, boolean public1, int shiftSwapBoardID, List<OrganizationUser> uoList, List<Department> deptList){
