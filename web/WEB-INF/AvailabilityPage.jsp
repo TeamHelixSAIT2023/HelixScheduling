@@ -18,9 +18,9 @@
     </head>
     <body>
         <div>
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 220px; height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
                 <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 150px; height: auto;"></svg>
+                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
@@ -77,6 +77,7 @@
                 </div>
             </div>  
         </div>
+                    <div class="mainBody" style="margin-left:13%;">
         <main>
             <c:choose>
                 <c:when  test="${(orgList == null) || (empty orgList)}"> 
@@ -118,8 +119,8 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                                <input type="hidden" name="action" value="availability">
-                                <input type="submit" value="Update">
+                                <input class="btn btn-primary" type="hidden" name="action" value="availability">
+                                <input class="btn btn-primary" type="submit" value="Update">
                             </form>
                             <div>
                                 <c:if test="${availabilityUpdateMessage != null}">
@@ -146,12 +147,13 @@
                                 <label for="reason">Reason (optional):</label>
                                 <input type="text" name="reason" id="reason">
                             </div>
-                            <input type="hidden" name="action" value="unavailable">
-                            <input type="submit" value="Submit">
+                            <input class="btn btn-primary" type="hidden" name="action" value="unavailable">
+                            <input class="btn btn-primary" type="submit" value="Submit">
                         </form>
                     </section>
                 </c:otherwise>
             </c:choose>
 
         </main>
+                    </div>
 </html>
