@@ -24,8 +24,7 @@ public class HomeServlet extends HttpServlet {
         OrganizationUserService uoService = new OrganizationUserService();
         
         User user =  (User) session.getAttribute("user");
-        String Fname = user.getFirstName();
-        request.setAttribute("Fname", Fname);
+       
         
         
         request.setAttribute("name", user); 
