@@ -46,19 +46,29 @@ public class RergisterOrganizationServlet extends HttpServlet {
         
         String name = request.getParameter("orgName");
         String description = request.getParameter("orgDesc");
+
         boolean public1;
     public1 = (request.getParameter("public") != null);
+
+        
+        
+        
+
         
         
         OrganizationService os = new OrganizationService();
         try {
+
             Organization organization = os.register(name, description, public1);
             
+
+          
+
         } catch (Exception exc) {
             Logger.getLogger(RergisterOrganizationServlet.class.getName()).log(Level.SEVERE, null, exc);
         }
         
-        response.sendRedirect("/home");
+        response.sendRedirect("home");
        
    }
    
