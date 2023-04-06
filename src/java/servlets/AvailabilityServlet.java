@@ -77,7 +77,6 @@ public class AvailabilityServlet extends HttpServlet {
 
         if (action != null && !action.equals("")) {
             if (action.equals("availability")) {
-                Instant epoch = Instant.EPOCH;
                 List<Availability> availabilityList = new ArrayList<Availability>();
                 Availability curr;
                 String days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};

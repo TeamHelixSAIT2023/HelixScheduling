@@ -48,7 +48,7 @@ public class OrganizationUserService {
         return ouList;
     }
     
-    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) throws Exception {
+    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) {
         OrganizationUser ou = new OrganizationUser();
         ou.setOrganization(org);
         ou.setUser(user);

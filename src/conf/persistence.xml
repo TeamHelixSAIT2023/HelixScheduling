@@ -12,6 +12,14 @@
     <class>model.Schedule</class>
     <class>model.Shift</class>
     <class>model.Unavailable</class>
+    <class>model.Notification</class>
+    <class>model.Request</class>
+    <class>model.OrganizationUserSchedule</class>
+    <class>model.OrganizationRequest</class>
+    <class>model.OrganizationUserRequest</class>
+    <class>model.AvailabilityChangeRequest</class>
+    <class>model.TimeOffRequest</class>
+    <class>model.ShiftSwapRequest</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
