@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrganizationUser.findAll", query = "SELECT o FROM OrganizationUser o")
     , @NamedQuery(name = "OrganizationUser.findByOrganizationUserID", query = "SELECT o FROM OrganizationUser o WHERE o.organizationUserID = :organizationUserID")
     , @NamedQuery(name = "OrganizationUser.findByHourly", query = "SELECT o FROM OrganizationUser o WHERE o.hourly = :hourly")
-        , @NamedQuery(name = "OrganizationUser.findByOrgUser", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization AND o.user = :user")
+    , @NamedQuery(name = "OrganizationUser.findByOrgUser", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization AND o.user = :user")
     , @NamedQuery(name = "OrganizationUser.findByOrganization", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization")
     , @NamedQuery(name = "OrganizationUser.findByUser", query = "SELECT o FROM OrganizationUser o WHERE o.user = :user")})
 
@@ -67,6 +67,8 @@ public class OrganizationUser implements Serializable {
     @JoinColumn(name = "user", referencedColumnName = "userID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "assignedUser", fetch = FetchType.EAGER)
+    private List<Task> taskList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
     private List<Unavailable> unavailableList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
@@ -144,6 +146,15 @@ public class OrganizationUser implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @XmlTransient
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     @XmlTransient

@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`availability` (
     `availabilityID` INT(10) NOT NULL AUTO_INCREMENT,
     `organizationUser` INT(10) NOT NULL,
-    `dayOfWeek` VARCHAR(9) NOT NULL,
+    `dayOfWeek` ENUM ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
     `startTime` TIME NOT NULL DEFAULT '00:00:00',
     `endTime` TIME NOT NULL DEFAULT '00:00:00',
     PRIMARY KEY (`availabilityID`),
@@ -118,8 +118,6 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`availability` (
         REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`),
     CONSTRAINT uk_availability_orgUser_dayOfWeek
         UNIQUE (organizationUser, dayOfWeek),
-    CONSTRAINT ck_availability_dayOfWeek 
-        CHECK (`dayOfWeek` IN ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')),
     CONSTRAINT ck_availability_startTime_valid
         CHECK (`startTime` BETWEEN '00:00:00' AND '23:59:59'),
     CONSTRAINT ck_availability_endTime_valid
@@ -174,14 +172,20 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shiftSwapBoard` (
         REFERENCES `helixschedulingdb`.`shift`(`shiftID`)
 );
 
-CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`tasks` (
-  task_id INT PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(255),
-  description TEXT,
-  organization VARCHAR(255),
-  priority ENUM('HIGH', 'MEDIUM', 'LOW'),
-  assigned_user INT,
-  start_date DATE,
-  due_date TIME
-
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`task` (
+    `taskID` INT(10) NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(255) NOT NULL,
+    `description` TEXT,
+    `organization` INT(10) NOT NULL,
+    `assignedUser` INT(10) NOT NULL,
+    `priority` ENUM('HIGH', 'MEDIUM', 'LOW'),
+    `startDate` DATE,
+    `dueDate` DATE,
+    PRIMARY KEY(`taskID`),
+    CONSTRAINT fk_task_organization
+        FOREIGN KEY(`organization`)
+        REFERENCES `helixschedulingdb`.`organization`(`organizationID`),
+    CONSTRAINT fk_task_assignedUser
+        FOREIGN KEY(`assignedUser`)
+        REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`)
 );

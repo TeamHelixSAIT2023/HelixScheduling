@@ -12,6 +12,7 @@
     <class>model.Schedule</class>
     <class>model.Shift</class>
     <class>model.Unavailable</class>
+    <class>model.Task</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

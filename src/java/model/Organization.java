@@ -69,6 +69,8 @@ public class Organization implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
+    private List<Task> taskList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<Department> departmentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<ShiftSwapBoard> shiftSwapBoardList;
@@ -162,6 +164,15 @@ public class Organization implements Serializable {
 
     public void setOrganizationUserList(List<OrganizationUser> organizationUserList) {
         this.organizationUserList = organizationUserList;
+    }
+
+    @XmlTransient
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     @XmlTransient
