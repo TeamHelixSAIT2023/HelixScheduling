@@ -173,3 +173,15 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shiftSwapBoard` (
         FOREIGN KEY (`shift`)
         REFERENCES `helixschedulingdb`.`shift`(`shiftID`)
 );
+
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`tasks` (
+  task_id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255),
+  description TEXT,
+  organization VARCHAR(255),
+  priority ENUM('HIGH', 'MEDIUM', 'LOW'),
+  assigned_user INT,
+  start_date DATE,
+  due_date TIME
+
+);

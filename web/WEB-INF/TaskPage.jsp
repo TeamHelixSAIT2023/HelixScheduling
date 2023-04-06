@@ -280,61 +280,25 @@
                                         <div class="row mt-2">
                                             <label for="start_date" class="col-3 col-form-label"> Start date</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
+                                                <input class="form-control" type="date" aria-label="">
                                             </div>
                                         </div>
 
                                         <div class="row mt-2">
                                             <label for="due_date" class="col-3 col-form-label"> Due date</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
+                                                <input class="form-control" type="date" aria-label="">
                                             </div>
                                         </div>
+                                    
 
-                                        <div class="row mt-2">
-                                            <label for="recurring" class="col-3 col-form-label"> Recurring</label>
-                                            <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
-                                            <label for="repeat" class="col-2 col-form-label"> Repeat</label>
-
-                                            <div class="dropdown col-sm-6">
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Daily
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><button class="dropdown-item" type="button">Daily</button></li>
-                                                    <li><button class="dropdown-item" type="button">Weekly</button></li>
-                                                    <li><button class="dropdown-item" type="button">Monthly</button></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <label for="recurring" class="col-3 col-form-label"> </label>
-                                            <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
-                                            <label for="until" class="col-2 col-form-label"> Until</label>
-
-                                            <div class="dropdown col-sm-6">
-                                                <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <label for="status" class="col-3 col-form-label"> Status</label>
-                                            <div class="dropdown col-sm-8">
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Select
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><button class="dropdown-item" type="button">Open</button></li>
-                                                    <li><button class="dropdown-item" type="button">Completed</button></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
+
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
