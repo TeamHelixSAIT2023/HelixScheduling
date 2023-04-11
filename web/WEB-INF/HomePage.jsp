@@ -42,7 +42,7 @@
                         <li>
                             <a href="/gannt" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                                Gannt Chart
+                                Gantt Chart
                             </a>
                         </li>
                         <li>
@@ -81,7 +81,7 @@
                         <h5 class="card-title" style="color:#0d6efd">Notification</h5>
                         <h6>2023-01-31 01:20am</h6>
                         <p class="card-text">Login activity detected.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
+                        <a href="/notification" class="btn btn-primary">Detail</a>
                     </div>
                 </div>
 

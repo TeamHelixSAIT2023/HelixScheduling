@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="/css/notification.css" />
+
+        <script
+            src="https://kit.fontawesome.com/f02024052c.js"
+            crossorigin="anonymous"
+        ></script>
+
+        <title>Notification</title>
+    </head>
+
+    <body>
+        <div class="row" id="notification-container">
+            <h5 class="text-center">My Notifications</h5>
+
+
+            <!--Dismiss ALL Button-->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn" id="dismiss-all" style="color: #0d6efd" href="#">Dismiss All</a>
+            </div>
+
+            <!--1st Notification-->
+            <div class="card notification-card notification-organization mt-2">
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td style="width: 70%">
+                                <div class="card-title">
+                                    Jane invited you to join '<b>ITSD</b>' group
+                                </div>
+                            </td>
+                            <td style="width: 30%">
+                                <a href="#" class="btn" style="background-color: #0d6efd ; color: white;"
+                                   >View</a
+                                >
+                                <a
+                                    href="#"
+                                    class="btn dismiss-notification"
+                                    style="background-color: #7c8184; color: white;"
+
+                                    >Dismiss</a
+                                >
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!--2nd Notification-->
+            <div class="card notification-card notification-schedule">
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td style="width: 70%">
+                                <div class="card-title">
+                                    Your schedule for '<b>Project Meeting</b>' has been created
+                                </div>
+                            </td>
+                            <td style="width: 30%">
+                                <a href="#" class="btn" style="background-color: #0d6efd; color: white;"
+                                   >View</a
+                                >
+                                <a
+                                    href="#"
+                                    class="btn dismiss-notification"
+                                    style="background-color: #7c8184; color: white;"
+                                    >Dismiss</a
+                                >
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!--3rd Notification-->
+            <div class="card notification-card notification-task">
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td style="width: 70%">
+                                <div class="card-title">
+                                    John assigned you a new task '<b>Debugging</b>'                                 </div>
+                            </td>
+                            <td style="width: 30%">
+                                <a href="#" class="btn" style="background-color: #0d6efd; color: white;"
+                                   >View</a
+                                >
+                                <a
+                                    href="#"
+                                    class="btn dismiss-notification"
+                                    style="background-color: #7c8184; color: white;"
+                                    >Dismiss</a
+                                >
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!--4th Notification-->
+            <div class="card notification-card notification-shift">
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td style="width: 70%">
+                                <div class="card-title">
+                                    You have <b>1</b> shift request on 23 April 2023
+                                </div>
+                            </td>
+                            <td style="width: 30%">
+                                <a href="#" class="btn" style="background-color: #0d6efd; color: white;"
+                                   >View</a
+                                >
+                                <a
+                                    href="#"
+                                    class="btn dismiss-notification"
+                                    style="background-color: #7c8184; color: white;"
+                                    >Dismiss</a
+                                >
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+
+    <script>
+        const dismissAll = document.getElementById("dismiss-all");
+        const dismissBtns = Array.from(
+                document.querySelectorAll(".dismiss-notification")
+                );
+
+        const notificationCards = document.querySelectorAll(".notification-card");
+
+        dismissBtns.forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault;
+                var parent =
+                        e.target.parentElement.parentElement.parentElement.parentElement
+                        .parentElement.parentElement;
+                parent.classList.add("display-none");
+            });
+        });
+
+        dismissAll.addEventListener("click", function (e) {
+            e.preventDefault;
+            notificationCards.forEach((card) => {
+                card.classList.add("display-none");
+            });
+            const row = document.querySelector(".notification-container");
+            const message = document.createElement("h4");
+            message.classList.add("text-center");
+            message.innerHTML = "All caught up!";
+            row.appendChild(message);
+        });
+    </script>
+</html>
