@@ -12,63 +12,69 @@
     <body>
         
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
-                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                  <li class="nav-item">
-                    <a href="/home" class="nav-link text-white">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                      Home
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li>
+                    <a href="/home" class="nav-link text-white" aria-current="page">
+                        
+                        Home
                     </a>
-                  </li>
-                  <li>
-                    <a href="/task" class="nav-link text-white" aria-current="page">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                      Task view
+                </li>
+                <li>
+                    <a href="/task" class="nav-link text-white">
+                        
+                        Task view
                     </a>
-                  </li>
-                  <li>
+                </li>
+                <li>
                     <a href="/schedule" class="nav-link text-white">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                      Schedule
+                       
+                        Schedule
                     </a>
-                  </li>
-                  <li>
+                </li>
+                <li>
                     <a href="/gannt" class="nav-link text-white">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                      Gannt Chart
+                        
+                        Gannt Chart
                     </a>
-                  </li>
-                  <li>
+                </li>
+                <li>
                     <a href="/availability" class="nav-link text-white">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                      Availability
+                        
+                        Availability
                     </a>
-                  </li>
-                  <li>
-                    <a href="/account" class="nav-link active text-white">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                      Account
-                    </a>
-                  </li>
-                </ul>
-                <hr>
-                <div class="dropdown">
-                  <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" class="rounded-circle me-2" width="32" height="32">
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Organization
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                            <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                            <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
                     <strong>${user.firstName}</strong>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="/account">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Sign out</a></li>
-                  </ul>
-                </div>
+                </ul>
             </div>
+        </div>
+
+    </div>
             <div class="row mb-3" style="position: fixed; left:13%; top:2%; width: 60%;">
                 <form method="POST" action="account">
 <!--                    <div class="row mb-3">
