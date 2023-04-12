@@ -76,7 +76,7 @@ public class OrganizationUserService {
         }
     }
 
-    public void update(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+    public void update(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly,boolean admin, List<Availability> availabilityList) throws Exception {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByOrgUser(org, user);
         uo.setDept(dept);
