@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -85,13 +84,13 @@ public class OrganizationServlet extends HttpServlet {
                 if (orgName != null && !orgName.equals("") && description != null && !description.equals("")) {
                     os.updateInfo(org.getOrganizationID(), orgName, description, public1, managerApprovedAvailabilityChange, managerApprovedShiftSwap, managerApprovedTimeOff);
                 }
-            } else if (action.equals("new-user") && orgUser.getAdmin()) {
+            } else if (action.equals("edit-user") && orgUser.getAdmin()) {
                 String email = request.getParameter("email");
                 try {
                     int deptID = Integer.parseInt(request.getParameter("dept"));
                     int managedBy = Integer.parseInt(request.getParameter("manager"));
                     double hourly = Double.parseDouble(request.getParameter("hourly"));
-                    boolean admin = (request.getParameter("admin") != null && request.getParameter("admin").equals("on"));
+                    boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
 
                     if (email != null && !email.equals("")) {
                         OrganizationUserService ous = new OrganizationUserService();
@@ -102,26 +101,50 @@ public class OrganizationServlet extends HttpServlet {
                         OrganizationUser manager = ous.get(managedBy);
                         Department dept = ds.get(deptID);
 
-                        ous.insert(org, user, dept, null, manager, hourly, false, admin);
+                        ous.update(org, user, dept, null, manager, hourly, admin, null);
                         session.setAttribute("orgUserMessage", "");
                     }
                 } catch (Exception e) {
-                    session.setAttribute("orgUserMessage", "User could not be added");
-                }
-            } else if (action.equals("new-dept") && orgUser.getAdmin()) {
-                String title = request.getParameter("dept-title");
-                String description = request.getParameter("dept-description");
-                try {
-                    int deptNo = Integer.parseInt(request.getParameter("dept-no"));
-                    DepartmentService ds = new DepartmentService();
-
-                    ds.insert(org, deptNo, title, description);
-                    session.setAttribute("deptMessage", "");
-                } catch (Exception e) {
-                    session.setAttribute("deptMessage", "Department could not be added");
+                    session.setAttribute("orgUserMessage", "User information could not be updated");
                 }
             }
+        } else if (action.equals("new-user") && orgUser.getAdmin()) {
+            String email = request.getParameter("email");
+            try {
+                int deptID = Integer.parseInt(request.getParameter("dept"));
+                int managedBy = Integer.parseInt(request.getParameter("manager"));
+                double hourly = Double.parseDouble(request.getParameter("hourly"));
+                boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
+
+                if (email != null && !email.equals("")) {
+                    OrganizationUserService ous = new OrganizationUserService();
+                    UserService us = new UserService();
+                    DepartmentService ds = new DepartmentService();
+
+                    User user = us.get(email);
+                    OrganizationUser manager = ous.get(managedBy);
+                    Department dept = ds.get(deptID);
+
+                    ous.insert(org, user, dept, null, manager, hourly, false, admin);
+                    session.setAttribute("orgUserMessage", "");
+                }
+            } catch (Exception e) {
+                session.setAttribute("orgUserMessage", "User could not be added");
+            }
+        } else if (action.equals("new-dept") && orgUser.getAdmin()) {
+            String title = request.getParameter("dept-title");
+            String description = request.getParameter("dept-description");
+            try {
+                int deptNo = Integer.parseInt(request.getParameter("dept-no"));
+                DepartmentService ds = new DepartmentService();
+
+                ds.insert(org, deptNo, title, description);
+                session.setAttribute("deptMessage", "");
+            } catch (Exception e) {
+                session.setAttribute("deptMessage", "Department could not be added");
+            }
         }
+
         org = os.get(org.getOrganizationID());
 
         if (org == null) {

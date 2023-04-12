@@ -9,6 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
@@ -16,6 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <title>Organization Page</title>
     </head>
+
     <body>
         <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 220px; height: 100%;">
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -117,8 +119,37 @@
                             <p>${orgMember.user.firstName} ${orgMember.user.lastName}</p>
                             <p>${orgMember.dept.title}</p>
                             <p>${orgMember.user.phone}</p>
+                            <c:if test="${orgUser.admin}">
+                                <button type="button" class="btn btn-primary" onclick="showEditModal()">Edit User</button>
+                            </c:if>
                         </div>
                     </c:forEach>
+                </div>
+                <div id="edit-user-modal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Task Details</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <label for="department">Department:</label>
+                                    <input type="text" id="department" name="department" required><br><br>
+                                    <label for="hourly-rate">Hourly Rate:</label>
+                                    <input type="number" id="hourly-rate" name="hourly-rate" required><br><br>
+                                    <label for="managed-by">Managed By:</label>
+                                    <input type="text" id="managed-by" name="managed-by"><br><br>
+                                    <label for="admin-status">Admin Status:</label>
+                                    <input type="checkbox" id="admin-status" name="admin-status"><br><br>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <c:if test="${orgUser.admin}">
                     <h2>Add new member</h2>
@@ -201,4 +232,16 @@
             </div>
         </div>
     </body>
+    <script>
+        const editButton = document.querySelector('#edit-button');
+
+// add an event listener to the edit button that listens for a click event
+        editButton.addEventListener('click', function () {
+            // get a reference to the modal element
+            const modal = document.querySelector('#edit-modal');
+
+            // show the modal by setting its display property to "block"
+            modal.style.display = 'block';
+        });
+    </script>
 </html>
