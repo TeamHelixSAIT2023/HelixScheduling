@@ -33,7 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrganizationUserSchedule.findAll", query = "SELECT o FROM OrganizationUserSchedule o")
-    , @NamedQuery(name = "OrganizationUserSchedule.findByOrganizationUserScheduleID", query = "SELECT o FROM OrganizationUserSchedule o WHERE o.organizationUserScheduleID = :organizationUserScheduleID")})
+    , @NamedQuery(name = "OrganizationUserSchedule.findByOrganizationUserScheduleID", query = "SELECT o FROM OrganizationUserSchedule o WHERE o.organizationUserScheduleID = :organizationUserScheduleID")
+    , @NamedQuery(name = "OrganizationUserSchedule.findByOrgUser", query = "SELECT o FROM OrganizationUserSchedule o WHERE o.organizationUser = :organizationUser")
+    , @NamedQuery(name = "OrganizationUserSchedule.findBySchedule", query = "SELECT o FROM OrganizationUserSchedule o WHERE o.schedule = :schedule")})
 public class OrganizationUserSchedule implements Serializable {
 
     private static final long serialVersionUID = 1L;

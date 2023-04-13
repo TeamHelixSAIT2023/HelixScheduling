@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Shift.findByShiftID", query = "SELECT s FROM Shift s WHERE s.shiftID = :shiftID")
     , @NamedQuery(name = "Shift.findByStartDate", query = "SELECT s FROM Shift s WHERE s.startDate = :startDate")
     , @NamedQuery(name = "Shift.findByEndDate", query = "SELECT s FROM Shift s WHERE s.endDate = :endDate")
-    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")})
+    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")
+    , @NamedQuery(name = "Shift.findByOrgUserSchedule", query = "SELECT s FROM Shift s WHERE s.organizationUserSchedule = :organizationUserSchedule")})
 public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;

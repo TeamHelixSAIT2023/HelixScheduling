@@ -123,15 +123,11 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUserSchedule` (
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shift` (
     `shiftID` INT(10) NOT NULL AUTO_INCREMENT,
-    `schedule` INT(10) NOT NULL,
     `organizationUserSchedule` INT(10) NOT NULL,
     `startDate` DATETIME NOT NULL,
     `endDate` DATETIME NOT NULL,
     `shiftType` VARCHAR(30),
     PRIMARY KEY (`shiftID`),
-    CONSTRAINT fk_shift_schedule
-        FOREIGN KEY (`schedule`)
-        REFERENCES `helixschedulingdb`.`schedule`(`scheduleID`),
     CONSTRAINT fk_shift_organizationUserSchedule
         FOREIGN KEY (`organizationUserSchedule`)
         REFERENCES `helixschedulingdb`.`organizationUserSchedule`(`organizationUserScheduleID`)
