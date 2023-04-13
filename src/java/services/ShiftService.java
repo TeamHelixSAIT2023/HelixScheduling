@@ -9,12 +9,14 @@ import dataaccess.OrganizationUserDB;
 import dataaccess.OrganizationUserScheduleDB;
 import dataaccess.ShiftDB;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import model.OrganizationUser;
 import model.OrganizationUserSchedule;
 import model.Schedule;
 import model.Shift;
+import util.SortShiftByDate;
 
 /**
  *
@@ -33,6 +35,7 @@ public class ShiftService {
         for (OrganizationUserSchedule ous : ou.getOrganizationUserScheduleList()){
             shiftList.addAll(ous.getShiftList());
         }
+        Collections.sort(shiftList, new SortShiftByDate());
         return shiftList;
     }
     
@@ -85,5 +88,18 @@ public class ShiftService {
             ous.setSchedule(schedule);
             ousDB.insert(ous);
         }
+    }
+    
+    public void delete (int shiftID){
+        ShiftDB sDB = new ShiftDB();
+        Shift shift = sDB.get(shiftID);
+        boolean ousOneShift = shift.getOrganizationUserSchedule().getShiftList().size() == 1;
+        OrganizationUserSchedule ous = shift.getOrganizationUserSchedule();
+        sDB.delete(shift);
+        if (ousOneShift){
+            OrganizationUserScheduleDB ousDB = new OrganizationUserScheduleDB();
+            ousDB.delete(ous);
+        }
+        
     }
 }
