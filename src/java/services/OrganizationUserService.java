@@ -83,6 +83,8 @@ public class OrganizationUserService {
         uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
+        uo.setAdmin(admin);
+        uo.getAvailabilityList();
         
         AvailabilityService as = new AvailabilityService();
         as.update(uo, availabilityList);

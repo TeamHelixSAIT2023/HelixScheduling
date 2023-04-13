@@ -9,12 +9,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
         <title>Organization Page</title>
     </head>
 
@@ -120,7 +122,9 @@
                             <p>${orgMember.dept.title}</p>
                             <p>${orgMember.user.phone}</p>
                             <c:if test="${orgUser.admin}">
-                                <button type="button" class="btn btn-primary" onclick="showEditModal()">Edit User</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-modal">
+                                    Edit User
+                                </button>
                             </c:if>
                         </div>
                     </c:forEach>
@@ -129,24 +133,47 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Task Details</h1>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Member Details</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <label for="department">Department:</label>
-                                    <input type="text" id="department" name="department" required><br><br>
-                                    <label for="hourly-rate">Hourly Rate:</label>
-                                    <input type="number" id="hourly-rate" name="hourly-rate" required><br><br>
-                                    <label for="managed-by">Managed By:</label>
-                                    <input type="text" id="managed-by" name="managed-by"><br><br>
-                                    <label for="admin-status">Admin Status:</label>
-                                    <input type="checkbox" id="admin-status" name="admin-status"><br><br>
+                                <form method="POST">
+                                  
+                                
+                        
+
+                                    <div>
+                                        <label for="dept">Department:</label>
+                                        <select name="dept" id="dept">
+                                            <c:forEach var="dept" items="${org.departmentList}">
+                                                <option value="${dept.deptID}">${dept.title}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="manager">Managed By:</label>
+                                        <select name="manager" id="manager">
+                                            <c:forEach var="orgMember" items="${org.organizationUserList}">
+                                                <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="hourly-rate">Hourly Rate:</label>
+                                        <input type="number" name="hourly" id="hourly" min="0" step="0.01" value="0.00" required><br><br>
+                                    </div>
+                                    <div>
+                                        <label for="admin-status">Admin Status:</label>
+                                        <input type="checkbox" id="admin" name="admin"><br><br>
+                                    </div>
+                                   
+                                    <input type="hidden" name="action" value="edit-user">
                                     <button type="submit" class="btn btn-primary">Save</button>
+                                    
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -231,17 +258,17 @@
                 </div>
             </div>
         </div>
+        <script>
+            const editButton = document.querySelector('#edit-button');
+
+            editButton.addEventListener('click', function () {
+
+                const modal = document.querySelector('#edit-modal');
+
+                modal.style.display = 'block';
+            });
+        </script>
     </body>
-    <script>
-        const editButton = document.querySelector('#edit-button');
 
-// add an event listener to the edit button that listens for a click event
-        editButton.addEventListener('click', function () {
-            // get a reference to the modal element
-            const modal = document.querySelector('#edit-modal');
-
-            // show the modal by setting its display property to "block"
-            modal.style.display = 'block';
-        });
-    </script>
 </html>
+

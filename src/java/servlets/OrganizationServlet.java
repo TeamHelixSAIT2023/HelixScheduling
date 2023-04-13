@@ -85,30 +85,31 @@ public class OrganizationServlet extends HttpServlet {
                     os.updateInfo(org.getOrganizationID(), orgName, description, public1, managerApprovedAvailabilityChange, managerApprovedShiftSwap, managerApprovedTimeOff);
                 }
             } else if (action.equals("edit-user") && orgUser.getAdmin()) {
-                String email = request.getParameter("email");
+               String userId = request.getParameter("userId");
                 try {
                     int deptID = Integer.parseInt(request.getParameter("dept"));
                     int managedBy = Integer.parseInt(request.getParameter("manager"));
                     double hourly = Double.parseDouble(request.getParameter("hourly"));
                     boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
 
-                    if (email != null && !email.equals("")) {
+                    
                         OrganizationUserService ous = new OrganizationUserService();
                         UserService us = new UserService();
                         DepartmentService ds = new DepartmentService();
+                        
 
-                        User user = us.get(email);
+                        User user = us.get(userId);
                         OrganizationUser manager = ous.get(managedBy);
                         Department dept = ds.get(deptID);
 
                         ous.update(org, user, dept, null, manager, hourly, admin, null);
                         session.setAttribute("orgUserMessage", "");
-                    }
+                    
                 } catch (Exception e) {
-                    session.setAttribute("orgUserMessage", "User information could not be updated");
+                    session.setAttribute("orgUserMessage", "User information could not be edited");
                 }
             }
-        } else if (action.equals("new-user") && orgUser.getAdmin()) {
+        }if (action != null && orgUser != null && action.equals("new-user")) {
             String email = request.getParameter("email");
             try {
                 int deptID = Integer.parseInt(request.getParameter("dept"));
@@ -131,7 +132,7 @@ public class OrganizationServlet extends HttpServlet {
             } catch (Exception e) {
                 session.setAttribute("orgUserMessage", "User could not be added");
             }
-        } else if (action.equals("new-dept") && orgUser.getAdmin()) {
+        } else if (action.equals("new-dept")) {
             String title = request.getParameter("dept-title");
             String description = request.getParameter("dept-description");
             try {
