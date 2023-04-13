@@ -28,6 +28,10 @@
         <servlet-name>OrganizationListServlet</servlet-name>
         <servlet-class>servlets.OrganizationListServlet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <servlet-class>servlets.OrganizationServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AvailabilityServlet</servlet-name>
         <servlet-class>servlets.AvailabilityServlet</servlet-class>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>OrganizationListServlet</servlet-name>
         <url-pattern>/organizationlist</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <url-pattern>/organization</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AvailabilityServlet</servlet-name>
