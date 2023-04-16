@@ -7,6 +7,7 @@ package services;
 
 import dataaccess.OrganizationUserScheduleDB;
 import dataaccess.ScheduleDB;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import model.OrganizationUser;
 import model.OrganizationUserSchedule;
 import model.Schedule;
 import model.Shift;
+import model.User;
 import util.SortShiftByDate;
 
 /**
@@ -47,6 +49,15 @@ public class ScheduleService {
         }
         return ousList;
     }
+    
+    public List<Schedule> getByUser (User user){
+        ScheduleDB sDB = new ScheduleDB();
+        List<Schedule> scheduleList = new ArrayList<Schedule>();
+        for (OrganizationUser orgUser : user.getOrganizationUserList()){
+            scheduleList.addAll(sDB.getByDept(orgUser.getDept()));
+        }
+        return scheduleList;
+    }
 
     public void insert(Organization org, Department dept, Date startDate, Date endDate) {
         ScheduleDB sDB = new ScheduleDB();
@@ -72,7 +83,7 @@ public class ScheduleService {
         Schedule schedule = sDB.get(scheduleID);
 
         ShiftService ss = new ShiftService();
-        
+
         boolean userOnSchedule = false;
 
         for (OrganizationUserSchedule ous : schedule.getOrganizationUserScheduleList()) {
@@ -81,23 +92,35 @@ public class ScheduleService {
                 ss.insert(ous, startDate, endDate, shiftType);
             }
         }
-        if (!userOnSchedule){
+        if (!userOnSchedule) {
             OrganizationUserScheduleDB ousDB = new OrganizationUserScheduleDB();
             OrganizationUserSchedule ous = new OrganizationUserSchedule();
             ous.setOrganizationUser(orgUser);
             ous.setSchedule(schedule);
             ousDB.insert(ous);
-            
+
             ss.insert(ous, startDate, endDate, shiftType);
         }
     }
-    
-    public void removeShift (int scheduleID, int shiftID){
+
+    public void removeShift(int scheduleID, int shiftID) {
         ScheduleDB sDB = new ScheduleDB();
         Schedule schedule = sDB.get(scheduleID);
-        
+
         ShiftService ss = new ShiftService();
         ss.delete(shiftID);
     }
 
+    public void delete(int scheduleID) {
+        ScheduleDB sDB = new ScheduleDB();
+        Schedule schedule = sDB.get(scheduleID);
+
+        OrganizationUserScheduleDB ousDB = new OrganizationUserScheduleDB();
+
+        for (OrganizationUserSchedule ous : schedule.getOrganizationUserScheduleList()) {
+            ousDB.delete(ous);
+        }
+
+        sDB.delete(schedule);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package dataaccess;
 
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -13,6 +14,7 @@ import model.Organization;
 import model.OrganizationUser;
 import model.OrganizationUserSchedule;
 import model.Schedule;
+import util.SortShiftByDate;
 
 /**
  *
@@ -60,15 +62,20 @@ public class ScheduleDB {
     
     public List<Schedule> getByDept (Department dept){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<Schedule> depts;
+        List<Schedule> scheduleList;
         
         try {
-            depts = em.createNamedQuery("Schedule.findByDept", Schedule.class).setParameter("dept", dept).getResultList();
+            scheduleList = em.createNamedQuery("Schedule.findByDept", Schedule.class).setParameter("dept", dept).getResultList();
+            for (Schedule s : scheduleList){
+                for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()){
+                    Collections.sort(ous.getShiftList(), new SortShiftByDate());
+                }
+            }
         } finally {
             em.close();
         }
         
-        return depts;
+        return scheduleList;
     }
     
     public void insert (Schedule schedule){
