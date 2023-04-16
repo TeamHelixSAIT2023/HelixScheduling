@@ -102,8 +102,9 @@ public class OrganizationServlet extends HttpServlet {
                     OrganizationUser manager = ouService.get(newmanagedBy);
                     OrganizationUser ou = ouService.getByOrgUser(org, user); 
                     Department dept = ds.get(newdeptID);
+                    
                     ouService.update(org, user, dept, ou.getSchedule(), manager, newhourly, newadmin, ou.getAvailabilityList());
-
+                    
                     session.setAttribute("orgEditMessage", "edited infromation");
 
                 } catch (Exception e) {
