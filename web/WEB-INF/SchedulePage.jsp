@@ -281,7 +281,7 @@
                     <div class="tab-pane fade" id="pills-calender" role="tabpanel" aria-labelledby="pills-calender-tab" tabindex="0">
                         <!--Calender View-->
                         <ul class="dropdown-menu">
-                            <c:forEach var="orgUser" items="${user.getOrganizationUserList}">
+                            <c:forEach var="orgUser" items="${user.organizationUserList}">
                                 <li><a href="/schedule?organization=${orgUser.organization.name}">${orgUser.organization.name}</a></li>
                                 </c:forEach>
                         </ul>
