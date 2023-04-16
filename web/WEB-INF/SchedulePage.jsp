@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -278,6 +280,46 @@
 
                     <div class="tab-pane fade" id="pills-calender" role="tabpanel" aria-labelledby="pills-calender-tab" tabindex="0">
                         <!--Calender View-->
+                        <ul class="dropdown-menu">
+                            <c:forEach var="orgUser" items="${user.getOrganizationUserList}">
+                                <li><a href="/schedule?organization=${orgUser.organization.name}">${orgUser.organization.name}</a></li>
+                                </c:forEach>
+                        </ul>
+                        <ul class="dropdown-menu">
+                            <c:forEach var="schedule" items="${orgScheduleList}">
+                                <li><a href="/schedule?organization=${org}%startDate=${schedule.startDate}}"><fmt:formatDate type="date" dateStyle="short" value="${schedule.startDate}"/> - <fmt:formatDate type="date" dateStyle="short" value="${schedule.endDate}"/></a></li>
+                                </c:forEach>
+                        </ul>
+
+                        <table>
+                            <tr>
+                                <th></th>
+                                    <c:forEach var="date" items="${dateList}">
+                                    <th><fmt:formatDate type="date" dateStyle="short" value="${date}"/></th>
+                                    </c:forEach>
+                            </tr>
+                            <c:forEach var="orgUserSchedule" items="${schedule.organizationUserScheduleList}">
+                                <tr>
+                                    <td>${orgUserSchedule.organizationUser.user.firstName} ${orgUserSchedule.organizationUser.user.lastName}</td>
+                                    <c:forEach var="shift" items="${orgUserSchedule.shiftList}">
+                                        <c:choose>
+                                            <c:when test="${shift != null}">
+                                                <td>
+                                                    <p><fmt:formatDate type="time" pattern="HH:mm" value="${shift.startDate}"/></p>
+                                                    <p><fmt:formatDate type="time" pattern="HH:mm" value="${shift.endDate}"/></p>
+                                                    <c:if test="${shift.shiftType != null}">
+                                                        <p>${shift.shiftType}</p>
+                                                    </c:if>
+                                                </td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td></td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </tr>
+                            </c:forEach>
+                        </table>
 
 
                     </div>

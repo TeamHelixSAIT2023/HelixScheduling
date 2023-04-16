@@ -7,7 +7,9 @@ package services;
 
 import dataaccess.OrganizationUserScheduleDB;
 import dataaccess.ScheduleDB;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -38,22 +40,43 @@ public class ScheduleService {
     public List<Schedule> getByOrg(Organization org) {
         ScheduleDB sDB = new ScheduleDB();
         List<Schedule> scheduleList = sDB.getByOrg(org);
+        for (Schedule s : scheduleList){
+            for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()){
+                Collections.sort(ous.getShiftList(), new SortShiftByDate());
+                addNullsToOrgUserSchedule(ous);
+            }
+        }
+        return scheduleList;
+    }
+    
+    public List<Schedule> getByDept (Department dept){
+        ScheduleDB sDB = new ScheduleDB();
+        List<Schedule> scheduleList = sDB.getByDept(dept);
+        for (Schedule s : scheduleList){
+            for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()){
+                Collections.sort(ous.getShiftList(), new SortShiftByDate());
+                addNullsToOrgUserSchedule(ous);
+            }
+        }
         return scheduleList;
     }
 
-    public List<OrganizationUserSchedule> getByOrgUser(OrganizationUser ou) {
+    public List<Schedule> getByOrgUser(OrganizationUser ou) {
         OrganizationUserScheduleDB ousDB = new OrganizationUserScheduleDB();
         List<OrganizationUserSchedule> ousList = ousDB.getByOrgUser(ou);
+        List<Schedule> scheduleList = new ArrayList<Schedule>();
         for (OrganizationUserSchedule ous : ousList) {
+            scheduleList.add(ous.getSchedule());
             Collections.sort(ous.getShiftList(), new SortShiftByDate());
+            addNullsToOrgUserSchedule(ous);
         }
-        return ousList;
+        return scheduleList;
     }
-    
-    public List<Schedule> getByUser (User user){
+
+    public List<Schedule> getByUser(User user) {
         ScheduleDB sDB = new ScheduleDB();
         List<Schedule> scheduleList = new ArrayList<Schedule>();
-        for (OrganizationUser orgUser : user.getOrganizationUserList()){
+        for (OrganizationUser orgUser : user.getOrganizationUserList()) {
             scheduleList.addAll(sDB.getByDept(orgUser.getDept()));
         }
         return scheduleList;
@@ -122,5 +145,30 @@ public class ScheduleService {
         }
 
         sDB.delete(schedule);
+    }
+
+    public List<Date> getDateList(Schedule schedule) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(schedule.getStartDate());
+        
+        List<Date> dateList = new ArrayList<Date>();
+        for (int i = 0; i < Duration.between(schedule.getStartDate().toInstant(), schedule.getEndDate().toInstant()).toDays(); i++) {
+            dateList.add(cal.getTime());
+            cal.add(Calendar.DATE, 1);
+        }
+        return dateList;
+    }
+
+    private void addNullsToOrgUserSchedule(OrganizationUserSchedule ous) {
+        String[] dayOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        Calendar cal = Calendar.getInstance();
+        Shift shift;
+        for (int i = 0; i < 7; i++) {
+            shift = ous.getShiftList().get(i);
+            cal.setTime(shift.getStartDate());
+            if (cal.get(Calendar.DAY_OF_WEEK) != i) {
+                ous.getShiftList().add(i, null);
+            }
+        }
     }
 }

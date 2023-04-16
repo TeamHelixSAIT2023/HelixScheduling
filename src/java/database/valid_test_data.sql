@@ -1,8 +1,15 @@
 SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE `notification`;
+TRUNCATE `timeOffRequest`;
+TRUNCATE `organizationRequest`;
+TRUNCATE `availabilityChangeRequest`;
+TRUNCATE `shiftSwapRequest`;
+TRUNCATE `organizationUserRequest`;
 TRUNCATE `shiftSwapBoard`;
-TRUNCATE `shift`;
 TRUNCATE `unavailable`;
 TRUNCATE `availability`;
+TRUNCATE `shift`;
+TRUNCATE `organizationUserSchedule`;
 TRUNCATE `organizationUser`;
 TRUNCATE `schedule`;
 TRUNCATE `department`;
@@ -123,6 +130,10 @@ INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedu
 INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedule, managedBy, hourly, admin, owner) VALUES
 (1, 11, 1, NULL, NULL, 20, true, true);
 
+-- organizationUserSchedule Table
+INSERT INTO helixschedulingdb.organizationUserSchedule (organizationUser, schedule) VALUES
+(11, 2);
+
 -- availability Table 
 
 /*  `availabilityID` INT(10) NOT NULL AUTO_INCREMENT,
@@ -153,18 +164,15 @@ VALUES
     `endDate` DATETIME NOT NULL,
     `shiftType` VARCHAR(30),*/
 
-INSERT INTO helixschedulingdb.shift (schedule, organizationUser, startDate, endDate, shiftType)
+INSERT INTO helixschedulingdb.shift (organizationUserSchedule, startDate, endDate, shiftType)
 VALUES
-    (1, 1, '2023-03-12 09:00:00', '2023-03-12 17:00:00', 'Day Shift'),
-    (2, 2, '2023-03-13 13:00:00', '2023-03-13 21:00:00', 'Evening Shift'),
-    (3, 3, '2023-03-14 08:00:00', '2023-03-14 16:00:00', 'Day Shift'),
-    (4, 4, '2023-03-15 07:00:00', '2023-03-15 15:00:00', 'Day Shift'),
-    (5, 5, '2023-03-16 22:00:00', '2023-03-17 06:00:00', 'Night Shift'),
-    (6, 6, '2023-03-18 12:00:00', '2023-03-18 20:00:00', 'Evening Shift'),
-    (7, 7, '2023-03-19 16:00:00', '2023-03-19 00:00:00', 'Evening Shift'),
-    (8, 8, '2023-03-20 23:00:00', '2023-03-21 07:00:00', 'Night Shift'),
-    (9, 9, '2023-03-22 06:00:00', '2023-03-22 14:00:00', 'Day Shift'),
-    (10, 10, '2023-03-23 18:00:00', '2023-03-23 02:00:00', 'Evening Shift');
+    (1, '2023-03-12 09:00:00', '2023-03-12 17:00:00', 'Day Shift'),
+    (1, '2023-03-13 13:00:00', '2023-03-13 21:00:00', 'Evening Shift'),
+    (1, '2023-03-14 08:00:00', '2023-03-14 16:00:00', 'Day Shift'),
+    (1, '2023-03-15 07:00:00', '2023-03-15 15:00:00', 'Day Shift'),
+    (1, '2023-03-16 22:00:00', '2023-03-17 06:00:00', 'Night Shift'),
+    (1, '2023-03-18 12:00:00', '2023-03-18 20:00:00', 'Evening Shift'),
+    (1, '2023-03-19 16:00:00', '2023-03-19 00:00:00', 'Evening Shift');
 
 -- shiftSwapBoard Table 
 
