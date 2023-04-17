@@ -84,41 +84,45 @@ public class OrganizationServlet extends HttpServlet {
                 if (orgName != null && !orgName.equals("") && description != null && !description.equals("")) {
                     os.updateInfo(org.getOrganizationID(), orgName, description, public1, managerApprovedAvailabilityChange, managerApprovedShiftSwap, managerApprovedTimeOff);
                 }
-            } else if (action.equals("edit-user") && orgUser.getAdmin()) {
-
-                try {
-                    int newdeptID = Integer.parseInt(request.getParameter("newdept"));
-                    int newmanagedBy = Integer.parseInt(request.getParameter("newmanager"));
-                    double newhourly = Double.parseDouble(request.getParameter("newhourly"));
-                    boolean newadmin = Boolean.parseBoolean(request.getParameter("newadmin"));
-                    String edituser = request.getParameter("editUser");
-                    int users = Integer.parseInt(edituser);
-
-                    OrganizationUserService ouService = new OrganizationUserService();
-                    UserService us = new UserService();
-                    DepartmentService ds = new DepartmentService();
-
-                    User user = us.get(users);
-                    OrganizationUser manager = ouService.get(newmanagedBy);
-                    OrganizationUser ou = ouService.getByOrgUser(org, user); 
-                    Department dept = ds.get(newdeptID);
-                    
-                    ouService.update(org, user, dept, ou.getSchedule(), manager, newhourly, newadmin, ou.getAvailabilityList());
-                    
-                    session.setAttribute("orgEditMessage", "edited infromation");
-
-                } catch (Exception e) {
-                    session.setAttribute("orgEditMessage", "User information could not be edited");
-                }
             }
         }
+ if (action != null && orgUser != null && action.equals("edit-user")) {
+            String email = request.getParameter("editEmail");
+            try {
+                int deptID = Integer.parseInt(request.getParameter("newdept"));
+                int managedBy = Integer.parseInt(request.getParameter("newmanager"));
+                double hourly = Double.parseDouble(request.getParameter("newhourly"));
+                boolean newadmin;
+                newadmin = (request.getParameter("newadmin") != null);
+
+                if (email != null && !email.equals("")) {
+                    OrganizationUserService ous = new OrganizationUserService();
+                    UserService us = new UserService();
+                    DepartmentService ds = new DepartmentService();
+                    
+
+                    User user = us.get(email);
+                    OrganizationUser manager = ous.get(managedBy);
+                    Department dept = ds.get(deptID);
+                    
+  
+                    
+
+                    ous.update(org, user, dept, null, manager, hourly, newadmin, null);
+                    session.setAttribute("orgEditMessage","User edited");
+                }
+            } catch (Exception e) {
+                session.setAttribute("orgEditMessage", "User could not be edited");
+            }
+ }
         if (action != null && orgUser != null && action.equals("new-user")) {
             String email = request.getParameter("email");
             try {
                 int deptID = Integer.parseInt(request.getParameter("dept"));
                 int managedBy = Integer.parseInt(request.getParameter("manager"));
                 double hourly = Double.parseDouble(request.getParameter("hourly"));
-                boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
+                boolean admin;
+                admin = (request.getParameter("admin") != null);
 
                 if (email != null && !email.equals("")) {
                     OrganizationUserService ous = new OrganizationUserService();
@@ -146,6 +150,21 @@ public class OrganizationServlet extends HttpServlet {
                 session.setAttribute("deptMessage", "");
             } catch (Exception e) {
                 session.setAttribute("deptMessage", "Department could not be added");
+            }
+        }
+         else if (action.equals("edit-dept")) {
+            String title = request.getParameter("edit-dept-title");
+            String description = request.getParameter("edit-dept-description");
+            try {
+                int deptNo = Integer.parseInt(request.getParameter("edit-dept-no"));
+                
+                int deptId = Integer.parseInt(request.getParameter("edit-dept-id"));
+                       
+                DepartmentService ds = new DepartmentService();
+                ds.update(deptId, deptNo, title, description);
+                session.setAttribute("deptMessage", "");
+            } catch (Exception e) {
+                session.setAttribute("deptMessage", "Department could not be edited");
             }
         }
 

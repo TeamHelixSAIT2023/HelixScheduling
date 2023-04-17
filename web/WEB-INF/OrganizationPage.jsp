@@ -116,81 +116,29 @@
             <div>
                 <h2>Members</h2>
                 <p>${orgEditMessage}</p>
-                <div>
-                    <c:forEach var="orgMember" items="${org.organizationUserList}">
-                        <div>
-                            <p>${orgMember.user.firstName} ${orgMember.user.lastName}</p>
-                            <p>${orgMember.dept.title}</p>
-                            <p>${orgMember.user.phone}</p>
-                            <c:if test="${orgUser.admin}">
-<<<<<<< Updated upstream
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-modal-${orgMember.organizationUserID}">
-=======
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-modal">
->>>>>>> Stashed changes
-                                    Edit User
-                                </button>
-                            </c:if>
-                        </div>
+                <p>${orgUserMessage}</p>
+                <c:if test="${orgUser.admin}">
 
-                        <div id="edit-user-modal-${orgMember.organizationUserID}" class="modal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Member Details of ${orgMember}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST">
-                                            <div>
-                                                <label for="dept">Department:</label>
-                                                <select name="newdept" id="newdept">
-                                                    <c:forEach var="dept" items="${org.departmentList}">
-                                                        <option value="${dept.deptID}" <c:if test="${dept.deptID == orgMember.dept.deptID}">selected</c:if>>${dept.title}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="manager">Managed By:</label>
-                                                <select name="newmanager" id="newmanager">
-                                                    <c:forEach var="orgMember" items="${org.organizationUserList}">
-                                                        <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="hourly-rate">Hourly Rate:</label>
-                                                <input type="number" name="newhourly" id="newhourly" min="0" step="0.01" value="${orgMember.hourlyRate}" required><br><br>
-                                            </div>
-                                            <div>
-                                                <label for="admin-status">Admin Status:</label>
-                                                <input type="checkbox" id="newadmin" name="newadmin" <c:if test="${orgMember.admin}">checked</c:if>><br><br>
-                                                </div>
-                                                    <input type="hidden" name="editUser" id="editUser" value="${orgMember.user.userID}">
-                                            <input type="hidden" name="action" value="edit-user">
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-<<<<<<< Updated upstream
-                     <div>
-=======
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-user">
+                        Add User
+                    </button>
+
                 </div>
-                <div id="edit-user-modal" class="modal">
+
+                <div id="add-user" class="modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Task Details</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add User
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form method="POST">
+                                    <p>${orgUserMessage}</p>
+                                    <div>
+                                        <label for="email">Email:</label>
+                                        <input type="email" name="email" id="email" required>
+                                    </div>
                                     <div>
                                         <label for="dept">Department:</label>
                                         <select name="dept" id="dept">
@@ -208,61 +156,94 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label for="hourly-rate">Hourly Rate:</label>
-                                        <input type="number" name="hourly" id="hourly" min="0" step="0.01" value="0.00" required><br><br>
+                                        <label for="hourly">Hourly:</label>
+                                        <input type="number" name="hourly" id="hourly" min="0" step="0.01" value="0.00">
                                     </div>
                                     <div>
-                                        <label for="admin-status">Admin Status:</label>
-                                        <input type="checkbox" id="admin-status" name="admin-status"><br><br>
+                                        <label for="admin">Administrator:</label>
+                                        <input type="checkbox" name="admin" id="admin" value="admin">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <input type="hidden" name="action" value="new-user">
+                                    <input type="submit" value="Add New User">
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <c:if test="${orgUser.admin}">
-                    <h2>Add new member</h2>
-                    <form method="POST">
-                        <p>${orgUserMessage}</p>
-                        <div>
-                            <label for="email">Email:</label>
-                            <input type="email" name="email" id="email" required>
+            </c:if>
+        </div>
+
+        <div>
+            <c:forEach var="orgMember" items="${org.organizationUserList}">
+                <div>
+                    <p>${orgMember.user.firstName} ${orgMember.user.lastName}</p>
+                    <p>${orgMember.dept.title}</p>
+                    <p>${orgMember.user.phone}</p>
+                    <p>${orgMember.user.email}</p>
+                    <c:if test="${orgUser.admin}">
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-${orgMember.organizationUserID}">
+                            Edit User
+                        </button>
+                    </c:if>
+                </div>
+
+                <div id="edit-user-${orgMember.organizationUserID}" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Member Details of ${orgMember.user.firstName} ${orgMember.user.lastName}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST">
+                                    <p>${orgUserEditMessage}</p>
+                                    <div>
+
+                                        <input type="hidden" name="editEmail" id="editEmail" value="${orgMember.user.email}">
+                                    </div>
+                                    <div>
+                                        <label for="newdept">Department:</label>
+                                        <select name="newdept" id="newdept">
+                                            <c:forEach var="dept" items="${org.departmentList}">
+                                                <option value="${dept.deptID}">${dept.title}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="newmanager">Managed By:</label>
+                                        <select name="newmanager" id="newmanager">
+                                            <c:forEach var="orgMember" items="${org.organizationUserList}">
+                                                <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="newhourly">Hourly:</label>
+                                        <input type="number" name="newhourly" id="newhourly" min="0" step="0.01" value="0.00">
+                                    </div>
+                                    <div>
+                                        <label for="newadmin">Administrator:</label>
+                                        <input type="checkbox" name="newadmin" value="newadmin">
+                                    </div>
+                                    <input type="hidden" name="action" value="edit-user">
+                                    <input type="submit" value="Edit User">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
+                            </div>
                         </div>
-                        <div>
-                            <label for="dept">Department:</label>
-                            <select name="dept" id="dept">
-                                <c:forEach var="dept" items="${org.departmentList}">
-                                    <option value="${dept.deptID}">${dept.title}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="manager">Managed By:</label>
-                            <select name="manager" id="manager">
-                                <c:forEach var="orgMember" items="${org.organizationUserList}">
-                                    <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="hourly">Hourly:</label>
-                            <input type="number" name="hourly" id="hourly" min="0" step="0.01" value="0.00">
-                        </div>
-                        <div>
-                            <label for="admin">Administrator:</label>
-                            <input type="radio" name="admin" id="admin" value="admin">
-                        </div>
-                        <input type="hidden" name="action" value="new-user">
-                        <input type="submit" value="Add New User">
-                    </form>
-                </c:if>
-            </div>
+                    </div>
+                </div>
+            </c:forEach>
+
+
             <div>
->>>>>>> Stashed changes
+
                 <h2>Schedules</h2>
                 <c:forEach var="schedule" items="${org.scheduleList}">
                     <div>
@@ -275,56 +256,108 @@
             </div>
             <div>
                 <h2>Departments</h2>
+
+                <p>${deptMessage}</p>
                 <div>
                     <c:forEach var="dept" items="${org.departmentList}">
-                        <div>
-                            <h4>${dept.title}</h4>
-                            <p>${dept.deptNo}</p>
-                            <p>${dept.description}</p>
+
+                        <h4>${dept.title}</h4>
+                        <p>${dept.deptNo}</p>
+                        <p>${dept.description}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-dept-${dept.deptNo}">
+                            Edit ${dept.title}
+                        </button>
+
+
+
+                        <div id="edit-dept-${dept.deptNo}" class="modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit ${dept.title}
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            <div>
+
+                                                <label for="edit-dept-title">Title:</label><br>
+                                                <textarea id="edit-dept-title" name="edit-dept-title" cols="50" rows="0" maxlength="50">${dept.title}</textarea>
+
+                                            </div>
+                                            <div>
+
+                                                <label for="edit-dept-description">Description:</label><br>
+                                                <textarea id="edit-dept-description" name="edit-dept-description" rows="5" cols="50" maxlength="100">${dept.description}</textarea>
+                                                <input type="hidden" name="edit-dept-no" value="${dept.deptNo}"> 
+                                                <input type="hidden" name="edit-dept-id" value="${dept.deptID}">
+                                                <input type="hidden" name="action" value="edit-dept">
+                                                <input type="submit" value="Edit ${dept.title}">
+
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </c:forEach>
+
+                    </div>
+                </c:forEach>
+
+
+                <div>
                     <c:if test="${orgUser.admin}">
-                        <p>${deptMessage}</p>
-                        <form method="POST">
-                            <div>
-                                <label for="dept-title">Title:</label>
-                                <input type="text" name="dept-title" id="dept-title" maxlength="50">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-dept-modal">
+                            Add Department
+                        </button>
+                        <div id="add-dept-modal" class="modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Department</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form method="POST">
+                                            <label for="dept-title">Title:</label><br>
+                                            <textarea id="dept-title" name="dept-title" cols="50" rows="1" maxlength="50"></textarea>
+
+                                            <label for="edit-dept-description">Description:</label><br>
+                                            <textarea id="dept-description" name="dept-description" rows="5" cols="50" maxlength="100"></textarea>
+
+                                            <div>
+                                                <label for="dept-no">Number:</label>
+                                                <input type="number" name="dept-no" min="0" max="99" step="1"> 
+                                            </div>
+                                            <input type="hidden" name="action" value="new-dept"><br>
+                                            <input type="submit" value="Add New Department">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
+                                    </div>
+                                </c:if>
                             </div>
-                            <div>
-                                <label for="dept-description">Description</label>
-                                <input type="text" name="dept-description" id="dept-description" maxlength="100">
-                            </div>
-                            <div>
-                                <label for="dept-no">Number:</label>
-                                <input type="number" name="dept-no" min="0" max="99" step="1"> 
-                            </div>
-                            <input type="hidden" name="action" value="new-dept">
-                            <input type="submit" value="Add New Department">
-                        </form>
-                    </c:if>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-<<<<<<< Updated upstream
 
 
-                </body>
 
-                </html>
-=======
-        <script>
-            var editUserModal = document.getElementById('edit-user-modal');
-            var openEditUserModalButton = document.getElementById('open-edit-user-modal-button');
 
-            openEditUserModalButton.addEventListener('click', function () {
-                editUserModal.classList.add('show');
-                editUserModal.style.display = 'block';
-                document.body.classList.add('modal-open');
-                document.body.style.paddingRight = '15px';
-            });
-        </script>
+
     </body>
 
 </html>
->>>>>>> Stashed changes
+
+
+
+
+
+
 
