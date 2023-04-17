@@ -81,7 +81,24 @@
         </div>
         <div>
             <h1>${org.name}</h1>
+            <c:if test="${orgUser.admin}">
             <div>
+                
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-Organization">
+                                        Edit Organization
+                                    </button>
+                                
+                        </div>
+
+                        <div id="edit-Organization" class="modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit ${org.name}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                
                 <form method="POST">
                     <div>
                         <label for="name">Name:</label>
@@ -107,12 +124,21 @@
                             <label for="man-approved-time-off">Manager Approved Time Off:</label>
                                 <input type="checkbox" name="man-approved-time-off" id="man-approved-time-off" <c:if test="${org.managerApprovedTimeOff}">checked="checked"</c:if> <c:if test="${not orgUser.admin}">readonly</c:if>>
                         </div>
+                        </div>
+                                                </c:if>
                     <c:if test="${orgUser.admin}">
                         <input type="hidden" name="action" value="info">
                         <input type="submit" value="Edit">
                     </c:if>
                 </form>
             </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="action" value="save-user">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
             <div>
                 <h2>Members</h2>
                 <p>${orgEditMessage}</p>
