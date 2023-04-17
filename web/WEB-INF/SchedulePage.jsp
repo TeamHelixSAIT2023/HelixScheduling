@@ -295,7 +295,7 @@
                             <tr>
                                 <th></th>
                                     <c:forEach var="date" items="${dateList}">
-                                    <th><fmt:formatDate type="date" dateStyle="short" value="${date}"/></th>
+                                    <th><fmt:formatDate type="date" pattern="E-M-dd" value="${date}"/></th>
                                     </c:forEach>
                             </tr>
                             <c:forEach var="orgUserSchedule" items="${schedule.organizationUserScheduleList}">

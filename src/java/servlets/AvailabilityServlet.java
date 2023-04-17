@@ -133,7 +133,7 @@ public class AvailabilityServlet extends HttpServlet {
                 if (!failed) {
 
                     try {
-                        ouService.update(ou.getOrganization(), user, ou.getDept(), ou.getSchedule(), ou.getManagedBy(), ou.getHourly(), availabilityList);
+                        ouService.update(ou.getOrganization(), user, ou.getDept(), ou.getManagedBy(), ou.getHourly(), availabilityList);
                         session.setAttribute("availabilityUpdateMessage", "Availability updated");
                     } catch (Exception e) {
                         session.setAttribute("availabilityUpdateMessage", "Failed to update availability");

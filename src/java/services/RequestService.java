@@ -116,7 +116,7 @@ public class RequestService {
 
         if (approved) {
             OrganizationUserService ous = new OrganizationUserService();
-            ous.insert(orgRequest.getOrganization(), orgRequest.getUser(), null, null, null, 0, false, false);
+            ous.insert(orgRequest.getOrganization(), orgRequest.getUser(), null, null, 0, false, false);
         }
 
         NotificationService ns = new NotificationService();

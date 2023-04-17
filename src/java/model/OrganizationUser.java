@@ -82,9 +82,6 @@ public class OrganizationUser implements Serializable {
     @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Organization organization;
-    @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Schedule schedule;
     @JoinColumn(name = "user", referencedColumnName = "userID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
@@ -200,7 +197,7 @@ public class OrganizationUser implements Serializable {
         return shiftSwapRequestListSender;
     }
 
-    public void setShiftSwapRequestList1(List<ShiftSwapRequest> shiftSwapRequestList1) {
+    public void setShiftSwapRequestSender(List<ShiftSwapRequest> shiftSwapRequestList1) {
         this.shiftSwapRequestListSender = shiftSwapRequestList1;
     }
 
@@ -235,14 +232,6 @@ public class OrganizationUser implements Serializable {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
     }
 
     public User getUser() {

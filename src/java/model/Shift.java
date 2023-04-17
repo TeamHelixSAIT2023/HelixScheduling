@@ -62,9 +62,6 @@ public class Shift implements Serializable {
     @JoinColumn(name = "organizationUserSchedule", referencedColumnName = "organizationUserScheduleID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private OrganizationUserSchedule organizationUserSchedule;
-    @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Schedule schedule;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift", fetch = FetchType.EAGER)
     private List<ShiftSwapBoard> shiftSwapBoardList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift", fetch = FetchType.EAGER)
@@ -121,14 +118,6 @@ public class Shift implements Serializable {
 
     public void setOrganizationUserSchedule(OrganizationUserSchedule organizationUserSchedule) {
         this.organizationUserSchedule = organizationUserSchedule;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
     }
 
     @XmlTransient

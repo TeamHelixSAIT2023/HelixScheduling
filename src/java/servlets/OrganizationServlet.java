@@ -102,7 +102,7 @@ public class OrganizationServlet extends HttpServlet {
                         OrganizationUser manager = ous.get(managedBy);
                         Department dept = ds.get(deptID);
 
-                        ous.insert(org, user, dept, null, manager, hourly, false, admin);
+                        ous.insert(org, user, dept, manager, hourly, false, admin);
                         session.setAttribute("orgUserMessage", "");
                     }
                 } catch (Exception e) {

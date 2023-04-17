@@ -58,16 +58,12 @@ public class Schedule implements Serializable {
     @Column(name = "endDate")
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule", fetch = FetchType.EAGER)
-    private List<Shift> shiftList;
     @JoinColumn(name = "dept", referencedColumnName = "deptID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Department dept;
     @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Organization organization;
-    @OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER)
-    private List<OrganizationUser> organizationUserList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule", fetch = FetchType.EAGER)
     private List<OrganizationUserSchedule> organizationUserScheduleList;
 
@@ -108,15 +104,6 @@ public class Schedule implements Serializable {
         this.endDate = endDate;
     }
 
-    @XmlTransient
-    public List<Shift> getShiftList() {
-        return shiftList;
-    }
-
-    public void setShiftList(List<Shift> shiftList) {
-        this.shiftList = shiftList;
-    }
-
     public Department getDept() {
         return dept;
     }
@@ -131,15 +118,6 @@ public class Schedule implements Serializable {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
-    }
-
-    @XmlTransient
-    public List<OrganizationUser> getOrganizationUserList() {
-        return organizationUserList;
-    }
-
-    public void setOrganizationUserList(List<OrganizationUser> organizationUserList) {
-        this.organizationUserList = organizationUserList;
     }
 
     @XmlTransient
