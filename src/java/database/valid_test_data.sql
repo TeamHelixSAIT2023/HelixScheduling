@@ -115,20 +115,20 @@ INSERT INTO helixschedulingdb.schedule (organization, dept, startDate, endDate) 
     `managedBy` INT(10),
     `hourly` DOUBLE(5,2), */
 
-INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedule, managedBy, hourly) VALUES
-(1, 1, 1, 1, NULL, 25.00),
-(1, 2, 1, 1, 1, 20.00),
-(2, 3, 2, 2, NULL, 30.00),
-(2, 4, 2, 2, 3, 35.00),
-(3, 5, 3, 3, NULL, 28.00),
-(3, 6, 3, 3, 5, 30.00),
-(4, 7, 4, 4, NULL, 22.00),
-(4, 8, 4, 4, 7, 25.00),
-(5, 9, 5, 5, NULL, 40.00),
-(5, 10, 5, 5, 9, 45.00);
+INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, managedBy, hourly) VALUES
+(1, 1, 1, NULL, 25.00),
+(1, 2, 1, 1, 20.00),
+(2, 3, 2, NULL, 30.00),
+(2, 4, 2, 3, 35.00),
+(3, 5, 3, NULL, 28.00),
+(3, 6, 3, 5, 30.00),
+(4, 7, 4, NULL, 22.00),
+(4, 8, 4, 7, 25.00),
+(5, 9, 5, NULL, 40.00),
+(5, 10, 5, 9, 45.00);
 
-INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedule, managedBy, hourly, admin, owner) VALUES
-(1, 11, 1, NULL, NULL, 20, true, true);
+INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, managedBy, hourly, admin, owner) VALUES
+(1, 11, 1, NULL, 20, true, true);
 
 -- organizationUserSchedule Table
 INSERT INTO helixschedulingdb.organizationUserSchedule (organizationUser, schedule) VALUES
