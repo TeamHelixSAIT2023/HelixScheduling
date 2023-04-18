@@ -46,12 +46,12 @@ public class AvailabilityServlet extends HttpServlet {
         session.setAttribute("orgList", orgList);
 
         OrganizationService orgService = new OrganizationService();
-        Organization org;
+        Organization org = null;
 
-        if ((organizationName == null || organizationName.equals("")) && !orgList.isEmpty()) {
-            org = orgList.get(0);
-        } else {
+        if (organizationName != null && !organizationName.equals("")) {
             org = orgService.getByName(organizationName);
+        } else if (!orgList.isEmpty()){
+            org = orgList.get(0);
         }
 
         if (org != null) {
