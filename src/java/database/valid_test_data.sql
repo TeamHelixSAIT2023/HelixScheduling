@@ -99,12 +99,12 @@ INSERT INTO helixschedulingdb.schedule (organization, dept, startDate, endDate) 
 (3, 8, '2023-03-15', '2023-03-21'),
 (5, 6, '2023-03-11', '2023-03-17'),
 (4, 2, '2023-03-16', '2023-03-22'),
-(2, 1, '2023-03-18', '2023-03-24'),
+(2, 2, '2023-03-18', '2023-03-24'),
 (10, 9, '2023-03-13', '2023-03-19'),
 (8, 7, '2023-03-17', '2023-03-23'),
 (6, 10, '2023-03-14', '2023-03-20'),
 (9, 5, '2023-03-12', '2023-03-18'),
-(1, 1, '2023-03-14', '2023-03-20');
+(1, 1, '2023-03-12', '2023-03-18');
 
 -- organizationUser Table 
 
@@ -133,7 +133,7 @@ INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, manage
 
 -- organizationUserSchedule Table
 INSERT INTO helixschedulingdb.organizationUserSchedule (organizationUser, schedule) VALUES
-(11, 2);
+(11, 11);
 
 -- availability Table 
 
@@ -172,8 +172,8 @@ VALUES
     (1, '2023-03-14 08:00:00', '2023-03-14 16:00:00', 'Day Shift'),
     (1, '2023-03-15 07:00:00', '2023-03-15 15:00:00', 'Day Shift'),
     (1, '2023-03-16 22:00:00', '2023-03-17 06:00:00', 'Night Shift'),
-    (1, '2023-03-18 12:00:00', '2023-03-18 20:00:00', 'Evening Shift'),
-    (1, '2023-03-19 16:00:00', '2023-03-19 00:00:00', 'Evening Shift');
+    (1, '2023-03-17 12:00:00', '2023-03-18 20:00:00', 'Evening Shift'),
+    (1, '2023-03-18 16:00:00', '2023-03-19 00:00:00', 'Evening Shift');
 
 -- shiftSwapBoard Table 
 

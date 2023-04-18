@@ -36,12 +36,25 @@ public class DepartmentDB {
         List<Department> departmentList;
 
         try {
-            departmentList = em.createNamedQuery("Availability.findAll", Department.class).getResultList();
+            departmentList = em.createNamedQuery("Department.findAll", Department.class).getResultList();
         } finally {
             em.close();
         }
 
         return departmentList;
+    }
+    
+    public Department getByOrgTitle(Organization org, String title) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        Department department;
+
+        try {
+            department = em.createNamedQuery("Department.findByOrgTitle", Department.class).setParameter("organization", org).setParameter("title", title).getSingleResult();
+        } finally {
+            em.close();
+        }
+
+        return department;
     }
 
     public void insert(Department department) {

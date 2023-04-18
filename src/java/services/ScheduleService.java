@@ -33,6 +33,7 @@ public class ScheduleService {
         Schedule schedule = sDB.get(scheduleID);
         for (OrganizationUserSchedule ous : schedule.getOrganizationUserScheduleList()) {
             Collections.sort(ous.getShiftList(), new SortShiftByDate());
+            addNullsToOrgUserSchedule(ous);
         }
         return schedule;
     }
@@ -40,20 +41,20 @@ public class ScheduleService {
     public List<Schedule> getByOrg(Organization org) {
         ScheduleDB sDB = new ScheduleDB();
         List<Schedule> scheduleList = sDB.getByOrg(org);
-        for (Schedule s : scheduleList){
-            for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()){
+        for (Schedule s : scheduleList) {
+            for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()) {
                 Collections.sort(ous.getShiftList(), new SortShiftByDate());
                 addNullsToOrgUserSchedule(ous);
             }
         }
         return scheduleList;
     }
-    
-    public List<Schedule> getByDept (Department dept){
+
+    public List<Schedule> getByDept(Department dept) {
         ScheduleDB sDB = new ScheduleDB();
         List<Schedule> scheduleList = sDB.getByDept(dept);
-        for (Schedule s : scheduleList){
-            for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()){
+        for (Schedule s : scheduleList) {
+            for (OrganizationUserSchedule ous : s.getOrganizationUserScheduleList()) {
                 Collections.sort(ous.getShiftList(), new SortShiftByDate());
                 addNullsToOrgUserSchedule(ous);
             }
@@ -82,7 +83,7 @@ public class ScheduleService {
         return scheduleList;
     }
 
-    public void insert(Organization org, Department dept, Date startDate, Date endDate) {
+    public Schedule insert(Organization org, Department dept, Date startDate, Date endDate) {
         ScheduleDB sDB = new ScheduleDB();
         Schedule schedule = new Schedule();
         schedule.setOrganization(org);
@@ -90,6 +91,7 @@ public class ScheduleService {
         schedule.setStartDate(startDate);
         schedule.setEndDate(endDate);
         sDB.insert(schedule);
+        return schedule;
     }
 
     public void update(int scheduleID, Department dept, Date startDate, Date endDate) {
@@ -150,9 +152,9 @@ public class ScheduleService {
     public List<Date> getDateList(Schedule schedule) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(schedule.getStartDate());
-        
+
         List<Date> dateList = new ArrayList<Date>();
-        for (int i = 0; i < Duration.between(schedule.getStartDate().toInstant(), schedule.getEndDate().toInstant()).toDays(); i++) {
+        for (int i = 0; i < Duration.between(schedule.getStartDate().toInstant(), schedule.getEndDate().toInstant()).toDays() + 2; i++) {
             dateList.add(cal.getTime());
             cal.add(Calendar.DATE, 1);
         }
@@ -164,10 +166,14 @@ public class ScheduleService {
         Calendar cal = Calendar.getInstance();
         Shift shift;
         for (int i = 0; i < 7; i++) {
-            shift = ous.getShiftList().get(i);
-            cal.setTime(shift.getStartDate());
-            if (cal.get(Calendar.DAY_OF_WEEK) != i) {
-                ous.getShiftList().add(i, null);
+            try {
+                shift = ous.getShiftList().get(i);
+                cal.setTime(shift.getStartDate());
+                if (cal.get(Calendar.DAY_OF_WEEK) != i + 1) {
+                    ous.getShiftList().add(i, null);
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ous.getShiftList().add(null);
             }
         }
     }

@@ -9,6 +9,7 @@ import dataaccess.OrganizationUserDB;
 import dataaccess.OrganizationUserScheduleDB;
 import dataaccess.ShiftDB;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import model.OrganizationUser;
 import model.OrganizationUserSchedule;
 import model.Schedule;
 import model.Shift;
+import model.User;
 import util.SortShiftByDate;
 
 /**
@@ -39,11 +41,27 @@ public class ShiftService {
         return shiftList;
     }
     
+    public List<Shift> getShiftsByUser (User user) {
+        ShiftDB sDB = new ShiftDB();
+        List<Shift> shiftList = new ArrayList<Shift>();
+        Calendar cal = Calendar.getInstance();
+        for (OrganizationUser ou : user.getOrganizationUserList()){
+            for (OrganizationUserSchedule ous : ou.getOrganizationUserScheduleList()){
+                shiftList.addAll(sDB.getByUpcoming(ous));
+            }
+        }
+        if (!shiftList.isEmpty()){
+            Collections.sort(shiftList, new SortShiftByDate());
+        }
+        return shiftList;
+    }
+    
     public void insert (OrganizationUserSchedule ous, Date startDate, Date endDate, String shiftType){
         ShiftDB sDB = new ShiftDB();
         Shift shift = new Shift();
         shift.setOrganizationUserSchedule(ous);
         shift.setStartDate(startDate);
+        shift.setEndDate(endDate);
         shift.setShiftType(shiftType);
         sDB.insert(shift);
     }

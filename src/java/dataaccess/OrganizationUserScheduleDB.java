@@ -107,6 +107,8 @@ public class OrganizationUserScheduleDB {
             em.remove(em.merge(orgUserSchedule));
             ou.getOrganizationUserScheduleList().remove(orgUserSchedule);
             schedule.getOrganizationUserScheduleList().remove(orgUserSchedule);
+            em.merge(ou);
+            em.merge(schedule);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

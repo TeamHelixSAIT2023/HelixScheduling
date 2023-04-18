@@ -14,9 +14,15 @@ import model.Organization;
  * @author Eric
  */
 public class DepartmentService {
-    public Department get(int deptID) throws Exception {
+    public Department get(int deptID) {
         DepartmentDB departmentDB = new DepartmentDB();
         Department dept = departmentDB.get(deptID);
+        return dept;
+    }
+    
+    public Department get(Organization org, String title) {
+        DepartmentDB departmentDB = new DepartmentDB();
+        Department dept = departmentDB.getByOrgTitle(org, title);
         return dept;
     }
     

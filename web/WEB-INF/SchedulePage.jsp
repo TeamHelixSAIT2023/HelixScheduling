@@ -104,166 +104,30 @@
                 <!--Table display area-->
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab" tabindex="0">
-
-                        <!--Table of List View-->
-                        <table class="table table-striped table-hover">
-                            <tr class="table-dark">
-                                <th></th>
-                                <th> Start date </th>
-                                <th> Due date </th>
-                                <th class='text-center'> My Tasks </th>
-                                <th class='text-center'> Priority  </th>
-                            </tr>
-                            <tr><td></td><td class="h6 text-primary">January</td></tr>
-                            <tr>
-                                <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
-                                <td>2023-01-25 </td>
-                                <td>2023-01-30</td>
-                                <td>Task 1</td>
-                                <td class='text-center'>High</td>     
-                            </tr>
-                            <tr><td></td><td class="h6 text-primary">February</td></tr>
-                            <tr>
-                                <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
-                                <td>2023-02-15 </td>
-                                <td>2023-02-20</td>
-                                <td>Task 2</td>
-                                <td class='text-center'>High</td>     
-                            </tr>
-                        </table>
-                        <!--Circle ADD icon-->
-                        <a href="#"><i class="bi bi-plus-circle" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="font-size: 3rem; color: #0275d8;"></i></a>
-
-                        <!-- Modal (ADD task pop up menu) -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Task Details</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="row mt-2">
-                                                <label for="title" class="col-3 col-form-label"> Title</label>
-                                                <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="" aria-label="">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="description" class="col-3 col-form-label"> Description</label>
-                                                <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="" aria-label="">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="organization" class="col-3 col-form-label"> Organization</label>
-                                                <div class="dropdown col-sm-8">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Select
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Company A</button></li>
-                                                        <li><button class="dropdown-item" type="button">Company B</button></li>
-                                                        <li><button class="dropdown-item" type="button">Company C</button></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="priority" class="col-3 col-form-label"> Priority</label>
-                                                <div class="dropdown col-sm-8">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Select
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Hight</button></li>
-                                                        <li><button class="dropdown-item" type="button">Normal</button></li>
-                                                        <li><button class="dropdown-item" type="button">Low</button></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="assign_to" class="col-3 col-form-label"> Assign to</label>
-                                                <div class="dropdown col-sm-8">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Select
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Staff A</button></li>
-                                                        <li><button class="dropdown-item" type="button">Staff B</button></li>
-                                                        <li><button class="dropdown-item" type="button">Staff C</button></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="start_date" class="col-3 col-form-label"> Start date</label>
-                                                <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="due_date" class="col-3 col-form-label"> Due date</label>
-                                                <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <label for="recurring" class="col-3 col-form-label"> Recurring</label>
-                                                <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
-                                                <label for="repeat" class="col-2 col-form-label"> Repeat</label>
-
-                                                <div class="dropdown col-sm-6">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Daily
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Daily</button></li>
-                                                        <li><button class="dropdown-item" type="button">Weekly</button></li>
-                                                        <li><button class="dropdown-item" type="button">Monthly</button></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <label for="recurring" class="col-3 col-form-label"> </label>
-                                                <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
-                                                <label for="until" class="col-2 col-form-label"> Until</label>
-
-                                                <div class="dropdown col-sm-6">
-                                                    <input class="form-control" type="text" placeholder="2023-04-20" aria-label="">
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <label for="status" class="col-3 col-form-label"> Status</label>
-                                                <div class="dropdown col-sm-8">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Select
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Open</button></li>
-                                                        <li><button class="dropdown-item" type="button">Completed</button></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End: Modal (ADD task pop up menu) -->
-
-
+                        <c:choose>
+                            <c:when test="${empty shiftList}">
+                                <p>User has no shifts</p>
+                            </c:when>
+                            <c:otherwise>
+                                <!--Table of List View-->
+                                <table class="table table-striped table-hover">
+                                    <tr class="table-dark">
+                                        <th>Organization</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Shift Type</th>
+                                    </tr>
+                                    <c:forEach var="shift" items="${shiftList}">
+                                        <tr>
+                                            <td>${shift.organizationUserSchedule.schedule.organization.name}</td>
+                                            <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.startDate}"/></td>
+                                            <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.endDate}"/></td>
+                                            <td>${shift.shiftType}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </c:otherwise>
+                        </c:choose>
                         <!--Pagination-->
                         <nav aria-label="Page navigation example">
                             <ul class="pagination mt-5">
@@ -280,17 +144,20 @@
 
                     <div class="tab-pane fade" id="pills-calender" role="tabpanel" aria-labelledby="pills-calender-tab" tabindex="0">
                         <!--Calender View-->
+                        <c:if test="${message != null}">
+                            <p>${message}</p>
+                        </c:if>
                         <ul class="dropdown-menu">
                             <c:forEach var="orgUser" items="${user.organizationUserList}">
                                 <li><a href="/schedule?organization=${orgUser.organization.name}">${orgUser.organization.name}</a></li>
                                 </c:forEach>
                         </ul>
                         <ul class="dropdown-menu">
-                            <c:forEach var="schedule" items="${orgScheduleList}">
-                                <li><a href="/schedule?organization=${org}%startDate=${schedule.startDate}}"><fmt:formatDate type="date" dateStyle="short" value="${schedule.startDate}"/> - <fmt:formatDate type="date" dateStyle="short" value="${schedule.endDate}"/></a></li>
+                            <c:forEach var="orgSchedule" items="${orgScheduleList}">
+                                <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="orgScheduledate" value="${orgSchedule.startDate}"/> 
+                                <li><a href="/schedule?organization=${org}&startDate=${orgScheduledate}}"><fmt:formatDate type="date" dateStyle="short" value="${orgSchedule.startDate}"/> - <fmt:formatDate type="date" dateStyle="short" value="${orgSchedule.endDate}"/></a></li>
                                 </c:forEach>
                         </ul>
-
                         <table>
                             <tr>
                                 <th></th>
@@ -298,30 +165,104 @@
                                     <th><fmt:formatDate type="date" pattern="E-M-dd" value="${date}"/></th>
                                     </c:forEach>
                             </tr>
+                            <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="scheduleDate" value="${schedule.startDate}"/>
                             <c:forEach var="orgUserSchedule" items="${schedule.organizationUserScheduleList}">
                                 <tr>
                                     <td>${orgUserSchedule.organizationUser.user.firstName} ${orgUserSchedule.organizationUser.user.lastName}</td>
                                     <c:forEach var="shift" items="${orgUserSchedule.shiftList}">
-                                        <c:choose>
-                                            <c:when test="${shift != null}">
-                                                <td>
-                                                    <p><fmt:formatDate type="time" pattern="HH:mm" value="${shift.startDate}"/></p>
-                                                    <p><fmt:formatDate type="time" pattern="HH:mm" value="${shift.endDate}"/></p>
-                                                    <c:if test="${shift.shiftType != null}">
-                                                        <p>${shift.shiftType}</p>
-                                                    </c:if>
-                                                </td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td></td>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <td>
+                                            <c:if test="${shift != null}">
+                                                <p><fmt:formatDate type="time" pattern="h:mm a" value="${shift.startDate}"/></p>
+                                                <p><fmt:formatDate type="time" pattern="h:mm a" value="${shift.endDate}"/></p>
+                                                <c:if test="${shift.shiftType != null}">
+                                                    <p>${shift.shiftType}</p>
+                                                </c:if>
+                                                <c:if test="${orgUser.admin == true}">
+                                                    <a href="/schedule?organization=${orgUser.organization.name}&startDate=${scheduleDate}&action=delete&shift=${shift.shiftID}">Remove Shift</a>
+                                                </c:if>
+                                            </c:if>
+                                        </td>
                                     </c:forEach>
                                 </tr>
                             </c:forEach>
                         </table>
+                        <c:if test="${orgUser.admin == true}">
+                            <h3>Add Shift</h3>
+                            <form method="POST">
+                                <div>
+                                    <label for="orgMemberShift">Create Shift For:</label>
+                                    <select name="orgMemberShift">
+                                        <c:choose>
+                                            <c:when test="${orgUser.dept != null}">
+                                                <c:forEach var="orgMember" items="${orgUser.dept.organizationUserList}">
+                                                    <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="orgMember" items="${orgUser.organization.organizationUserList}">
+                                                    <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </select>
+                                </div>
+                                <div>
+                                    <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="startDate" value="${schedule.startDate}"/>
+                                    <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="endDate" value="${schedule.endDate}"/>
+                                    <label for="date">Date:</label>
+                                    <input type="date" name="date" id="shiftDate" min="${startDate}" max="${endDate}" required> 
+                                    <div>
+                                        <label for="start-time">Start Time:</label>
+                                        <input type="time" name="start-time" id="start-time" value="00:00" required>
+                                    </div>
+                                    <div>
+                                        <label for="end-time">End Time:</label>
+                                        <input type="time" name="end-time" id="end-time" value="00:00" required>
+                                    </div>
+                                    <div>
+                                        <label for="shift-type">Shift Type:</label>
+                                        <input type="text" name="shift-type" id="shift-type">
+                                    </div>
+                                    <div>
+                                        <input type="hidden" name="action" value="new-shift" required>
+                                        <input type="submit" value="Add Shift">
+                                    </div>
+                            </form>
 
-
+                            <h3>Create Schedule</h3>
+                            <form method="POST">
+                                <div>
+                                    <label for="org">Organization:</label>
+                                    <select name="orgName">
+                                        <c:forEach var="organization" items="${user.organizationUserList}">
+                                            <option value="${organization.organization.name}"
+                                                    <c:if test="${organization == orgUser.organization}"> selected </c:if>
+                                                    required>${organization.organization.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="dept">Department:</label>
+                                    <select name="dept">
+                                        <c:forEach var="dept" items="${orgUser.organization.departmentList}">
+                                            <option value="${dept.title}">${dept.title}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="start-date">Start Date:</label>
+                                    <input type="date" name="start-date" id="start-date">
+                                </div>
+                                <div>
+                                    <label for="copy-forward">Copy Previous Schedule Forward</label>
+                                    <input type="radio" name="copy-forward" id="copy-forward">
+                                </div>
+                                <div>
+                                    <input type="hidden" name="action" value="new-schedule"> 
+                                    <input type="submit" value="New Schedule">
+                                </div>
+                            </form>
+                        </c:if>
                     </div>
 
                 </div>

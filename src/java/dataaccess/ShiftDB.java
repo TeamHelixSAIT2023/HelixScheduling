@@ -5,6 +5,7 @@
  */
 package dataaccess;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -49,6 +50,19 @@ public class ShiftDB {
         
         try {
             shifts = em.createNamedQuery("Schedule.findByOrgUserSchedule", Shift.class).setParameter("organizationUserSchedule", orgUserSchedule).getResultList();
+        } finally {
+            em.close();
+        }
+        
+        return shifts;
+    }
+    
+    public List<Shift> getByUpcoming (OrganizationUserSchedule orgUserSchedule){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        List<Shift> shifts;
+        
+        try {
+            shifts = em.createNamedQuery("Shift.findByUpcoming", Shift.class).setParameter("organizationUserSchedule", orgUserSchedule).getResultList();
         } finally {
             em.close();
         }
