@@ -24,24 +24,45 @@ import model.User;
  */
 public class OrganizationUserService {
     
+    /**
+     *
+     * @param organizationUserID
+     * @return
+     */
     public OrganizationUser get(int organizationUserID){
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.get(organizationUserID);
         return uo;
     }
     
+    /**
+     *
+     * @param org
+     * @param user
+     * @return
+     */
     public OrganizationUser getByOrgUser (Organization org, User user){
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser ou = uoDB.getByOrgUser(org, user);
         return ou;
     }
     
+    /**
+     *
+     * @param org
+     * @return
+     */
     public List<OrganizationUser> getByOrg (Organization org) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         List<OrganizationUser> ouList = uoDB.getAllByOrg(org);
         return ouList;
     }
     
+    /**
+     *
+     * @param user
+     * @return
+     */
     public List<OrganizationUser> getByUser (User user) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         List<OrganizationUser> ouList = uoDB.getAllByUser(user);
@@ -81,6 +102,8 @@ public class OrganizationUserService {
         uo.setDept(dept);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
+        uo.setAdmin(admin);
+        uo.getAvailabilityList();
         
         AvailabilityService as = new AvailabilityService();
         as.update(uo, availabilityList);
@@ -88,6 +111,11 @@ public class OrganizationUserService {
         uoDB.update(uo);
     }
     
+    /**
+     *
+     * @param org
+     * @param user
+     */
     public void delete (Organization org, User user) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByOrgUser(org, user);

@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ShiftSwapRequest.findAll", query = "SELECT s FROM ShiftSwapRequest s")
     , @NamedQuery(name = "ShiftSwapRequest.findByShiftSwapRequestID", query = "SELECT s FROM ShiftSwapRequest s WHERE s.shiftSwapRequestID = :shiftSwapRequestID")
-    , @NamedQuery(name = "ShiftSwapRequest.findByApproved", query = "SELECT s FROM ShiftSwapRequest s WHERE s.approved = :approved")})
+    , @NamedQuery(name = "ShiftSwapRequest.findByApproved", query = "SELECT s FROM ShiftSwapRequest s WHERE s.approved = :approved")
+    , @NamedQuery(name = "ShiftSwapRequest.findBySender", query = "SELECT o FROM ShiftSwapRequest o WHERE o.sender = :sender")
+    , @NamedQuery(name = "ShiftSwapRequest.findByReceiever", query = "SELECT o FROM ShiftSwapRequest o WHERE o.receiver = :receiver")})
 public class ShiftSwapRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;

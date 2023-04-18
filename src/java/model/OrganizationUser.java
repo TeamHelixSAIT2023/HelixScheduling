@@ -198,6 +198,7 @@ public class OrganizationUser implements Serializable {
     }
 
     public void setShiftSwapRequestSender(List<ShiftSwapRequest> shiftSwapRequestList1) {
+
         this.shiftSwapRequestListSender = shiftSwapRequestList1;
     }
 

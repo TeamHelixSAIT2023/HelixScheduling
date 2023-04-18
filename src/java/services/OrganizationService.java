@@ -79,4 +79,14 @@ public class OrganizationService {
         Organization org = orgDB.get(organizationID);
         orgDB.delete(org);
     }
+    
+    public Organization register(String orgName, String orgDesc, boolean pub) {
+        OrganizationDB orgDB = new OrganizationDB();
+        Organization org = new Organization();
+        org.setName(orgName);
+        org.setDescription(orgDesc);
+        org.setPublic1(pub);
+        orgDB.insert(org);
+        return org;
+    }
 }

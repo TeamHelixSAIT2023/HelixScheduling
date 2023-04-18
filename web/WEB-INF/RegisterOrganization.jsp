@@ -1,17 +1,22 @@
+<%-- 
+    Document   : RegisterOrganizationpage
+    Created on : 11-Mar-2023, 2:17:27 PM
+    Author     : Sukhpal
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <title>Gannt Chart</title>
+        <title>Register For a Organization</title>
     </head>
     <body>
-    
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
             <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
             </a>
@@ -36,7 +41,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/gannt" class="nav-link active">
+                    <a href="/gannt" class="nav-link text-white">
                         
                         Gannt Chart
                     </a>
@@ -74,6 +79,35 @@
             </div>
         </div>
 
-    </div>
+
+        
+        <div class="d-flex justify-content-center mt-5" style="position:  static">
+            <div>
+                <h1 class="text-center p-2" style="color:black">Create Organization</h1>
+                <form method="POST" action="registerorganization">
+                    <div>
+                        <label>Organization Name:</label>
+                        <div>
+                            <input class="form-control" style="margin-bottom: 10px;" name="orgName" placeholder="Organization Name:">
+                        </div>
+                    </div>
+                    <div >
+                        <label>Organization Description:</label>
+                        <div >
+                            <input class="form-control" style="margin-bottom: 10px;" type="text" name="orgDesc" placeholder="Organization Description:">
+                        </div>
+                    </div>
+                    <div>
+                        <label>Public Organization:</label>
+                        <div>
+                            <input style="margin-bottom: 10px;" type="checkbox" name="public" value="public"/>
+                        </div>
+                    </div>
+
+                    <input class="btn btn-primary" type="submit" value="Create Organization" name="submit">
+                </form>
+
+            </div>
+        </div>
     </body>
-</html> 
+</html>
