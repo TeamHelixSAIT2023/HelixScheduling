@@ -94,21 +94,24 @@ public class OrganizationServlet extends HttpServlet {
                 double hourly = Double.parseDouble(request.getParameter("newhourly"));
                 boolean newadmin;
                 newadmin = (request.getParameter("newadmin") != null);
+                int orgUserID = Integer.parseInt(request.getParameter("userID"));
 
                 if (email != null && !email.equals("")) {
-                    OrganizationUserService ous = new OrganizationUserService();
+                    OrganizationUserService ouService = new OrganizationUserService();
                     UserService us = new UserService();
                     DepartmentService ds = new DepartmentService();
                     
 
                     User user = us.get(email);
-                    OrganizationUser manager = ous.get(managedBy);
+                    OrganizationUser manager = ouService.get(managedBy);
                     Department dept = ds.get(deptID);
+                    OrganizationUser ou = ouService.get(orgUserID);
+                  
                     
   
                     
 
-                    ous.update(org, user, dept, null, manager, hourly, newadmin, null);
+                    ouService.update(org, user, dept, ou.getSchedule(), manager, hourly, newadmin, ou.getAvailabilityList());
                     session.setAttribute("orgEditMessage","User edited");
                 }
             } catch (Exception e) {
