@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import model. Organization;
 import services.OrganizationService;
 import dataaccess.OrganizationDB;
+import model.User;
 
 
 /**
@@ -33,9 +34,16 @@ public class RergisterOrganizationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.invalidate();
+        
 
         getServletContext().getRequestDispatcher("/WEB-INF/RegisterOrganization.jsp").forward(request, response);
+        
+        
+        User user =  (User) session.getAttribute("user");
+       
+        
+        
+        request.setAttribute("name", user); 
     }
 
     @Override

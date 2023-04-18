@@ -16,8 +16,8 @@
         <title>Join a Organization</title>
     </head>
     <body>
-        
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
+        <div>
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
             <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
             </a>
@@ -75,19 +75,19 @@
                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="/account">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" href="/login">Sign out</a></li>
                 </ul>
             </div>
         </div>
 
     </div>
-        
+    <div class="d-flex justify-content-center mt-5">
         <form id="joinForm" action="joinOrganization" method="POST">
             <label for="orgName">Enter organization name:</label>
-            <input type="text" id="orgName" name="orgName">
-            <button type="submit">Join organization</button>
+            <input class="form-control" style="margin-top: 10px; margin-bottom: 10px;" type="text" id="orgName" name="orgName">
+            <button class="btn btn-primary" type="submit">Join organization</button>
         </form>
-
+    </div>
 
     </body>
 </html>

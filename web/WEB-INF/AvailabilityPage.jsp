@@ -91,9 +91,9 @@
                     <h1>This user isn't a part of any organizations</h1>
                 </c:when>
                 <c:otherwise>
-                    <div>
+                    <div >
                         <!-- currently does not work as intended, make into a drop down of links using bootstrap -->
-                        <select name="org-list-dropdown" id="org-list-dropdown">
+                        <select class="btn btn-secondary dropdown-toggle" aria-haspopup="true" data-toggle="dropdown"  name="org-list-dropdown" id="org-list-dropdown">
                             <c:forEach var="org" items="${orgList}">
                                 <option value="${org.name}"><a href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></option>
                             </c:forEach>  

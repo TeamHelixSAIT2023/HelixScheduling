@@ -16,7 +16,7 @@
         <title>Register For a Organization</title>
     </head>
     <body>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
             <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
             </a>
@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/task" class="nav-link active">
+                    <a href="/task" class="nav-link text-white">
                         
                         Task view
                     </a>
@@ -88,19 +88,19 @@
                     <div>
                         <label>Organization Name:</label>
                         <div>
-                            <input name="orgName" placeholder="Organization Name:">
+                            <input class="form-control" style="margin-bottom: 10px;" name="orgName" placeholder="Organization Name:">
                         </div>
                     </div>
                     <div >
                         <label>Organization Description:</label>
                         <div >
-                            <input type="text" name="orgDesc" placeholder="Organization Description:">
+                            <input class="form-control" style="margin-bottom: 10px;" type="text" name="orgDesc" placeholder="Organization Description:">
                         </div>
                     </div>
                     <div>
                         <label>Public Organization:</label>
                         <div>
-                            <input type="checkbox" name="public" value="public"/>
+                            <input style="margin-bottom: 10px;" type="checkbox" name="public" value="public"/>
                         </div>
                     </div>
 

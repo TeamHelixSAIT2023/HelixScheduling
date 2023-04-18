@@ -82,7 +82,7 @@
         </div>
 
     </div>
-        <div>
+    <div style="margin-left: 13%;">
             <h1>Organization List</h1>
             <c:forEach var="orgUser" items="${user.organizationUserList}">
                 <a href="<c:url value='/organization?organization=${orgUser.organization.name}'/>">
