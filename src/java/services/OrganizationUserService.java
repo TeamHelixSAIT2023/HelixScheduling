@@ -24,31 +24,63 @@ import model.User;
  */
 public class OrganizationUserService {
     
+    /**
+     *
+     * @param organizationUserID
+     * @return
+     */
     public OrganizationUser get(int organizationUserID){
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.get(organizationUserID);
         return uo;
     }
     
+    /**
+     *
+     * @param org
+     * @param user
+     * @return
+     */
     public OrganizationUser getByOrgUser (Organization org, User user){
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser ou = uoDB.getByOrgUser(org, user);
         return ou;
     }
     
+    /**
+     *
+     * @param org
+     * @return
+     */
     public List<OrganizationUser> getByOrg (Organization org) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         List<OrganizationUser> ouList = uoDB.getAllByOrg(org);
         return ouList;
     }
     
+    /**
+     *
+     * @param user
+     * @return
+     */
     public List<OrganizationUser> getByUser (User user) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         List<OrganizationUser> ouList = uoDB.getAllByUser(user);
         return ouList;
     }
     
-    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) throws Exception {
+    /**
+     *
+     * @param org
+     * @param user
+     * @param dept
+     * @param schedule
+     * @param managedBy
+     * @param hourly
+     * @param owner
+     * @param admin
+     */
+    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) {
         OrganizationUser ou = new OrganizationUser();
         ou.setOrganization(org);
         ou.setUser(user);
@@ -76,13 +108,27 @@ public class OrganizationUserService {
         }
     }
 
-    public void update(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
+    /**
+     *
+     * @param org
+     * @param user
+     * @param dept
+     * @param schedule
+     * @param managedBy
+     * @param hourly
+     * @param admin
+     * @param availabilityList
+     * @throws Exception
+     */
+    public void update(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly,boolean admin, List<Availability> availabilityList) throws Exception {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByOrgUser(org, user);
         uo.setDept(dept);
         uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
+        uo.setAdmin(admin);
+        uo.getAvailabilityList();
         
         AvailabilityService as = new AvailabilityService();
         as.update(uo, availabilityList);
@@ -90,6 +136,11 @@ public class OrganizationUserService {
         uoDB.update(uo);
     }
     
+    /**
+     *
+     * @param org
+     * @param user
+     */
     public void delete (Organization org, User user) {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByOrgUser(org, user);

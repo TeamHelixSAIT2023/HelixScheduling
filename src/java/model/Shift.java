@@ -58,14 +58,16 @@ public class Shift implements Serializable {
     private Date endDate;
     @Column(name = "shiftType")
     private String shiftType;
-    @JoinColumn(name = "organizationUser", referencedColumnName = "organizationUserID")
+    @JoinColumn(name = "organizationUserSchedule", referencedColumnName = "organizationUserScheduleID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private OrganizationUser organizationUser;
+    private OrganizationUserSchedule organizationUserSchedule;
     @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Schedule schedule;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift", fetch = FetchType.EAGER)
     private List<ShiftSwapBoard> shiftSwapBoardList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift", fetch = FetchType.EAGER)
+    private List<ShiftSwapRequest> shiftSwapRequestList;
 
     public Shift() {
     }
@@ -112,12 +114,12 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
-    public OrganizationUser getOrganizationUser() {
-        return organizationUser;
+    public OrganizationUserSchedule getOrganizationUserSchedule() {
+        return organizationUserSchedule;
     }
 
-    public void setOrganizationUser(OrganizationUser organizationUser) {
-        this.organizationUser = organizationUser;
+    public void setOrganizationUserSchedule(OrganizationUserSchedule organizationUserSchedule) {
+        this.organizationUserSchedule = organizationUserSchedule;
     }
 
     public Schedule getSchedule() {
@@ -135,6 +137,15 @@ public class Shift implements Serializable {
 
     public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
         this.shiftSwapBoardList = shiftSwapBoardList;
+    }
+
+    @XmlTransient
+    public List<ShiftSwapRequest> getShiftSwapRequestList() {
+        return shiftSwapRequestList;
+    }
+
+    public void setShiftSwapRequestList(List<ShiftSwapRequest> shiftSwapRequestList) {
+        this.shiftSwapRequestList = shiftSwapRequestList;
     }
 
     @Override

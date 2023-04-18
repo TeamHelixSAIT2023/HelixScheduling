@@ -65,13 +65,15 @@ public class Organization implements Serializable {
     @Column(name = "managerApprovedTimeOff")
     private boolean managerApprovedTimeOff;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
+    private List<ShiftSwapBoard> shiftSwapBoardList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
+    private List<OrganizationRequest> organizationRequestList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<Schedule> scheduleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
     private List<Department> departmentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization", fetch = FetchType.EAGER)
-    private List<ShiftSwapBoard> shiftSwapBoardList;
 
     public Organization() {
     }
@@ -147,6 +149,24 @@ public class Organization implements Serializable {
     }
 
     @XmlTransient
+    public List<ShiftSwapBoard> getShiftSwapBoardList() {
+        return shiftSwapBoardList;
+    }
+
+    public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
+        this.shiftSwapBoardList = shiftSwapBoardList;
+    }
+
+    @XmlTransient
+    public List<OrganizationRequest> getOrganizationRequestList() {
+        return organizationRequestList;
+    }
+
+    public void setOrganizationRequestList(List<OrganizationRequest> organizationRequestList) {
+        this.organizationRequestList = organizationRequestList;
+    }
+
+    @XmlTransient
     public List<Schedule> getScheduleList() {
         return scheduleList;
     }
@@ -171,15 +191,6 @@ public class Organization implements Serializable {
 
     public void setDepartmentList(List<Department> departmentList) {
         this.departmentList = departmentList;
-    }
-
-    @XmlTransient
-    public List<ShiftSwapBoard> getShiftSwapBoardList() {
-        return shiftSwapBoardList;
-    }
-
-    public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
-        this.shiftSwapBoardList = shiftSwapBoardList;
     }
 
     @Override

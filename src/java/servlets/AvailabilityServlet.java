@@ -77,7 +77,6 @@ public class AvailabilityServlet extends HttpServlet {
 
         if (action != null && !action.equals("")) {
             if (action.equals("availability")) {
-                Instant epoch = Instant.EPOCH;
                 List<Availability> availabilityList = new ArrayList<Availability>();
                 Availability curr;
                 String days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -134,7 +133,7 @@ public class AvailabilityServlet extends HttpServlet {
                 if (!failed) {
 
                     try {
-                        ouService.update(ou.getOrganization(), user, ou.getDept(), ou.getSchedule(), ou.getManagedBy(), ou.getHourly(), availabilityList);
+                        ouService.update(ou.getOrganization(), user, ou.getDept(), ou.getSchedule(), ou.getManagedBy(), ou.getHourly(), ou.getAdmin(), availabilityList);
                         session.setAttribute("availabilityUpdateMessage", "Availability updated");
                     } catch (Exception e) {
                         session.setAttribute("availabilityUpdateMessage", "Failed to update availability");

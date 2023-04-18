@@ -50,6 +50,11 @@ public class AvailabilityService {
             oldList.get(i).setEndTime(updateList.get(i).getEndTime());
             aDB.update(oldList.get(i));
         }
-        
+    }
+    
+    public void delete (int availabilityID) {
+        AvailabilityDB aDB = new AvailabilityDB();
+        Availability availability = aDB.get(availabilityID);
+        aDB.delete(availability);
     }
 }

@@ -55,14 +55,14 @@ public class Department implements Serializable {
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dept", fetch = FetchType.EAGER)
+    private List<ShiftSwapBoard> shiftSwapBoardList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dept", fetch = FetchType.EAGER)
     private List<Schedule> scheduleList;
     @OneToMany(mappedBy = "dept", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
     @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Organization organization;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dept", fetch = FetchType.EAGER)
-    private List<ShiftSwapBoard> shiftSwapBoardList;
 
     public Department() {
     }
@@ -111,6 +111,15 @@ public class Department implements Serializable {
     }
 
     @XmlTransient
+    public List<ShiftSwapBoard> getShiftSwapBoardList() {
+        return shiftSwapBoardList;
+    }
+
+    public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
+        this.shiftSwapBoardList = shiftSwapBoardList;
+    }
+
+    @XmlTransient
     public List<Schedule> getScheduleList() {
         return scheduleList;
     }
@@ -134,15 +143,6 @@ public class Department implements Serializable {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
-    }
-
-    @XmlTransient
-    public List<ShiftSwapBoard> getShiftSwapBoardList() {
-        return shiftSwapBoardList;
-    }
-
-    public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
-        this.shiftSwapBoardList = shiftSwapBoardList;
     }
 
     @Override
