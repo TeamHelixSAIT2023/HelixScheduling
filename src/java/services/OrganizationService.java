@@ -44,7 +44,7 @@ public class OrganizationService {
         orgDB.insert(org);
         
         OrganizationUserService ous = new OrganizationUserService();
-        ous.insert(org, user, null, null, null, 0, true, true);
+        ous.insert(org, user, null, null, 0, true, true);
     }
     
     public void updateInfo(int organizationID, String name, String description, boolean public1, boolean managerApprovedAvailabilityChange, boolean managerApprovedShiftSwap, boolean managerApprovedTimeOff){

@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`schedule` (
         REFERENCES `helixschedulingdb`.`department`(`deptID`),
     CONSTRAINT ck_schedule_startDate_less_than_endDate
         CHECK (`startDate` < `endDate`),
-    CONSTRAINT uk_schedule_organization_dept
-        UNIQUE (`organization`, `dept`)
+    CONSTRAINT uk_schedule_dept_startDate
+        UNIQUE (`dept`, `startDate`)
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
@@ -81,7 +81,6 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
     `organization` INT(10) NOT NULL,
     `user` INT(10) NOT NULL,
     `dept` INT(2),
-    `schedule` INT(10),
     `managedBy` INT(10),
     `hourly` DOUBLE(5,2) DEFAULT 0,
     `admin` BOOLEAN DEFAULT FALSE,
@@ -99,9 +98,6 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUser` (
     CONSTRAINT fk_organizationUser_mangedBy
         FOREIGN KEY (`managedBy`)
         REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`),
-    CONSTRAINT fk_organizationUser_sheduleID
-        FOREIGN KEY (`schedule`)
-        REFERENCES `helixschedulingdb`.`schedule` (`scheduleID`),
     CONSTRAINT uk_organizationUser_organization_user
         UNIQUE (`organization`, `user`),
     CONSTRAINT ck_organizationUser_hourly_above_zero
@@ -123,18 +119,17 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUserSchedule` (
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shift` (
     `shiftID` INT(10) NOT NULL AUTO_INCREMENT,
-    `schedule` INT(10) NOT NULL,
     `organizationUserSchedule` INT(10) NOT NULL,
     `startDate` DATETIME NOT NULL,
     `endDate` DATETIME NOT NULL,
     `shiftType` VARCHAR(30),
     PRIMARY KEY (`shiftID`),
-    CONSTRAINT fk_shift_schedule
-        FOREIGN KEY (`schedule`)
-        REFERENCES `helixschedulingdb`.`schedule`(`scheduleID`),
     CONSTRAINT fk_shift_organizationUserSchedule
         FOREIGN KEY (`organizationUserSchedule`)
-        REFERENCES `helixschedulingdb`.`organizationUserSchedule`(`organizationUserScheduleID`)
+        REFERENCES `helixschedulingdb`.`organizationUserSchedule`(`organizationUserScheduleID`),
+    CONSTRAINT uk_shift_organizationUserSchedule_startDate
+        UNIQUE (`organizationUserSchedule`, `startDate`)
+
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`availability` (
@@ -173,10 +168,10 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`unavailable` (
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shiftSwapBoard` (
-    `shiftSwapBoardID` INTEGER(10) NOT NULL AUTO_INCREMENT,
-    `organization` INTEGER(10) NOT NULL,
-    `dept` INTEGER(10) NOT NULL,
-    `shift` INTEGER(10) NOT NULL,
+    `shiftSwapBoardID` INT(10) NOT NULL AUTO_INCREMENT,
+    `organization` INT(10) NOT NULL,
+    `dept` INT(10) NOT NULL,
+    `shift` INT(10) NOT NULL,
     PRIMARY KEY (`shiftSwapBoardID`),
     CONSTRAINT fk_shiftSwapBoard_organization
         FOREIGN KEY (`organization`)

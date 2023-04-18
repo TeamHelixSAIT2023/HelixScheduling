@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,9 +74,207 @@
                     <li><a class="dropdown-item" href="/login">Sign out</a></li>
                 </ul>
             </div>
+
+
+            <!--Main content area-->
+            <div class="col-6">
+
+                <!-- Dropdown -->
+                <div class="dropdown mt-5">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="#">Mark as Done</a></li>
+                        <li><a class="dropdown-item" href="#">Archive</a></li>
+                        <li><a class="dropdown-item" href="#">Delete</a></li>
+
+                    </ul>
+                </div>
+
+                <!--Tabs (List View, Calender View)-->
+                <ul class="nav nav-tabs mt-5" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-list-tab" data-bs-toggle="pill" data-bs-target="#pills-list" type="button" role="tab" aria-controls="pills-list" aria-selected="true">List View</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-calender-tab" data-bs-toggle="pill" data-bs-target="#pills-calender" type="button" role="tab" aria-controls="pills-calender" aria-selected="false">Calender View</button>
+                    </li>
+
+                </ul>
+                <!--End: Tabs-->
+
+                <!--Table display area-->
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab" tabindex="0">
+                        <c:choose>
+                            <c:when test="${empty shiftList}">
+                                <p>User has no shifts</p>
+                            </c:when>
+                            <c:otherwise>
+                                <!--Table of List View-->
+                                <table class="table table-striped table-hover">
+                                    <tr class="table-dark">
+                                        <th>Organization</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Shift Type</th>
+                                    </tr>
+                                    <c:forEach var="shift" items="${shiftList}">
+                                        <tr>
+                                            <td>${shift.organizationUserSchedule.schedule.organization.name}</td>
+                                            <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.startDate}"/></td>
+                                            <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.endDate}"/></td>
+                                            <td>${shift.shiftType}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </c:otherwise>
+                        </c:choose>
+                        <!--Pagination-->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination mt-5">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <!--Pagination End-->
+                        <!--End: Table of List View-->
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-calender" role="tabpanel" aria-labelledby="pills-calender-tab" tabindex="0">
+                        <!--Calender View-->
+                        <c:if test="${message != null}">
+                            <p>${message}</p>
+                        </c:if>
+                        <ul class="dropdown-menu">
+                            <c:forEach var="orgUser" items="${user.organizationUserList}">
+                                <li><a href="/schedule?organization=${orgUser.organization.name}">${orgUser.organization.name}</a></li>
+                                </c:forEach>
+                        </ul>
+                        <ul class="dropdown-menu">
+                            <c:forEach var="orgSchedule" items="${orgScheduleList}">
+                                <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="orgScheduledate" value="${orgSchedule.startDate}"/> 
+                                <li><a href="/schedule?organization=${org}&startDate=${orgScheduledate}}"><fmt:formatDate type="date" dateStyle="short" value="${orgSchedule.startDate}"/> - <fmt:formatDate type="date" dateStyle="short" value="${orgSchedule.endDate}"/></a></li>
+                                </c:forEach>
+                        </ul>
+                        <table>
+                            <tr>
+                                <th></th>
+                                    <c:forEach var="date" items="${dateList}">
+                                    <th><fmt:formatDate type="date" pattern="E-M-dd" value="${date}"/></th>
+                                    </c:forEach>
+                            </tr>
+                            <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="scheduleDate" value="${schedule.startDate}"/>
+                            <c:forEach var="orgUserSchedule" items="${schedule.organizationUserScheduleList}">
+                                <tr>
+                                    <td>${orgUserSchedule.organizationUser.user.firstName} ${orgUserSchedule.organizationUser.user.lastName}</td>
+                                    <c:forEach var="shift" items="${orgUserSchedule.shiftList}">
+                                        <td>
+                                            <c:if test="${shift != null}">
+                                                <p><fmt:formatDate type="time" pattern="h:mm a" value="${shift.startDate}"/></p>
+                                                <p><fmt:formatDate type="time" pattern="h:mm a" value="${shift.endDate}"/></p>
+                                                <c:if test="${shift.shiftType != null}">
+                                                    <p>${shift.shiftType}</p>
+                                                </c:if>
+                                                <c:if test="${orgUser.admin == true}">
+                                                    <a href="/schedule?organization=${orgUser.organization.name}&startDate=${scheduleDate}&action=delete&shift=${shift.shiftID}">Remove Shift</a>
+                                                </c:if>
+                                            </c:if>
+                                        </td>
+                                    </c:forEach>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                        <c:if test="${orgUser.admin == true}">
+                            <h3>Add Shift</h3>
+                            <form method="POST">
+                                <div>
+                                    <label for="orgMemberShift">Create Shift For:</label>
+                                    <select name="orgMemberShift">
+                                        <c:choose>
+                                            <c:when test="${orgUser.dept != null}">
+                                                <c:forEach var="orgMember" items="${orgUser.dept.organizationUserList}">
+                                                    <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="orgMember" items="${orgUser.organization.organizationUserList}">
+                                                    <option value="${orgMember.organizationUserID}">${orgMember.user.firstName} ${orgMember.user.lastName}</option>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </select>
+                                </div>
+                                <div>
+                                    <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="startDate" value="${schedule.startDate}"/>
+                                    <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="endDate" value="${schedule.endDate}"/>
+                                    <label for="date">Date:</label>
+                                    <input type="date" name="date" id="shiftDate" min="${startDate}" max="${endDate}" required> 
+                                    <div>
+                                        <label for="start-time">Start Time:</label>
+                                        <input type="time" name="start-time" id="start-time" value="00:00" required>
+                                    </div>
+                                    <div>
+                                        <label for="end-time">End Time:</label>
+                                        <input type="time" name="end-time" id="end-time" value="00:00" required>
+                                    </div>
+                                    <div>
+                                        <label for="shift-type">Shift Type:</label>
+                                        <input type="text" name="shift-type" id="shift-type">
+                                    </div>
+                                    <div>
+                                        <input type="hidden" name="action" value="new-shift" required>
+                                        <input type="submit" value="Add Shift">
+                                    </div>
+                            </form>
+
+                            <h3>Create Schedule</h3>
+                            <form method="POST">
+                                <div>
+                                    <label for="org">Organization:</label>
+                                    <select name="orgName">
+                                        <c:forEach var="organization" items="${user.organizationUserList}">
+                                            <option value="${organization.organization.name}"
+                                                    <c:if test="${organization == orgUser.organization}"> selected </c:if>
+                                                    required>${organization.organization.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="dept">Department:</label>
+                                    <select name="dept">
+                                        <c:forEach var="dept" items="${orgUser.organization.departmentList}">
+                                            <option value="${dept.title}">${dept.title}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="start-date">Start Date:</label>
+                                    <input type="date" name="start-date" id="start-date">
+                                </div>
+                                <div>
+                                    <label for="copy-forward">Copy Previous Schedule Forward</label>
+                                    <input type="radio" name="copy-forward" id="copy-forward">
+                                </div>
+                                <div>
+                                    <input type="hidden" name="action" value="new-schedule"> 
+                                    <input type="submit" value="New Schedule">
+                                </div>
+                            </form>
+                        </c:if>
+                    </div>
+
+                </div>
+                <!--End: Table display area-->
+
+            </div>
+            <!--End: Main content area--> 
+
         </div>
-
     </div>
-
     </body>
 </html> 

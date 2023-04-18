@@ -1,8 +1,15 @@
 SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE `notification`;
+TRUNCATE `timeOffRequest`;
+TRUNCATE `organizationRequest`;
+TRUNCATE `availabilityChangeRequest`;
+TRUNCATE `shiftSwapRequest`;
+TRUNCATE `organizationUserRequest`;
 TRUNCATE `shiftSwapBoard`;
-TRUNCATE `shift`;
 TRUNCATE `unavailable`;
 TRUNCATE `availability`;
+TRUNCATE `shift`;
+TRUNCATE `organizationUserSchedule`;
 TRUNCATE `organizationUser`;
 TRUNCATE `schedule`;
 TRUNCATE `department`;
@@ -92,11 +99,12 @@ INSERT INTO helixschedulingdb.schedule (organization, dept, startDate, endDate) 
 (3, 8, '2023-03-15', '2023-03-21'),
 (5, 6, '2023-03-11', '2023-03-17'),
 (4, 2, '2023-03-16', '2023-03-22'),
-(2, 1, '2023-03-18', '2023-03-24'),
+(2, 2, '2023-03-18', '2023-03-24'),
 (10, 9, '2023-03-13', '2023-03-19'),
 (8, 7, '2023-03-17', '2023-03-23'),
 (6, 10, '2023-03-14', '2023-03-20'),
-(9, 5, '2023-03-12', '2023-03-18');
+(9, 5, '2023-03-12', '2023-03-18'),
+(1, 1, '2023-03-12', '2023-03-18');
 
 -- organizationUser Table 
 
@@ -108,20 +116,24 @@ INSERT INTO helixschedulingdb.schedule (organization, dept, startDate, endDate) 
     `managedBy` INT(10),
     `hourly` DOUBLE(5,2), */
 
-INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedule, managedBy, hourly) VALUES
-(1, 1, 1, 1, NULL, 25.00),
-(1, 2, 1, 1, 1, 20.00),
-(2, 3, 2, 2, NULL, 30.00),
-(2, 4, 2, 2, 3, 35.00),
-(3, 5, 3, 3, NULL, 28.00),
-(3, 6, 3, 3, 5, 30.00),
-(4, 7, 4, 4, NULL, 22.00),
-(4, 8, 4, 4, 7, 25.00),
-(5, 9, 5, 5, NULL, 40.00),
-(5, 10, 5, 5, 9, 45.00);
+INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, managedBy, hourly) VALUES
+(1, 1, 1, NULL, 25.00),
+(1, 2, 1, 1, 20.00),
+(2, 3, 2, NULL, 30.00),
+(2, 4, 2, 3, 35.00),
+(3, 5, 3, NULL, 28.00),
+(3, 6, 3, 5, 30.00),
+(4, 7, 4, NULL, 22.00),
+(4, 8, 4, 7, 25.00),
+(5, 9, 5, NULL, 40.00),
+(5, 10, 5, 9, 45.00);
 
-INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, schedule, managedBy, hourly, admin, owner) VALUES
-(1, 11, 1, NULL, NULL, 20, true, true);
+INSERT INTO helixschedulingdb.organizationUser (organization, user, dept, managedBy, hourly, admin, owner) VALUES
+(1, 11, 1, NULL, 20, true, true);
+
+-- organizationUserSchedule Table
+INSERT INTO helixschedulingdb.organizationUserSchedule (organizationUser, schedule) VALUES
+(11, 11);
 
 -- availability Table 
 
@@ -153,18 +165,15 @@ VALUES
     `endDate` DATETIME NOT NULL,
     `shiftType` VARCHAR(30),*/
 
-INSERT INTO helixschedulingdb.shift (schedule, organizationUser, startDate, endDate, shiftType)
+INSERT INTO helixschedulingdb.shift (organizationUserSchedule, startDate, endDate, shiftType)
 VALUES
-    (1, 1, '2023-03-12 09:00:00', '2023-03-12 17:00:00', 'Day Shift'),
-    (2, 2, '2023-03-13 13:00:00', '2023-03-13 21:00:00', 'Evening Shift'),
-    (3, 3, '2023-03-14 08:00:00', '2023-03-14 16:00:00', 'Day Shift'),
-    (4, 4, '2023-03-15 07:00:00', '2023-03-15 15:00:00', 'Day Shift'),
-    (5, 5, '2023-03-16 22:00:00', '2023-03-17 06:00:00', 'Night Shift'),
-    (6, 6, '2023-03-18 12:00:00', '2023-03-18 20:00:00', 'Evening Shift'),
-    (7, 7, '2023-03-19 16:00:00', '2023-03-19 00:00:00', 'Evening Shift'),
-    (8, 8, '2023-03-20 23:00:00', '2023-03-21 07:00:00', 'Night Shift'),
-    (9, 9, '2023-03-22 06:00:00', '2023-03-22 14:00:00', 'Day Shift'),
-    (10, 10, '2023-03-23 18:00:00', '2023-03-23 02:00:00', 'Evening Shift');
+    (1, '2023-03-12 09:00:00', '2023-03-12 17:00:00', 'Day Shift'),
+    (1, '2023-03-13 13:00:00', '2023-03-13 21:00:00', 'Evening Shift'),
+    (1, '2023-03-14 08:00:00', '2023-03-14 16:00:00', 'Day Shift'),
+    (1, '2023-03-15 07:00:00', '2023-03-15 15:00:00', 'Day Shift'),
+    (1, '2023-03-16 22:00:00', '2023-03-17 06:00:00', 'Night Shift'),
+    (1, '2023-03-17 12:00:00', '2023-03-18 20:00:00', 'Evening Shift'),
+    (1, '2023-03-18 16:00:00', '2023-03-19 00:00:00', 'Evening Shift');
 
 -- shiftSwapBoard Table 
 

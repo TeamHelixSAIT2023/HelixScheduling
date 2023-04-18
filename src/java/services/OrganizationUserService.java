@@ -69,23 +69,11 @@ public class OrganizationUserService {
         return ouList;
     }
     
-    /**
-     *
-     * @param org
-     * @param user
-     * @param dept
-     * @param schedule
-     * @param managedBy
-     * @param hourly
-     * @param owner
-     * @param admin
-     */
-    public void insert(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) {
+    public void insert(Organization org, User user, Department dept, OrganizationUser managedBy, double hourly, boolean owner, boolean admin) {
         OrganizationUser ou = new OrganizationUser();
         ou.setOrganization(org);
         ou.setUser(user);
         ou.setDept(dept);
-        ou.setSchedule(schedule);
         ou.setManagedBy(managedBy);
         ou.setHourly(hourly);
         ou.setAdmin(admin);
@@ -108,23 +96,10 @@ public class OrganizationUserService {
         }
     }
 
-    /**
-     *
-     * @param org
-     * @param user
-     * @param dept
-     * @param schedule
-     * @param managedBy
-     * @param hourly
-     * @param admin
-     * @param availabilityList
-     * @throws Exception
-     */
-    public void update(Organization org, User user, Department dept, Schedule schedule, OrganizationUser managedBy, double hourly,boolean admin, List<Availability> availabilityList) throws Exception {
+    public void update(Organization org, User user, Department dept, OrganizationUser managedBy, double hourly, List<Availability> availabilityList) throws Exception {
         OrganizationUserDB uoDB = new OrganizationUserDB();
         OrganizationUser uo = uoDB.getByOrgUser(org, user);
         uo.setDept(dept);
-        uo.setSchedule(schedule);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
         uo.setAdmin(admin);

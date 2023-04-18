@@ -38,7 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s")
     , @NamedQuery(name = "Schedule.findByScheduleID", query = "SELECT s FROM Schedule s WHERE s.scheduleID = :scheduleID")
     , @NamedQuery(name = "Schedule.findByStartDate", query = "SELECT s FROM Schedule s WHERE s.startDate = :startDate")
-    , @NamedQuery(name = "Schedule.findByEndDate", query = "SELECT s FROM Schedule s WHERE s.endDate = :endDate")})
+    , @NamedQuery(name = "Schedule.findByEndDate", query = "SELECT s FROM Schedule s WHERE s.endDate = :endDate")
+    , @NamedQuery(name = "Schedule.findByOrg", query = "SELECT s FROM Schedule s WHERE s.organization = :organization")
+    , @NamedQuery(name = "Schedule.findByDept", query = "SELECT s FROM Schedule s WHERE s.dept = :dept")
+    , @NamedQuery(name = "Schedule.findByOrgDept", query = "SELECT s FROM Schedule s WHERE s.organization = :organization AND s.dept = :dept")})
 public class Schedule implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,8 +66,6 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Organization organization;
-    @OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER)
-    private List<OrganizationUser> organizationUserList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule", fetch = FetchType.EAGER)
     private List<OrganizationUserSchedule> organizationUserScheduleList;
 
@@ -128,15 +129,6 @@ public class Schedule implements Serializable {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
-    }
-
-    @XmlTransient
-    public List<OrganizationUser> getOrganizationUserList() {
-        return organizationUserList;
-    }
-
-    public void setOrganizationUserList(List<OrganizationUser> organizationUserList) {
-        this.organizationUserList = organizationUserList;
     }
 
     @XmlTransient
