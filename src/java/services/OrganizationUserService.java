@@ -102,7 +102,6 @@ public class OrganizationUserService {
         uo.setDept(dept);
         uo.setManagedBy(managedBy);
         uo.setHourly(hourly);
-        uo.setAdmin(admin);
         uo.getAvailabilityList();
         
         AvailabilityService as = new AvailabilityService();
