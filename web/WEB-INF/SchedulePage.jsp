@@ -83,62 +83,21 @@
 
 
         <!--Main content area-->
-        <div class="mainBody" style="margin-left:13%;">
+        <div class="mainBody" style="margin: auto; width: 60%">
             <main>
                 <!--Tabs (List View, Calender View)-->
                 <ul class="nav nav-tabs mt-5" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-list-tab" data-bs-toggle="pill" data-bs-target="#pills-list" type="button" role="tab" aria-controls="pills-list" aria-selected="true">List View</button>
+                        <button class="nav-link active" id="pills-calender-tab" data-bs-toggle="pill" data-bs-target="#pills-calender" type="button" role="tab" aria-controls="pills-calender" aria-selected="true">Table View</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-calender-tab" data-bs-toggle="pill" data-bs-target="#pills-calender" type="button" role="tab" aria-controls="pills-calender" aria-selected="false">Calender View</button>
+                        <button class="nav-link active" id="pills-list-tab" data-bs-toggle="pill" data-bs-target="#pills-list" type="button" role="tab" aria-controls="pills-list" aria-selected="false">List View</button>
                     </li>
-
                 </ul>
                 <!--End: Tabs-->
 
                 <!--Table display area-->
-
-                <div class="tab-pane fade show active" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab" tabindex="0">
-                    <c:choose>
-                        <c:when test="${empty shiftList}">
-                            <p>User has no shifts</p>
-                        </c:when>
-                        <c:otherwise>
-                            <!--Table of List View-->
-                            <table class="table table-striped table-hover">
-                                <tr class="table-dark">
-                                    <th>Organization</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Shift Type</th>
-                                </tr>
-                                <c:forEach var="shift" items="${shiftList}">
-                                    <tr>
-                                        <td>${shift.organizationUserSchedule.schedule.organization.name}</td>
-                                        <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.startDate}"/></td>
-                                        <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.endDate}"/></td>
-                                        <td>${shift.shiftType}</td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
-                    <!--Pagination-->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination mt-5">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-                    <!--Pagination End-->
-                    <!--End: Table of List View-->
-                </div>
-
-                <div class="tab-pane fade" id="pills-calender" role="tabpanel" aria-labelledby="pills-calender-tab" tabindex="0">
+                <div class="tab-pane fade show active" id="pills-calender" role="tabpanel" aria-labelledby="pills-calender-tab" tabindex="1">
                     <!--Calender View-->
                     <c:if test="${message != null}">
                         <p>${message}</p>
@@ -261,6 +220,46 @@
                         </form>
                     </c:if>
                 </div>
+                <div class="tab-pane fade" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab" tabindex="0">
+                    <c:choose>
+                        <c:when test="${empty shiftList}">
+                            <p>User has no shifts</p>
+                        </c:when>
+                        <c:otherwise>
+                            <!--Table of List View-->
+                            <table class="table table-striped table-hover">
+                                <tr class="table-dark">
+                                    <th>Organization</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Shift Type</th>
+                                </tr>
+                                <c:forEach var="shift" items="${shiftList}">
+                                    <tr>
+                                        <td>${shift.organizationUserSchedule.schedule.organization.name}</td>
+                                        <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.startDate}"/></td>
+                                        <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="short" value="${shift.endDate}"/></td>
+                                        <td>${shift.shiftType}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>
+                    <!--Pagination-->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination mt-5">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                    <!--Pagination End-->
+                    <!--End: Table of List View-->
+                </div>
+
+
             </main>
         </div>
         <!--End: Table display area-->

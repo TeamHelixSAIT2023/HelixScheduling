@@ -20,6 +20,7 @@
     <class>model.AvailabilityChangeRequest</class>
     <class>model.TimeOffRequest</class>
     <class>model.ShiftSwapRequest</class>
+    <class>model.Task</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
