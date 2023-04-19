@@ -129,7 +129,6 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shift` (
         REFERENCES `helixschedulingdb`.`organizationUserSchedule`(`organizationUserScheduleID`),
     CONSTRAINT uk_shift_organizationUserSchedule_startDate
         UNIQUE (`organizationUserSchedule`, `startDate`)
-
 );
 
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`availability` (

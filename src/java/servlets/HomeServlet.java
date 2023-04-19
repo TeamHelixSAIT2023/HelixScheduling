@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
-import static model.User_.firstName;
 import services.OrganizationUserService;
 import services.UserService;
 
@@ -24,8 +23,6 @@ public class HomeServlet extends HttpServlet {
         OrganizationUserService uoService = new OrganizationUserService();
         
         User user =  (User) session.getAttribute("user");
-       
-        
         
         request.setAttribute("name", user); 
         

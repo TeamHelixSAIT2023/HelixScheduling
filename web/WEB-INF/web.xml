@@ -25,10 +25,6 @@
         <servlet-class>servlets.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RergisterOrganizationServlet</servlet-name>
-        <servlet-class>servlets.RergisterOrganizationServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>OrganizationListServlet</servlet-name>
         <servlet-class>servlets.OrganizationListServlet</servlet-class>
     </servlet>
@@ -37,16 +33,12 @@
         <servlet-class>servlets.AvailabilityServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>JoinOrganizationServlet</servlet-name>
-        <servlet-class>servlets.JoinOrganizationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>joinConfirmationServlet</servlet-name>
-        <servlet-class>servlets.JoinConfirmationServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>servlets.AccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <servlet-class>servlets.OrganizationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -74,27 +66,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrganizationListServlet</servlet-name>
-        <url-pattern>/organizationList</url-pattern>
+        <url-pattern>/organizationlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AvailabilityServlet</servlet-name>
         <url-pattern>/availability</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RergisterOrganizationServlet</servlet-name>
-        <url-pattern>/registerOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>JoinOrganizationServlet</servlet-name>
-        <url-pattern>/joinOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>joinConfirmationServlet</servlet-name>
-        <url-pattern>/joinConfirmation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
         <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrganizationServlet</servlet-name>
+        <url-pattern>/organization</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
