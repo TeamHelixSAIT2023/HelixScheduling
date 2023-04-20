@@ -135,7 +135,18 @@
                                 <tr>
                                     <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
                                     <td>${task.title}</td>
-                                    <td>${task.status}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            ${task.status}
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                            <c:forEach var="statusChange" items="${statusList}">
+                                                <c:if test="${task.status != statusChange}">
+                                                    <li><a class="dropdown-item" href="/task?action=updateStatus&task=${task.taskID}&status=${statusChange}">${statusChange}</a></li>
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </td>
                                     <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.startDate}"/></td>
                                     <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.endDate}"/></td>
                                     <td>${task.organizationUser.user.firstName} ${task.organizationUser.user.lastName}</td>
