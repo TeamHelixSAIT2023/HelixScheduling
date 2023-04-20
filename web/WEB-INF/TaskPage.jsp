@@ -32,7 +32,8 @@
                                 <a href="/task" class="nav-link active">Task view</a>
                             </li>
                             <li>
-                                <a href="/schedule" class="nav-link text-white"></a></li>
+                                <a href="/schedule" class="nav-link text-white">Schedule</a>
+                            </li>
                             <li>
                                 <a href="/availability" class="nav-link text-white"> Availability</a>
                             </li>
