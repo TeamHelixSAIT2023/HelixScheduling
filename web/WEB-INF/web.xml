@@ -62,10 +62,6 @@
         <servlet-class>servlets.JoinOrganizationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>joinConfirmationServlet</servlet-name>
-        <servlet-class>servlets.JoinConfirmationServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>servlets.AccountServlet</servlet-class>
     </servlet>
@@ -112,10 +108,6 @@
     <servlet-mapping>
         <servlet-name>JoinOrganizationServlet</servlet-name>
         <url-pattern>/joinOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>joinConfirmationServlet</servlet-name>
-        <url-pattern>/joinConfirmation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>

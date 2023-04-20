@@ -71,16 +71,22 @@ public class JoinOrganizationServlet extends HttpServlet {
               String organizationName = request.getParameter("orgName");
 
         OrganizationDB orgDB = new OrganizationDB();
+            try {
         Organization org = orgDB.getByName(organizationName);
-        
         if (org != null && org.getName().equals(organizationName)) {
-            request.setAttribute("orgName", org);
-            getServletContext().getRequestDispatcher("/joinConfirmation").forward(request, response);
+            String orgmsg = "you have requested to join " + org.getName(); 
+            request.setAttribute("orgmsg", orgmsg);
+            getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "Organization not found.");
             getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
         }
-       
+    } catch (Exception e) {
+        request.setAttribute("errorMessage", "Organization not found.");
+        getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
+    }
+
+ 
         
         
         
