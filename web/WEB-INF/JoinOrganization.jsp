@@ -17,9 +17,54 @@
     </head>
     <body>
         <div>
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
-                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li>
+                    <a href="/home" class="nav-link text-white" aria-current="page">
+                        
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/task" class="nav-link text-white">
+                        
+                        Task view
+                    </a>
+                </li>
+                <li>
+                    <a href="/schedule" class="nav-link text-white">
+                       
+                        Schedule
+                    </a>
+                </li>
+                <li>
+                    <a href="/availability" class="nav-link text-white">
+                        
+                        Availability
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Organization
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                            <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                            <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    <strong>${user.firstName}</strong>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">

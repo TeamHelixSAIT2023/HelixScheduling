@@ -20,59 +20,53 @@
     <body>
         <div>
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
-                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li>
-                        <a href="/home" class="nav-link text-white" aria-current="page">
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li>
+                    <a href="/home" class="nav-link text-white" aria-current="page">
+                        
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/task" class="nav-link text-white">
+                        
+                        Task view
+                    </a>
+                </li>
+                <li>
+                    <a href="/schedule" class="nav-link text-white">
+                       
+                        Schedule
+                    </a>
+                </li>
+                <li>
+                    <a href="/availability" class="nav-link active">
+                        
+                        Availability
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Organization
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                            <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                            <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/task" class="nav-link text-white">
-
-                            Task view
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/schedule" class="nav-link text-white">
-
-                            Schedule
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/gannt" class="nav-link text-white">
-
-                            Gannt Chart
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/availability" class="nav-link active">
-
-                            Availability
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Organization
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
-                                <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
-                                <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-                        <strong>${user.firstName}</strong>
+                    <strong>${user.firstName}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a class="dropdown-item" href="/account">Profile</a></li>
@@ -83,61 +77,64 @@
             </div>
 
         </div>
-        <div class="mainBody" style="margin-left:13%;">
-            <main>
-                <c:choose>
-                    <c:when  test="${(orgList == null) || (empty orgList)}"> 
-                        <h1>This user isn't a part of any organizations</h1>
-                    </c:when>
-                    <c:otherwise>
-                        <div >
-                            <!-- currently does not work as intended, make into a drop down of links using bootstrap -->
-                            <select class="btn btn-secondary dropdown-toggle" aria-haspopup="true" data-toggle="dropdown"  name="org-list-dropdown" id="org-list-dropdown">
-                                <c:forEach var="org" items="${orgList}">
-                                    <option value="${org.name}"><a href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></option>
-                                </c:forEach>  
-                            </select>
-                        </div>
-                        <section>
-                            <div>
-                                <h2>Availability</h2>
-                                <form method="POST">
-                                    <c:forEach var="day" items="${orgUser.availabilityList}">
+        <main class="container">
+            <c:choose>
+                <c:when  test="${(orgList == null) || (empty orgList)}"> 
+                    <h1>This user isn't a part of any organizations</h1>
+                </c:when>
+                <c:otherwise>
+                    <div >
+                        <!-- currently does not work as intended, make into a drop down of links using bootstrap -->
+                        <select class="btn btn-secondary dropdown-toggle" aria-haspopup="true" data-toggle="dropdown"  name="org-list-dropdown" id="org-list-dropdown">
+                            <c:forEach var="org" items="${orgList}">
+                                <option value="${org.name}"><a href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></option>
+                            </c:forEach>  
+                        </select>
+                    </div>
+                    <section>
+                        <div>
+                            <h2>Availability</h2>
+                            <form method="POST">
+                                <div class="row">
+                                <c:forEach var="day" items="${orgUser.availabilityList}">
+                                    <div class="col">
+                                        <p>${day.dayOfWeek}</p>
                                         <div>
-                                            <p>${day.dayOfWeek}</p>
-                                            <div>
-                                                <fmt:formatDate type="time" var="startTime" pattern="HH:mm" value="${day.startTime}"/>
-                                                <fmt:formatDate type="time" var="endTime" pattern="HH:mm" value="${day.endTime}"/>
-                                                <label for="${day.dayOfWeek}-unavailable">Unavailable:</label>
-                                                <input type="checkbox" id="${day.dayOfWeek}-unavailable" name="${day.dayOfWeek}-unavailable"
-                                                       <c:if test="${(startTime == '00:00') && (endTime == '00:00')}">
-                                                           checked
-                                                       </c:if>
-                                                       >
-                                            </div>
-                                            <div>
-                                                <label for="${day.dayOfWeek}-start">Start:</label>
-                                                <input type="time" id="${day.dayOfWeek}-start" name="${day.dayOfWeek}-start" value="${startTime}">
-                                            </div>
-                                            <div>
-                                                <label for="${day.dayOfWeek}-end">End:</label>
-                                                <input type="time" id="${day.dayOfWeek}-end" name="${day.dayOfWeek}-end"  value="${endTime}">
-                                            </div>
+                                            <fmt:formatDate type="time" var="startTime" pattern="HH:mm" value="${day.startTime}"/>
+                                            <fmt:formatDate type="time" var="endTime" pattern="HH:mm" value="${day.endTime}"/>
+                                            <label for="${day.dayOfWeek}-unavailable">Unavailable:</label>
+                                            <input type="checkbox" id="${day.dayOfWeek}-unavailable" name="${day.dayOfWeek}-unavailable"
+                                                   <c:if test="${(startTime == '00:00') && (endTime == '00:00')}">
+                                                       checked
+                                                   </c:if>
+                                                   >
                                         </div>
-                                    </c:forEach>
-                                    <input class="btn btn-primary" type="hidden" name="action" value="availability">
-                                    <input class="btn btn-primary" type="submit" value="Update">
-                                </form>
-                                <div>
-                                    <c:if test="${availabilityUpdateMessage != null}">
-                                        <p>${availabilityUpdateMessage}</p>
-                                    </c:if>
+                                        <div>
+                                            <label for="${day.dayOfWeek}-start">Start:</label>
+                                            <input type="time" id="${day.dayOfWeek}-start" name="${day.dayOfWeek}-start" value="${startTime}">
+                                        </div>
+                                        <div>
+                                            <label for="${day.dayOfWeek}-end">End:</label>
+                                            <input type="time" id="${day.dayOfWeek}-end" name="${day.dayOfWeek}-end"  value="${endTime}">
+                                        </div>
+                                    </div>
+                                </c:forEach>
                                 </div>
+                                <div style="margin-top: 10px;">
+                                <input class="btn btn-primary" type="hidden" name="action" value="availability">
+                                <input class="btn btn-primary" type="submit" value="Update">
+                                </div>
+                            </form>
+                            <div>
+                                <c:if test="${availabilityUpdateMessage != null}">
+                                    <p>${availabilityUpdateMessage}</p>
+                                </c:if>
                             </div>
-                        </section>
-                        <section>
-                            <h2>Unavailable Dates</h2>
-                            <c:forEach var="unavailable" items="${orgUser.unavailableList}">
+                        
+                    </section>
+                    <section>
+                        <h2>Unavailable Dates</h2>
+                        <c:forEach var="unavailable" items="${orgUser.unavailableList}">
                                 <div>
                                     <p><fmt:formatDate type="date" dateStyle="short" value="${unavailable.date}"/></p>
                                     <p>${unavailable.reason}</p>
@@ -159,7 +156,5 @@
                         </section>
                     </c:otherwise>
                 </c:choose>
-
-            </main>
-        </div>
+        </main>
 </html>

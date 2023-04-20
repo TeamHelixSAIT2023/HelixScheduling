@@ -42,8 +42,8 @@
         <servlet-class>servlets.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RergisterOrganizationServlet</servlet-name>
-        <servlet-class>servlets.RergisterOrganizationServlet</servlet-class>
+        <servlet-name>RegisterOrganizationServlet</servlet-name>
+        <servlet-class>servlets.RegisterOrganizationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OrganizationListServlet</servlet-name>
@@ -102,7 +102,7 @@
         <url-pattern>/availability</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RergisterOrganizationServlet</servlet-name>
+        <servlet-name>RegisterOrganizationServlet</servlet-name>
         <url-pattern>/registerOrganization</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

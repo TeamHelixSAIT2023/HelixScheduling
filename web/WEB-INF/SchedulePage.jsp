@@ -18,7 +18,6 @@
         <div>
             <div class="row" style="height: 100%;">
                 <div class="col-4">
-
                     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
                         <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                             <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
@@ -26,34 +25,18 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                             <li>
-                                <a href="/home" class="nav-link text-white" aria-current="page">
-
-                                    Home
-                                </a>
+                                <a href="/home" class="nav-link text-white" aria-current="page">Home</a></li>
+                            <li>
+                                <a href="/task" class="nav-link text-white">Task view</a>
                             </li>
                             <li>
-                                <a href="/task" class="nav-link text-white">
-
-                                    Task view
-                                </a>
+                              <a href="/schedule" class="nav-link active">Schedule</a>
                             </li>
                             <li>
-                                <a href="/schedule" class="nav-link active">
-
-                                    Schedule
-                                </a>
+                                <a href="/gannt" class="nav-link text-white">Gantt Chart</a>
                             </li>
                             <li>
-                                <a href="/gannt" class="nav-link text-white">
-
-                                    Gantt Chart
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/availability" class="nav-link text-white">
-
-                                    Availability
-                                </a>
+                              <a href="/availability" class="nav-link text-white" Availability</a>
                             </li>
                             <li>
                                 <div class="dropdown">
@@ -82,9 +65,8 @@
                         </div>
                     </div>
 
+
                 </div>
-
-
                 <!--Main content area-->
                 <div class="col-6">
                     <div class="mainBody" style="margin-left:13%;">
@@ -186,8 +168,6 @@
                                                 </c:forEach>
                                             </tr>
                                         </c:forEach>
-
-
                                     </table>
 
                                     <!--Add button-->
@@ -212,7 +192,7 @@
                                                         <div class="row mt-2">
                                                             <label for="orgMemberShift" class="col-3 col-form-label"> Create For:</label>
                                                             <div class="col-sm-8">
-                                                                <select name="orgMemberShift">
+                                                                <select class="form-control" name="orgMemberShift">
                                                                     <c:choose>
                                                                         <c:when test="${orgUser.dept != null}">
                                                                             <c:forEach var="orgMember" items="${orgUser.dept.organizationUserList}">
