@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,14 +28,14 @@ public class TaskServlet extends HttpServlet {
 
         String[] priorityList = {"High", "Medium", "Low"};
         String[] statusList = {"Not Started", "In-Progress", "Completed"};
-        
+
         String action = request.getParameter("action");
         if (action != null && action.equals("updateStatus")) {
             try {
                 int taskID = Integer.parseInt(request.getParameter("task"));
                 String status = request.getParameter("status");
-                
-                if (status != null && (status.equals("Not Started") || status.equals("In-Progress") || status.equals("Completed"))){
+
+                if (status != null && (status.equals("Not Started") || status.equals("In-Progress") || status.equals("Completed"))) {
                     ts.updateStatus(taskID, status);
                 }
             } catch (Exception e) {
@@ -45,12 +46,20 @@ public class TaskServlet extends HttpServlet {
         List<Task> taskList = ts.getByUser(user);
         List<Task> currentTaskList = ts.getByUserUpcoming(user);
         List<Task> previousTaskList = ts.getByUserPrevious(user);
+        List<List<Task>> orgTaskLists = new ArrayList<List<Task>>();
 
         session.setAttribute("taskList", taskList);
         session.setAttribute("currentTaskList", currentTaskList);
         session.setAttribute("archivedTaskList", previousTaskList);
 
-        
+        List<Task> orgTaskList = new ArrayList<Task>();
+        for (OrganizationUser ou : user.getOrganizationUserList()) {
+            if (ou.getAdmin() || ou.getOwner()) {
+                orgTaskList = ts.getByOrg(ou.getOrganization());
+                orgTaskLists.add(orgTaskList);
+            }
+        }
+        session.setAttribute("orgTaskLists", orgTaskLists);
 
         session.setAttribute("priorityList", priorityList);
         session.setAttribute("statusList", statusList);
@@ -115,12 +124,12 @@ public class TaskServlet extends HttpServlet {
                             day = Integer.parseInt(recurringEndString.substring(8));
                             cal.set(year, month - 1, day);
                             recurringUntilDate = cal.getTime();
+
+                            if (startDate.before(recurringUntilDate)) {
+                                ts.insertRecurring(ou, startDate, endDate, title, description, status, priority, recurringType, recurringUntilDate);
+                            }
                         }
                     }
-                }
-
-                if (recurring) {
-                    ts.insertRecurring(ou, startDate, endDate, title, description, status, priority, recurringType, recurringUntilDate);
                 } else {
                     ts.insert(ou, startDate, endDate, title, description, status, priority);
                 }

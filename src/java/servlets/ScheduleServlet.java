@@ -38,8 +38,9 @@ public class ScheduleServlet extends HttpServlet {
         String orgName = request.getParameter("organization");
         String startDate = request.getParameter("startDate");
 
-        List<Schedule> scheduleList;
+        List<Schedule> scheduleList = null;
         List<Date> dateList;
+        Schedule schedule = null;
 
         if (orgName != null && !orgName.equals("")) {
             OrganizationService os = new OrganizationService();
@@ -47,52 +48,61 @@ public class ScheduleServlet extends HttpServlet {
 
             ou = ous.getByOrgUser(org, user);
 
-            scheduleList = ss.getByOrgUser(ou);
-            session.setAttribute("scheduleList", scheduleList);
+            if (ou.getAdmin() || ou.getOwner()) {
+                scheduleList = ss.getByOrg(org);
+            } else {
+                scheduleList = ss.getByOrgUser(ou);
+            }
 
             if (startDate != null && !startDate.equals("") && startDate.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")) {
                 Calendar cal = Calendar.getInstance();
                 int year = Integer.parseInt(startDate.substring(0, 4));
-                int month = Integer.parseInt(startDate.substring(5, 7));
+                int month = Integer.parseInt(startDate.substring(5, 7)) - 1;
                 int day = Integer.parseInt(startDate.substring(8));
-                cal.set(year, month - 1, day, 0, 0, 0);
+                cal.set(year, month, day, 0, 0, 0);
                 Date date = cal.getTime();
 
-                for (Schedule s : scheduleList) {
-                    if (Duration.between(date.toInstant(), s.getStartDate().toInstant()).toDays() == 0) {
-                        String action = request.getParameter("action");
-                        int shiftID = Integer.parseInt(request.getParameter("shift"));
-                        if (action != null && action.equals("delete")) {
-                            try {
-                                shs.delete(shiftID);
-                                s = ss.get(s.getScheduleID());
-                                session.setAttribute("message", null);
-                            } catch (Exception e) {
-                                session.setAttribute("message", "Shift could not be deleted");
-                            }
-                        }
+                try {
+                    schedule = ss.getByOrgDeptStartDate(org, ou.getDept(), date);
 
-                        session.setAttribute("schedule", s);
-                        break;
+                    String action = request.getParameter("action");
+                    if (action != null && action.equals("delete")) {
+                        try {
+                            int shiftID = Integer.parseInt(request.getParameter("shift"));
+                            shs.delete(shiftID);
+                            schedule = ss.get(schedule.getScheduleID());
+                        } catch (Exception e) {
+                            session.setAttribute("message", "Shift could not be deleted");
+                        }
                     }
+                } catch (Exception e) {
+                    session.setAttribute("message", "Schedule could not be found");
                 }
-            } else {
-                session.setAttribute("schedule", scheduleList.get(0));
+
+            } else if (scheduleList != null && !scheduleList.isEmpty()) {
+                schedule = scheduleList.get(0);
             }
         } else if (!user.getOrganizationUserList().isEmpty()) {
             ou = user.getOrganizationUserList().get(0);
-            scheduleList = ss.getByDept(ou.getDept());
-            session.setAttribute("orgScheduleList", scheduleList);
-            if (!scheduleList.isEmpty()) {
-                session.setAttribute("schedule", scheduleList.get(0));
-
-                dateList = ss.getDateList(scheduleList.get(0));
-                session.setAttribute("dateList", dateList);
+            if (ou.getAdmin() || ou.getOwner()) {
+                scheduleList = ss.getByOrg(ou.getOrganization());
+            } else {
+                scheduleList = ss.getByOrgUser(ou);
             }
+            if (!scheduleList.isEmpty()) {
+                schedule = scheduleList.get(0);
+            }
+
         }
 
-        session.setAttribute("shiftList", shs.getShiftsByUser(user));
+        if (schedule != null) {
+            dateList = ss.getDateList(schedule);
+            session.setAttribute("dateList", dateList);
+        }
 
+        session.setAttribute("schedule", schedule);
+        session.setAttribute("orgScheduleList", scheduleList);
+        session.setAttribute("shiftList", shs.getShiftsByUser(user));
         session.setAttribute("orgUser", ou);
 
         getServletContext().getRequestDispatcher("/WEB-INF/SchedulePage.jsp").forward(request, response);
@@ -104,6 +114,7 @@ public class ScheduleServlet extends HttpServlet {
         ScheduleService ss = new ScheduleService();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        boolean redirect = false;
 
         String action = request.getParameter("action");
 
@@ -124,9 +135,9 @@ public class ScheduleServlet extends HttpServlet {
                 if (ou != null) {
                     Calendar cal = Calendar.getInstance();
                     int year = Integer.parseInt(dateString.substring(0, 4));
-                    int month = Integer.parseInt(dateString.substring(5, 7));
+                    int month = Integer.parseInt(dateString.substring(5, 7)) - 1;
                     int day = Integer.parseInt(dateString.substring(8));
-                    cal.set(year, month - 1, day);
+                    cal.set(year, month, day);
 
                     cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(startTime.substring(0, 2)));
                     cal.set(Calendar.MINUTE, Integer.parseInt(startTime.substring(3, 5)));
@@ -145,10 +156,16 @@ public class ScheduleServlet extends HttpServlet {
                         } catch (Exception e) {
                             message = "Failed to add shift";
                         }
-                        schedule = ss.get(schedule.getScheduleID());
-                        session.setAttribute("schedule", schedule);
+                        cal.setTime(schedule.getStartDate());
+                        year = cal.get(Calendar.YEAR);
+                        month = cal.get(Calendar.MONTH) + 1;
+                        day = cal.get(Calendar.DAY_OF_MONTH);
+                        String redirectDate = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+                        response.sendRedirect("schedule?organization=" + ou.getOrganization().getName() + "&startDate=" + redirectDate);
+                        redirect = true;
                     } else {
                         message = "Shift date not on schedule or end time is before start time";
+
                     }
                 } else {
                     message = "Organization member not found";
@@ -161,6 +178,7 @@ public class ScheduleServlet extends HttpServlet {
             String deptName = request.getParameter("dept");
             String dateString = request.getParameter("start-date");
             boolean copyForward = false;
+
             if (request.getParameter("copy-forward") != null) {
                 copyForward = true;
             }
@@ -177,9 +195,9 @@ public class ScheduleServlet extends HttpServlet {
                     if (dept != null) {
                         Calendar cal = Calendar.getInstance();
                         int year = Integer.parseInt(dateString.substring(0, 4));
-                        int month = Integer.parseInt(dateString.substring(5, 7));
+                        int month = Integer.parseInt(dateString.substring(5, 7)) - 1;
                         int day = Integer.parseInt(dateString.substring(8));
-                        cal.set(year, month - 1, day);
+                        cal.set(year, month, day);
 
                         if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
                             Date startDate = cal.getTime();
@@ -189,8 +207,16 @@ public class ScheduleServlet extends HttpServlet {
                             OrganizationUser ou = (OrganizationUser) session.getAttribute("orgUser");
 
                             if (ou != null) {
-                                Schedule newSchedule = ss.insert(ou.getOrganization(), dept, startDate, endDate);
-                                session.setAttribute("schedule", newSchedule);
+                                try {
+                                    Schedule newSchedule = ss.insert(ou.getOrganization(), dept, startDate, endDate);
+                                    month++;
+                                    String redirectDate = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+                                    response.sendRedirect("schedule?organization=" + org.getName() + "&startDate=" + redirectDate);
+                                    redirect = true;
+                                } catch (Exception e) {
+                                    message = "A schedule already exists for that time period";
+
+                                }
                             } else {
                                 message = "Organization member not found";
                             }
@@ -208,11 +234,11 @@ public class ScheduleServlet extends HttpServlet {
             }
         }
 
-        ShiftService shs = new ShiftService();
-        session.setAttribute("shiftList", shs.getShiftsByUser(user));
-
         session.setAttribute("message", message);
-        getServletContext().getRequestDispatcher("/WEB-INF/SchedulePage.jsp").forward(request, response);
+        //response.sendRedirect("/schedule");
+        if (!redirect) {
+            getServletContext().getRequestDispatcher("/WEB-INF/SchedulePage.jsp").forward(request, response);
+        }
         return;
     }
 }

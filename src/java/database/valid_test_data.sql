@@ -31,18 +31,29 @@ SET FOREIGN_KEY_CHECKS = 1;
     `active` BOOLEAN NOT NULL DEFAULT 1,
     `public` BOOLEAN NOT NULL DEFAULT 1,*/
 
-INSERT INTO helixschedulingdb.user (email, firstName, lastName, password, salt, phone, active, public) VALUES
-('jessica.smith@example.com', 'Jessica', 'Smith', 'wDf#Kj1$23', 'f23RkLjD9#2', '4031234567', 1, 0),
-('ryan.nguyen@example.com', 'Ryan', 'Nguyen', 'pGh$9jK1l2', 'dRf83Gh#2jL', '8259876543', 1, 1),
-('emily.wilson@example.com', 'Emily', 'Wilson', 'gHjKl#4s8', 'sDf9Kk#4Lj2', '5874567890', 1, 1),
-('matthew.cook@example.com', 'Matthew', 'Cook', 'fLk#23GhJ8', 'sDf3FjK#l28', '4157891234', 1, 1),
-('sarah.watson@example.com', 'Sarah', 'Watson', 'dFk#2hJ8lK', 'kDf9Lj#2Gh8', '2052345678', 1, 0),
-('david.nguyen@example.com', 'David', 'Nguyen', 'jLk#28GhJ6', 'dFk#2lDj3L', '8558765432', 1, 1),
-('olivia.baker@example.com', 'Olivia', 'Baker', 'hJk#8lGhF2', 'dFk#2jLl3K', '8753456789', 1, 0),
-('william.jackson@example.com', 'William', 'Jackson', 'k#jL3hG6f', 'dFk#lJ23D9', '2509876543', 1, 1),
-('ashley.mitchell@example.com', 'Ashley', 'Mitchell', 'lKj#2GhF4', 'dFk#lj23D9', '7786789123', 1, 0),
-('ethan.allen@example.com', 'Ethan', 'Allen', 'hGj#lK23D', 'dFk#2Lj9K8', '2043214567', 1, 1),
-('eric@gmail.com', 'Eric', 'McLaughlin', 'password', 'fdasfs', '4038526364', 1, 1);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('jessica.smith@example.com', 'Jessica', 'Smith', '4af4645709548643ae09201be72b09d18343120151fd3613f0ba21982239d0ca', 'YfCgIwFzkH+Wn5IYD/bEqnJI0s7vI7NzG035DC5Z7mE=', '4031234567', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('ryan.nguyen@example.com', 'Ryan', 'Nguyen', '0520f16a47bd3a9df17e49569df1d81ce9bfeb273cbe5ccd708c105deb24a65d', 'zsXqc+JKL8ekm5HaYvDQHHRoOLNz/ZzIcf6Hr2a9cHM=', '8259876543', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('emily.wilson@example.com', 'Emily', 'Wilson', '12b7b5cde0f58cef38a07d43b69a6a2572534fbe853ca57046de6ce9fca128dc', 'x3t10fWBjbmkCuDZ0v/4JauLk4cLZbV9VitIp2qOH48=', '5874567890', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('matthew.cook@example.com', 'Mathew', 'Cook', 'fdd1b8290d48a576ede066679dd83f99827b948cdaccb512000880fd347b0ab8', 'CRGQYWzF6Rcew6GTmgKPy+TMrMHVpRhc7GTD8NRiWiE=', '4157891234', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('sarah.watson@example.com', 'Sarah', 'Watson', '7d7e783e5cebe411ba42bc63d1e47ae840b6e414e65d87cd6416dfc605bd30e6', '4QVdRKg4SSlSUWFTQ/vflL/idXaLm5chzdrChb4OxJM=', '2052345678', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('david.nguyen@example.com', 'David', 'Nguyen', '30cb27a7cb4f02795f057b5997ab0c64130762d2a7db0f33faf43082aa8ba20d', 'T5K+7+oPQwtvr+n/NHCCoWsWJy8boQ8zP2aC3z+j3x8=', '8558765432', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('olivia.baker@example.com', 'Olivia', 'Baker', 'cd9c9d508c3a83b82f1cbf5843751b1d23c315700ee53ab803e370b391146313', 'OcJPyLkYyqeKHwD0gBted4hxdNQKDYpmVOMv3xLxo8A=', '8753456789', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('william.jackson@example.com', 'William', 'Jackson', '72968b961c4a06c2efd750022c9a2b578a77800a24669b99152205fa11166cd1', 'ou9D6+Gc4lvPoflFD6GAV5KeodLZmdqu0CDwZhXbYO4=', '2509876543', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('ashley.mitchell@example.com', 'Ashley', 'Mitchell', 'e7db066186ff3ba474ded9fc57363f56d92111827f605995dbc61f6aa6477077', 'YYcZT5uFDc+xtVBrCUCynEfAUqGRP+5XrrdtW9Zqfeg=', '7786789123', true, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('ethan.allen@example.com', 'Ethan', 'Allen', 'a8e776618aca95c25cae383ab8868cf40b8d590750aae56ddb394fde2fb7aece', 'RNpddFebOXRjElAcujvgm2UnlAEx71tBZttkaYuIf6Y=', '2043214567', false, true);
+INSERT INTO helixschedulingdb.`user` (email, `firstName`, `lastName`, password, salt, phone, active, `public`) 
+	VALUES ('eric.mclaughlin42@gmail.com', 'Eric', 'McLaughlin', '0c6f8d000e8071f0f77cbc60ef6bf2a21f412168f958694d3bd56d988e690425', '7PhLCI/OYjCqRWgudiGk7Nard49f83Z/v6OWSrqjCP4=', '4038526364', true, true);
+
 
 -- organization Table --
 
@@ -96,7 +107,7 @@ INSERT INTO helixschedulingdb.department (deptNo, organization, title, descripti
 
 INSERT INTO helixschedulingdb.schedule (organization, dept, startDate, endDate) VALUES
 (2, 4, '2023-03-14', '2023-03-20'),
-(1, 3, '2023-03-12', '2023-03-19'),
+(1, 3, '2023-03-12', '2023-03-18'),
 (3, 8, '2023-03-15', '2023-03-21'),
 (5, 6, '2023-03-11', '2023-03-17'),
 (4, 2, '2023-03-16', '2023-03-22'),
@@ -198,11 +209,11 @@ VALUES
 
 INSERT INTO helixschedulingdb.task (organizationUser, startDate, endDate, title, description, status, priority)
 VALUES
-(11, '2023-04-01', '2023-04-07', 'Organize Shelf', null, 'Completed', 'Medium'),
-(11, '2023-04-05', '2023-04-12', 'Organize Shelf', null, 'In-Progress', 'High'),
-(11, '2023-04-15', '2023-04-25', 'Organize Shelf', null, 'Not Started', 'Low'),
-(11, '2023-04-24', '2023-05-01', 'Organize Shelf', null, 'Not Started', 'Medium'),
-(11, '2023-04-13', '2023-04-30', 'Organize Shelf', null, 'In-Progress', 'Medium'),
-(11, '2023-04-19', '2023-04-25', 'Organize Shelf', null, 'In-Progress', 'Medium'),
-(11, '2023-05-03', '2023-05-15', 'Organize Shelf', null, 'Not Started', 'Medium'),
-(11, '2023-04-15', '2023-07-01', 'Organize Shelf', null, 'In-Progress', 'Medium');
+(11, '2023-04-01', '2023-04-07', 'Organize shelf', null, 'Completed', 'Medium'),
+(11, '2023-04-05', '2023-04-12', 'Rearrange display', null, 'In-Progress', 'High'),
+(11, '2023-04-15', '2023-04-25', 'Mop floor', null, 'Not Started', 'Low'),
+(11, '2023-04-24', '2023-05-01', 'Count stock', null, 'Not Started', 'Medium'),
+(11, '2023-06-13', '2023-04-30', 'Check payroll', null, 'In-Progress', 'Medium'),
+(11, '2023-05-19', '2023-04-25', 'Stock shelves', null, 'In-Progress', 'Medium'),
+(11, '2023-05-03', '2023-05-15', 'Create new schedule', null, 'Not Started', 'Medium'),
+(11, '2023-04-25', '2023-07-01', 'Twiddle your thumbs', null, 'In-Progress', 'Medium');

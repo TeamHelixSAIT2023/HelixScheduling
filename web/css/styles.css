@@ -1,8 +1,8 @@
-
 body {
     background-color: white;
     height: 100vh;
 }
+
 * {
     margin: 0px;
     padding: 10px;
@@ -98,4 +98,8 @@ button:hover{
     background-color: #F2F3F4;
     border-radius: 0px 0px 7px 7px;
 
+}
+
+a {
+    text-decoration: none;
 }

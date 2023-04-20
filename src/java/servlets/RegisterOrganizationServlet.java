@@ -36,11 +36,10 @@ public class RegisterOrganizationServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        getServletContext().getRequestDispatcher("/WEB-INF/RegisterOrganization.jsp").forward(request, response);
-
         User user = (User) session.getAttribute("user");
 
         request.setAttribute("name", user);
+        getServletContext().getRequestDispatcher("/WEB-INF/RegisterOrganization.jsp").forward(request, response);
     }
 
     @Override
@@ -48,7 +47,8 @@ public class RegisterOrganizationServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
+        UserService us = new UserService();
+        
         String name = request.getParameter("orgName");
         String description = request.getParameter("orgDesc");
 
@@ -63,6 +63,9 @@ public class RegisterOrganizationServlet extends HttpServlet {
             OrganizationUserService ous = new OrganizationUserService();
             User user = (User) session.getAttribute("user");
             ous.insert(organization, user, null, null, 0, true, true);
+            user = us.get(user.getUserID());
+            
+            session.setAttribute("user", user);
             session.setAttribute("orgUserMessage", "");
 
         } catch (Exception exc) {

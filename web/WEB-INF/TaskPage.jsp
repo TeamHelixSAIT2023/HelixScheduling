@@ -21,39 +21,20 @@
 
                     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
                         <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                            <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
+                            <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
                         </a>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                             <li>
-                                <a href="/home" class="nav-link text-white" aria-current="page">
-
-                                    Home
-                                </a>
+                                <a href="/home" class="nav-link text-white" aria-current="page">Home</a>
                             </li>
                             <li>
-                                <a href="/task" class="nav-link active">
-
-                                    Task view
-                                </a>
+                                <a href="/task" class="nav-link active">Task view</a>
                             </li>
                             <li>
-                                <a href="/schedule" class="nav-link text-white">
-
-                                    Schedule
-                                </a>
-                            </li>
+                                <a href="/schedule" class="nav-link text-white"></a></li>
                             <li>
-                                <a href="/gannt" class="nav-link text-white">
-
-                                    Gantt Chart
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/availability" class="nav-link text-white">
-
-                                    Availability
-                                </a>
+                                <a href="/availability" class="nav-link text-white"> Availability</a>
                             </li>
                             <li>
                                 <div class="dropdown">
@@ -90,17 +71,17 @@
             <div class="col-6">
 
                 <!-- Dropdown -->
-                <div class="dropdown mt-5">
-                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Action
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="#">Mark as Done</a></li>
-                        <li><a class="dropdown-item" href="#">Archive</a></li>
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
-
-                    </ul>
-                </div>
+                <!--                <div class="dropdown mt-5">
+                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item" href="#">Mark as Done</a></li>
+                                        <li><a class="dropdown-item" href="#">Archive</a></li>
+                                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                
+                                    </ul>
+                                </div>-->
 
                 <!--Tabs (All Tasks, Pending, Archived-->
                 <ul class="nav nav-tabs mt-5" id="pills-tab" role="tablist">
@@ -113,6 +94,14 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-archived-tab" data-bs-toggle="pill" data-bs-target="#pills-archived" type="button" role="tab" aria-controls="pills-archived" aria-selected="false">Archived</button>
                     </li>
+                    <c:forEach var="org" items="${user.organizationUserList}">
+                        <c:if test="${org.admin == true || org.owner == true}">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-archived-tab" data-bs-toggle="pill" data-bs-target="#pills-${org.organization.organizationID}" type="button" role="tab" aria-controls="pills-archived" aria-selected="false">${org.organization.name}</button>
+                            </li>
+                        </c:if>
+                    </c:forEach>
+
                 </ul>
                 <!--End: Tabs (All Tasks, Pending, Archived-->
 
@@ -143,8 +132,8 @@
                                             <c:forEach var="statusChange" items="${statusList}">
                                                 <c:if test="${task.status != statusChange}">
                                                     <li><a class="dropdown-item" href="/task?action=updateStatus&task=${task.taskID}&status=${statusChange}">${statusChange}</a></li>
-                                                </c:if>
-                                            </c:forEach>
+                                                    </c:if>
+                                                </c:forEach>
                                         </ul>
                                     </td>
                                     <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.startDate}"/></td>
@@ -173,7 +162,18 @@
                                 <tr>
                                     <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
                                     <td>${task.title}</td>
-                                    <td>${task.status}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            ${task.status}
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                            <c:forEach var="statusChange" items="${statusList}">
+                                                <c:if test="${task.status != statusChange}">
+                                                    <li><a class="dropdown-item" href="/task?action=updateStatus&task=${task.taskID}&status=${statusChange}">${statusChange}</a></li>
+                                                    </c:if>
+                                                </c:forEach>
+                                        </ul>
+                                    </td>
                                     <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.startDate}"/></td>
                                     <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.endDate}"/></td>
                                     <td>${task.organizationUser.user.firstName} ${task.organizationUser.user.lastName}</td>
@@ -211,6 +211,46 @@
                         </table>
                         <!--End: Table of Archived Tasks -->
                     </div>
+
+                    <c:forEach var="orgTaskList" items="${orgTaskLists}">
+                        <c:if test="${not empty orgTaskList}">
+                            <div class="tab-pane fade" id="pills-${orgTaskList[0].organizationUser.organization.organizationID}" role="tabpanel" aria-labelledby="pills-${orgTaskList[0].organizationUser.organization.organizationID}-tab" tabindex="0">
+                                <table class="table table-striped table-hover">
+                                    <tr class="table-dark">
+                                        <th></th>
+                                        <th class='text-center'> Tasks </th>
+                                        <th class='text-center'> Status </th>
+                                        <th class='text-center'> Start date </th>
+                                        <th class='text-center'> Due date </th>
+                                        <th class='text-center'> Assigned to</th>
+                                        <th class='text-center'> Priority  </th>
+                                    </tr>
+                                    <c:forEach var="task" items="${orgTaskList}">
+                                        <tr>
+                                            <td>  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> </td>
+                                            <td>${task.title}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    ${task.status}
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                    <c:forEach var="statusChange" items="${statusList}">
+                                                        <c:if test="${task.status != statusChange}">
+                                                            <li><a class="dropdown-item" href="/task?action=updateStatus&task=${task.taskID}&status=${statusChange}">${statusChange}</a></li>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                </ul>
+                                            </td>
+                                            <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.startDate}"/></td>
+                                            <td><fmt:formatDate type="date" pattern="MMM. d, yyyy" value="${task.endDate}"/></td>
+                                            <td>${task.organizationUser.user.firstName} ${task.organizationUser.user.lastName}</td>
+                                            <td>${task.priority}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </div>
+                        </c:if>
+                    </c:forEach> 
 
                     <!--Circle ADD icon-->
                     <div class="dropdown mt-5">
@@ -277,7 +317,7 @@
                                             <div class="row mt-2">
                                                 <label for="start_date" class="col-3 col-form-label">Start date</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="date" name="start-date" aria-label="">
+                                                    <input class="form-control" type="date" name="start-date" aria-label="" required>
                                                 </div>
                                             </div>
 
@@ -290,7 +330,7 @@
 
                                             <div class="row mt-2">
                                                 <label for="recurring" class="col-3 col-form-label">Recurring</label>
-                                                <td>  <input class="form-check-input" type="radio" name="recurring" id="flexCheckDefault"> </td>
+                                                <td>  <input class="form-check-input" type="checkbox" name="recurring" id="flexCheckDefault" autocomplete="off"> </td>
                                                 <label for="repeat" class="col-2 col-form-label">Repeat</label>
 
                                                 <div class="dropdown col-sm-6">
@@ -303,7 +343,7 @@
                                             </div>
                                             <div class="row mt-2">
                                                 <label for="recurring-end" class="col-3 col-form-label"> </label>
-                                                <td>  <input class="form-check-input" type="radio" name="recurring-end" id="flexCheckDefault"> </td>
+                                                <td>  <input class="form-check-input" type="checkbox" name="recurring-end" id="flexCheckDefault" autocomplete="off"> </td>
                                                 <label for="until-date" class="col-2 col-form-label"> Until</label>
 
                                                 <div class="dropdown col-sm-6">
@@ -336,15 +376,15 @@
                 <!--End: Table display area-->
 
                 <!--Pagination-->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination mt-5">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
+                <!--                <nav aria-label="Page navigation example">
+                                    <ul class="pagination mt-5">
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>-->
                 <!--Pagination End-->
 
             </div>

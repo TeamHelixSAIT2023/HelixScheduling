@@ -4,37 +4,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
-        <!--<link rel="stylesheet" type="text/css" href="/css/styles.css">-->
+        <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <title>Login</title>
-        <style>
-            body{
-                background-color: #282c34;
-                padding: 15px;
-            }
-            label{
-                color: black;
-            }
-        </style>
     </head>
-    <body>
+    <body class="bg-dark p-3">
         <div class="d-flex justify-content-center mt-5">
-            <div>
-                <h1 class="text-center p-2" style="color:black">Login</h1>
-                <form method="POST" action="login">
+            <div class="p-5 border border-light border-3 rounded">
+                <h1 class="text-center p-2 text-white" style="color:black">Login</h1>
+                <form method="POST">
                     <div class="row mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
+                        <label for="emaiil" class="col-md col-form-label text-white">Email</label>
+                        <div>
                             <input type="email" class="form-control" name="email" placeholder="Enter Email">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
+                        <label for="password" class="col-md col-form-label text-white">Password</label>
+                        <div>
                             <input type="password" class="form-control" name="password" placeholder="Password"> 
                         </div>            
                     </div>
-                    <input class="btn btn-primary" type="submit" value="Log in">
+                    <input class="btn btn-primary mb-2" type="submit" value="Log in">
                 </form>
                 <a href="/register">
                     <button class="btn btn-primary">Register</button>

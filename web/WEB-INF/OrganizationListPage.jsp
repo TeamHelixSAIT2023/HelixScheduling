@@ -20,33 +20,21 @@
     <body>
         <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
             <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
+                <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
-                    <a href="/home" class="nav-link text-white" aria-current="page">
-                        
-                        Home
-                    </a>
+                    <a href="/home" class="nav-link text-white" aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="/task" class="nav-link text-white">
-                        
-                        Task view
-                    </a>
+                    <a href="/task" class="nav-link text-white">Task view</a>
                 </li>
                 <li>
-                    <a href="/schedule" class="nav-link text-white">
-                       
-                        Schedule
-                    </a>
+                    <a href="/schedule" class="nav-link text-white">Schedule</a>
                 </li>
                 <li>
-                    <a href="/availability" class="nav-link text-white">
-                        
-                        Availability
-                    </a>
+                    <a href="/availability" class="nav-link text-white">Availability</a>
                 </li>
                 <li>
                     <div class="dropdown">
@@ -67,7 +55,7 @@
 
                     <strong>${user.firstName}</strong>
                 </a>
-               <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="/account">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/login">Sign out</a></li>
@@ -75,17 +63,18 @@
             </div>
         </div>
 
-    </div>
-    <div style="margin-left: 13%;">
-            <h1>Organization List</h1>
-            <c:forEach var="orgUser" items="${user.organizationUserList}">
-                <a href="<c:url value='/organization?organization=${orgUser.organization.name}'/>">
-                    <div>
-                        <h2>${orgUser.organization.name}</h2>
-                        <p>${orgUser.organization.description}</p>
-                    </div>
-                </a>
-            </c:forEach>
+        <div class="d-flex justify-content-center">
+            <div class="mt-5">
+                <h1 class="mb-5">Organization List</h1>
+                <c:forEach var="orgUser" items="${user.organizationUserList}">
+                    <a class="link-primary text-decoration-none" href="<c:url value='/organization?organization=${orgUser.organization.name}'/>">
+                        <div class="border border-primary rounded m-2 p-3 bg-light">
+                            <h2>${orgUser.organization.name}</h2>
+                            <p>${orgUser.organization.description}</p>
+                        </div>
+                    </a>
+                </c:forEach>
+            </div>
         </div>
     </body>
 </html>

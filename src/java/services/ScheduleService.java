@@ -50,6 +50,16 @@ public class ScheduleService {
         return scheduleList;
     }
 
+    public Schedule getByOrgDeptStartDate(Organization org, Department dept, Date startDate) {
+        ScheduleDB sDB = new ScheduleDB();
+        Schedule schedule = sDB.getByOrgDeptStartDate(org, dept, startDate);
+        for (OrganizationUserSchedule ous : schedule.getOrganizationUserScheduleList()) {
+            Collections.sort(ous.getShiftList(), new SortShiftByDate());
+            addNullsToOrgUserSchedule(ous);
+        }
+        return schedule;
+    }
+
     public List<Schedule> getByDept(Department dept) {
         ScheduleDB sDB = new ScheduleDB();
         List<Schedule> scheduleList = sDB.getByDept(dept);
@@ -83,14 +93,20 @@ public class ScheduleService {
         return scheduleList;
     }
 
-    public Schedule insert(Organization org, Department dept, Date startDate, Date endDate) {
+    public Schedule insert(Organization org, Department dept, Date startDate, Date endDate) throws Exception {
         ScheduleDB sDB = new ScheduleDB();
         Schedule schedule = new Schedule();
-        schedule.setOrganization(org);
-        schedule.setDept(dept);
-        schedule.setStartDate(startDate);
-        schedule.setEndDate(endDate);
-        sDB.insert(schedule);
+
+        try {
+            Schedule checkDate = sDB.getByOrgDeptStartDate(org, dept, startDate);
+            throw new Exception("Schedule already exists");
+        } catch (Exception e) {
+            schedule.setOrganization(org);
+            schedule.setDept(dept);
+            schedule.setStartDate(startDate);
+            schedule.setEndDate(endDate);
+            sDB.insert(schedule);
+        }
         return schedule;
     }
 

@@ -6,6 +6,7 @@
 package dataaccess;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -58,6 +59,19 @@ public class ScheduleDB {
         }
         
         return schedules;
+    }
+    
+    public Schedule getByOrgDeptStartDate (Organization org, Department dept, Date startDate){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        Schedule schedule;
+        
+        try {
+            schedule = em.createNamedQuery("Schedule.findByOrgDeptStartDate", Schedule.class).setParameter("organization", org).setParameter("dept", dept).setParameter("startDate", startDate).getSingleResult();
+        } finally {
+            em.close();
+        }
+        
+        return schedule;
     }
     
     public List<Schedule> getByDept (Department dept){

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import model.Organization;
 import model.User;
 import services.OrganizationUserService;
+import services.UserService;
 
 /**
  *
@@ -72,6 +73,7 @@ public class JoinOrganizationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        UserService us = new UserService();
         User user = (User) session.getAttribute("user");
 
         String organizationName = request.getParameter("orgName");
@@ -86,9 +88,11 @@ public class JoinOrganizationServlet extends HttpServlet {
                 OrganizationUserService ous = new OrganizationUserService();
                 ous.insert(org, user, null, null, 0, false, false);
 
-                response.sendRedirect("/joinConfirmation");
+                user = us.get(user.getUserID());
+                session.setAttribute("user", user);
+                response.sendRedirect("/home");
             } else {
-                request.setAttribute("errorMessage", "Organization not found.");
+                request.setAttribute("orgMessage", "Organization not found.");
                 getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
             }
 

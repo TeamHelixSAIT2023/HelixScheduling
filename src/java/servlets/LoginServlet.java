@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         session.setAttribute("user", user);
-        
+        session.setAttribute("message", null);
         
         response.sendRedirect("home");
     }
