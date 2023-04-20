@@ -18,7 +18,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Organization;
+import model.User;
+import services.OrganizationUserService;
 
 /**
  *
@@ -39,6 +42,8 @@ public class JoinOrganizationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+         
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,8 +58,12 @@ public class JoinOrganizationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         
         processRequest(request, response);
+         HttpSession session = request.getSession();
+         User user = (User) session.getAttribute("user");
          getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
+          
     }
 
     /**
@@ -68,7 +77,10 @@ public class JoinOrganizationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession session = request.getSession();
               String organizationName = request.getParameter("orgName");
+              User user = (User) session.getAttribute("user");
+              
 
         OrganizationDB orgDB = new OrganizationDB();
             try {
@@ -77,11 +89,10 @@ public class JoinOrganizationServlet extends HttpServlet {
             String orgmsg = "you have requested to join " + org.getName(); 
             request.setAttribute("orgmsg", orgmsg);
             getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
-        } else {
-            request.setAttribute("errorMessage", "Organization not found.");
-            getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
+            OrganizationUserService os = new OrganizationUserService();
+            os.insert(org, user, null, null, 0, false, false);
         }
-    } catch (Exception e) {
+        } catch (Exception e) {
         request.setAttribute("errorMessage", "Organization not found.");
         getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
     }
