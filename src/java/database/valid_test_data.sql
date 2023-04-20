@@ -1,4 +1,5 @@
 SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE `task`;
 TRUNCATE `notification`;
 TRUNCATE `timeOffRequest`;
 TRUNCATE `organizationRequest`;
@@ -194,3 +195,14 @@ VALUES
 (4, 3, 6), 
 (1, 4, 10), 
 (2, 3, 1);
+
+INSERT INTO helixschedulingdb.task (organizationUser, startDate, endDate, title, description, status, priority)
+VALUES
+(11, '2023-04-01', '2023-04-07', 'Organize Shelf', null, 'Completed', 'Medium'),
+(11, '2023-04-05', '2023-04-12', 'Organize Shelf', null, 'In-Progress', 'High'),
+(11, '2023-04-15', '2023-04-25', 'Organize Shelf', null, 'Not Started', 'Low'),
+(11, '2023-04-24', '2023-05-01', 'Organize Shelf', null, 'Not Started', 'Medium'),
+(11, '2023-04-13', '2023-04-30', 'Organize Shelf', null, 'In-Progress', 'Medium'),
+(11, '2023-04-19', '2023-04-25', 'Organize Shelf', null, 'In-Progress', 'Medium'),
+(11, '2023-05-03', '2023-05-15', 'Organize Shelf', null, 'Not Started', 'Medium'),
+(11, '2023-04-15', '2023-07-01', 'Organize Shelf', null, 'In-Progress', 'Medium');

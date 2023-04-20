@@ -78,17 +78,17 @@
         <div class="d-flex justify-content-center mt-5" style="position:  static">
             <div>
                 <h1 class="text-center p-2" style="color:black">Create Organization</h1>
-                <form method="POST" action="registerorganization">
+                <form method="POST" action="/registerOrganization">
                     <div>
                         <label>Organization Name:</label>
                         <div>
-                            <input class="form-control" style="margin-bottom: 10px;" name="orgName" placeholder="Organization Name:">
+                            <input class="form-control" style="margin-bottom: 10px;" name="orgName" placeholder="Organization Name">
                         </div>
                     </div>
                     <div >
                         <label>Organization Description:</label>
                         <div >
-                            <input class="form-control" style="margin-bottom: 10px;" type="text" name="orgDesc" placeholder="Organization Description:">
+                            <input class="form-control" style="margin-bottom: 10px;" type="text" name="orgDesc" placeholder="Organization Description">
                         </div>
                     </div>
                     <div>

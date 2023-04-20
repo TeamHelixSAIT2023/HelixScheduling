@@ -184,6 +184,21 @@ CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`shiftSwapBoard` (
         REFERENCES `helixschedulingdb`.`shift`(`shiftID`)
 );
 
+CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`task` (
+    `taskID` INT(10) NOT NULL AUTO_INCREMENT,
+    `organizationUser` INT(10) NOT NULL,
+    `startDate` DATE NOT NULL,
+    `endDate` DATE,
+    `title` VARCHAR(50) NOT NULL,
+    `description` VARCHAR(100),
+    `status` ENUM('Not Started', 'In-Progress', 'Completed') NOT NULL,
+    `priority` ENUM ('High', 'Medium', 'Low'),
+    PRIMARY KEY(`taskID`),
+    CONSTRAINT fk_task_organizationUser
+        FOREIGN KEY(`organizationUser`)
+        REFERENCES `helixschedulingdb`.`organizationUser`(`organizationUserID`)
+);
+
 CREATE TABLE IF NOT EXISTS `helixschedulingdb`.`organizationUserRequest` (
     `organizationUserRequestID` INT(10) NOT NULL AUTO_INCREMENT,
     `type` VARCHAR(50) NOT NULL,

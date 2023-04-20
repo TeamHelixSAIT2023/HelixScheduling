@@ -67,18 +67,16 @@
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 
                     <strong>${user.firstName}</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="/account">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/login">Sign out</a></li>
-                </ul>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="/account">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-    </div>
         </div>
-        
         <main class="container">
             <c:choose>
                 <c:when  test="${(orgList == null) || (empty orgList)}"> 
@@ -137,27 +135,26 @@
                     <section>
                         <h2>Unavailable Dates</h2>
                         <c:forEach var="unavailable" items="${orgUser.unavailableList}">
-                            <div>
-                                <p><fmt:formatDate type="date" dateStyle="short" value="${unavailable.date}"/></p>
-                                <p>${unavailable.reason}</p>
-                            </div>
-                        </c:forEach>
-                        <form method="POST">
-                            <div>
-                                <!-- would be nice to use bootstraps datepicker here -->
-                                <label for="date">Date:</label>
-                                <input type="date" name="date" id="date" required>
-                            </div>
-                            <div>
-                                <label for="reason">Reason (optional):</label>
-                                <input type="text" name="reason" id="reason">
-                            </div>
-                            <input class="btn btn-primary" type="hidden" name="action" value="unavailable">
-                            <input class="btn btn-primary" type="submit" value="Submit">
-                        </form>
-                    </section>
-                </c:otherwise>
-            </c:choose>
-
+                                <div>
+                                    <p><fmt:formatDate type="date" dateStyle="short" value="${unavailable.date}"/></p>
+                                    <p>${unavailable.reason}</p>
+                                </div>
+                            </c:forEach>
+                            <form method="POST">
+                                <div>
+                                    <!-- would be nice to use bootstraps datepicker here -->
+                                    <label for="date">Date:</label>
+                                    <input type="date" name="date" id="date" required>
+                                </div>
+                                <div>
+                                    <label for="reason">Reason (optional):</label>
+                                    <input type="text" name="reason" id="reason">
+                                </div>
+                                <input class="btn btn-primary" type="hidden" name="action" value="unavailable">
+                                <input class="btn btn-primary" type="submit" value="Submit">
+                            </form>
+                        </section>
+                    </c:otherwise>
+                </c:choose>
         </main>
 </html>
