@@ -29,7 +29,7 @@ import services.UserService;
  *
  * @author Sukhpal
  */
-public class RergisterOrganizationServlet extends HttpServlet {
+public class RegisterOrganizationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -58,15 +58,15 @@ public class RergisterOrganizationServlet extends HttpServlet {
         OrganizationService os = new OrganizationService();
         try {
 
-            Organization organization = os.register(name, description, public1);
-
+            os.register(name, description, public1);
+            Organization organization = os.getByName(name);
             OrganizationUserService ous = new OrganizationUserService();
             User user = (User) session.getAttribute("user");
             ous.insert(organization, user, null, null, 0, true, true);
             session.setAttribute("orgUserMessage", "");
 
         } catch (Exception exc) {
-            Logger.getLogger(RergisterOrganizationServlet.class.getName()).log(Level.SEVERE, null, exc);
+            Logger.getLogger(RegisterOrganizationServlet.class.getName()).log(Level.SEVERE, null, exc);
         }
 
         response.sendRedirect("home");

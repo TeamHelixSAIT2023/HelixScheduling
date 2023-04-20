@@ -186,8 +186,6 @@
                                                 </c:forEach>
                                             </tr>
                                         </c:forEach>
-
-
                                     </table>
 
                                     <!--Add button-->
@@ -212,7 +210,7 @@
                                                         <div class="row mt-2">
                                                             <label for="orgMemberShift" class="col-3 col-form-label"> Create For:</label>
                                                             <div class="col-sm-8">
-                                                                <select name="orgMemberShift">
+                                                                <select class="form-control" name="orgMemberShift">
                                                                     <c:choose>
                                                                         <c:when test="${orgUser.dept != null}">
                                                                             <c:forEach var="orgMember" items="${orgUser.dept.organizationUserList}">
