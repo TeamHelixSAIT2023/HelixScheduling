@@ -34,7 +34,7 @@ public class TaskDB {
          List<Task> taskList;
          
          try {
-            taskList = em.createNamedQuery("Task.findByOrgUser", Task.class).setParameter("organization", orgUser).getResultList();
+            taskList = em.createNamedQuery("Task.findByOrgUser", Task.class).setParameter("organizationUser", orgUser).getResultList();
         } finally {
             em.close();
         }
@@ -47,7 +47,7 @@ public class TaskDB {
          List<Task> taskList;
          
          try {
-            taskList = em.createNamedQuery("Task.findByUpcoming", Task.class).setParameter("organization", orgUser).getResultList();
+            taskList = em.createNamedQuery("Task.findByUpcoming", Task.class).setParameter("organizationUser", orgUser).getResultList();
         } finally {
             em.close();
         }
@@ -60,7 +60,7 @@ public class TaskDB {
          List<Task> taskList;
          
          try {
-            taskList = em.createNamedQuery("Task.findByPrevious", Task.class).setParameter("organization", orgUser).getResultList();
+            taskList = em.createNamedQuery("Task.findByPrevious", Task.class).setParameter("organizationUser", orgUser).getResultList();
         } finally {
             em.close();
         }

@@ -116,7 +116,7 @@ public class ScheduleServlet extends HttpServlet {
             String endTime = request.getParameter("end-time");
             String shiftType = request.getParameter("shift-type");
 
-            if (schedule != null && orgUserID != 0 && dateString != null && !dateString.equals("") && dateString.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")
+            if (schedule != null && orgUserID != 0 && dateString != null && !dateString.equals("") && dateString.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")
                     && startTime != null && !startTime.equals("") && startTime.matches("\\d\\d:\\d\\d")
                     && endTime != null && !endTime.equals("") && endTime.matches("\\d\\d:\\d\\d")) {
                 OrganizationUserService ous = new OrganizationUserService();
@@ -166,7 +166,7 @@ public class ScheduleServlet extends HttpServlet {
             }
 
             if (orgName != null && !orgName.equals("") && deptName != null && !deptName.equals("")
-                    && dateString != null && !dateString.equals("") && dateString.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+                    && dateString != null && !dateString.equals("") && dateString.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")) {
                 OrganizationService os = new OrganizationService();
                 Organization org = os.getByName(orgName);
 
