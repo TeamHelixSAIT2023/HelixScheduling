@@ -8,66 +8,67 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Department;
-import model.Organization;
 import model.OrganizationUser;
+import model.ShiftSwapRequest;
 
 /**
  *
  * @author Eric
  */
-public class DepartmentDB {
-
-    public Department get(int departmentID) {
+public class ShiftSwapRequestDB {
+    public ShiftSwapRequest get(int requestID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Department availability;
+        ShiftSwapRequest request;
 
         try {
-            availability = em.find(Department.class, departmentID);
+            request = em.find(ShiftSwapRequest.class, requestID);
         } finally {
             em.close();
         }
 
-        return availability;
+        return request;
     }
 
-    public List<Department> getAll() {
+    public List<ShiftSwapRequest> getBySender(OrganizationUser sender) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        List<Department> departmentList;
+        List<ShiftSwapRequest> requestList;
 
         try {
-            departmentList = em.createNamedQuery("Department.findAll", Department.class).getResultList();
+            requestList = em.createNamedQuery("ShiftSwapRequest.findBySender", ShiftSwapRequest.class).setParameter("sender", sender).getResultList();
         } finally {
             em.close();
         }
 
-        return departmentList;
+        return requestList;
     }
-    
-    public Department getByOrgTitle(Organization org, String title) {
+
+    public List<ShiftSwapRequest> getByReceiver(OrganizationUser receiver) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Department department;
+        List<ShiftSwapRequest> requestList;
 
         try {
-            department = em.createNamedQuery("Department.findByOrgTitle", Department.class).setParameter("organization", org).setParameter("title", title).getSingleResult();
+            requestList = em.createNamedQuery("ShiftSwapRequest.findByReceiver", ShiftSwapRequest.class).setParameter("receiver", receiver).getResultList();
         } finally {
             em.close();
         }
 
-        return department;
+        return requestList;
     }
 
-    public void insert(Department department) {
+    public void insert(ShiftSwapRequest request) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        Organization organization;
+        OrganizationUser sender, receiver;
 
         try {
-            organization = department.getOrganization();
+            sender = request.getSender();
+            receiver = request.getReceiver();
             trans.begin();
-            organization.getDepartmentList().add(department);
-            em.persist(department);
-            em.merge(organization);
+            em.persist(request);
+            sender.getShiftSwapRequestListSender().add(request);
+            receiver.getShiftSwapRequestListReceiver().add(request);
+            em.merge(sender);
+            em.merge(receiver);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -76,13 +77,13 @@ public class DepartmentDB {
         }
     }
 
-    public void update(Department department) {
+    public void update(ShiftSwapRequest request) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
         try {
             trans.begin();
-            em.merge(department);
+            em.merge(request);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
@@ -91,23 +92,20 @@ public class DepartmentDB {
         }
     }
 
-    public void delete(Department department) {
+    public void delete(ShiftSwapRequest request) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        List<OrganizationUser> ouList;
-        Organization organization;
+        OrganizationUser sender, receiver;
 
         try {
-            ouList = department.getOrganizationUserList();
-            organization = department.getOrganization();
+            sender = request.getSender();
+            receiver = request.getReceiver();
             trans.begin();
-            for (OrganizationUser ou : ouList) {
-                ou.setDept(null);
-                em.merge(ou);
-            }
-            organization.getDepartmentList().remove(department);
-            em.merge(organization);
-            em.remove(em.merge(department));
+            sender.getShiftSwapRequestListSender().remove(request);
+            receiver.getShiftSwapRequestListReceiver().remove(request);
+            em.merge(sender);
+            em.merge(receiver);
+            em.remove(request);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

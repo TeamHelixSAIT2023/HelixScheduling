@@ -84,8 +84,8 @@
 
     </div>
         </div>
-                    <div class="mainBody" style="margin-left:13%;">
-        <main>
+        
+        <main class="container">
             <c:choose>
                 <c:when  test="${(orgList == null) || (empty orgList)}"> 
                     <h1>This user isn't a part of any organizations</h1>
@@ -103,8 +103,9 @@
                         <div>
                             <h2>Availability</h2>
                             <form method="POST">
+                                <div class="row">
                                 <c:forEach var="day" items="${orgUser.availabilityList}">
-                                    <div>
+                                    <div class="col">
                                         <p>${day.dayOfWeek}</p>
                                         <div>
                                             <fmt:formatDate type="time" var="startTime" pattern="HH:mm" value="${day.startTime}"/>
@@ -126,15 +127,18 @@
                                         </div>
                                     </div>
                                 </c:forEach>
+                                </div>
+                                <div style="margin-top: 10px;">
                                 <input class="btn btn-primary" type="hidden" name="action" value="availability">
                                 <input class="btn btn-primary" type="submit" value="Update">
+                                </div>
                             </form>
                             <div>
                                 <c:if test="${availabilityUpdateMessage != null}">
                                     <p>${availabilityUpdateMessage}</p>
                                 </c:if>
                             </div>
-                        </div>
+                        
                     </section>
                     <section>
                         <h2>Unavailable Dates</h2>
@@ -162,5 +166,4 @@
             </c:choose>
 
         </main>
-                    </div>
 </html>

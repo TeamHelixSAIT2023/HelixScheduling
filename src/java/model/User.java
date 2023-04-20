@@ -72,6 +72,10 @@ public class User implements Serializable {
     @Column(name = "public")
     private boolean public1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private List<OrganizationRequest> organizationRequestList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Notification> notificationList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<OrganizationUser> organizationUserList;
 
     public User() {
@@ -162,6 +166,24 @@ public class User implements Serializable {
 
     public void setPublic1(boolean public1) {
         this.public1 = public1;
+    }
+
+    @XmlTransient
+    public List<OrganizationRequest> getOrganizationRequestList() {
+        return organizationRequestList;
+    }
+
+    public void setOrganizationRequestList(List<OrganizationRequest> organizationRequestList) {
+        this.organizationRequestList = organizationRequestList;
+    }
+
+    @XmlTransient
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
     }
 
     @XmlTransient

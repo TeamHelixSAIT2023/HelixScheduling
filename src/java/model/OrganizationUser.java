@@ -40,7 +40,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "OrganizationUser.findByOrgUser", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization AND o.user = :user")
     , @NamedQuery(name = "OrganizationUser.findByOrganization", query = "SELECT o FROM OrganizationUser o WHERE o.organization = :organization")
     , @NamedQuery(name = "OrganizationUser.findByUser", query = "SELECT o FROM OrganizationUser o WHERE o.user = :user")})
-
 public class OrganizationUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,6 +55,22 @@ public class OrganizationUser implements Serializable {
     private Boolean admin;
     @Column(name = "owner")
     private Boolean owner;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver", fetch = FetchType.EAGER)
+    private List<OrganizationUserRequest> organizationUserRequestListReceiver;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.EAGER)
+    private List<OrganizationUserRequest> organizationUserRequestListSender;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
+    private List<Unavailable> unavailableList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver", fetch = FetchType.EAGER)
+    private List<AvailabilityChangeRequest> availabilityChangeRequestListReceiver;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.EAGER)
+    private List<AvailabilityChangeRequest> availabilityChangeRequestListSender;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
+    private List<Availability> availabilityList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver", fetch = FetchType.EAGER)
+    private List<ShiftSwapRequest> shiftSwapRequestListReceiver;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.EAGER)
+    private List<ShiftSwapRequest> shiftSwapRequestListSender;
     @JoinColumn(name = "dept", referencedColumnName = "deptID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Department dept;
@@ -67,18 +82,13 @@ public class OrganizationUser implements Serializable {
     @JoinColumn(name = "organization", referencedColumnName = "organizationID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Organization organization;
-    @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Schedule schedule;
     @JoinColumn(name = "user", referencedColumnName = "userID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
-    private List<Unavailable> unavailableList;
+    private List<TimeOffRequest> timeOffRequestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
-    private List<Shift> shiftList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizationUser", fetch = FetchType.EAGER)
-    private List<Availability> availabilityList;
+    private List<OrganizationUserSchedule> organizationUserScheduleList;
 
     public OrganizationUser() {
     }
@@ -119,6 +129,79 @@ public class OrganizationUser implements Serializable {
         this.owner = owner;
     }
 
+    @XmlTransient
+    public List<OrganizationUserRequest> getOrganizationUserRequestListReceiver() {
+        return organizationUserRequestListReceiver;
+    }
+
+    public void setOrganizationUserRequestListReceiver(List<OrganizationUserRequest> organizationUserRequestList) {
+        this.organizationUserRequestListReceiver = organizationUserRequestList;
+    }
+
+    @XmlTransient
+    public List<OrganizationUserRequest> getOrganizationUserRequestListSender() {
+        return organizationUserRequestListSender;
+    }
+
+    public void setOrganizationUserRequestListSender(List<OrganizationUserRequest> organizationUserRequestList1) {
+        this.organizationUserRequestListSender = organizationUserRequestList1;
+    }
+
+    @XmlTransient
+    public List<Unavailable> getUnavailableList() {
+        return unavailableList;
+    }
+
+    public void setUnavailableList(List<Unavailable> unavailableList) {
+        this.unavailableList = unavailableList;
+    }
+
+    @XmlTransient
+    public List<AvailabilityChangeRequest> getAvailabilityChangeRequestListReceiver() {
+        return availabilityChangeRequestListReceiver;
+    }
+
+    public void setAvailabilityChangeRequestListReceiver(List<AvailabilityChangeRequest> availabilityChangeRequestList) {
+        this.availabilityChangeRequestListReceiver = availabilityChangeRequestList;
+    }
+
+    @XmlTransient
+    public List<AvailabilityChangeRequest> getAvailabilityChangeRequestListSender() {
+        return availabilityChangeRequestListSender;
+    }
+
+    public void setAvailabilityChangeRequestListSender(List<AvailabilityChangeRequest> availabilityChangeRequestList1) {
+        this.availabilityChangeRequestListSender = availabilityChangeRequestList1;
+    }
+
+    @XmlTransient
+    public List<Availability> getAvailabilityList() {
+        return availabilityList;
+    }
+
+    public void setAvailabilityList(List<Availability> availabilityList) {
+        this.availabilityList = availabilityList;
+    }
+
+    @XmlTransient
+    public List<ShiftSwapRequest> getShiftSwapRequestListReceiver() {
+        return shiftSwapRequestListReceiver;
+    }
+
+    public void setShiftSwapRequestListReceiver(List<ShiftSwapRequest> shiftSwapRequestList) {
+        this.shiftSwapRequestListReceiver = shiftSwapRequestList;
+    }
+
+    @XmlTransient
+    public List<ShiftSwapRequest> getShiftSwapRequestListSender() {
+        return shiftSwapRequestListSender;
+    }
+
+    public void setShiftSwapRequestSender(List<ShiftSwapRequest> shiftSwapRequestList1) {
+
+        this.shiftSwapRequestListSender = shiftSwapRequestList1;
+    }
+
     public Department getDept() {
         return dept;
     }
@@ -152,14 +235,6 @@ public class OrganizationUser implements Serializable {
         this.organization = organization;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
     public User getUser() {
         return user;
     }
@@ -169,30 +244,21 @@ public class OrganizationUser implements Serializable {
     }
 
     @XmlTransient
-    public List<Unavailable> getUnavailableList() {
-        return unavailableList;
+    public List<TimeOffRequest> getTimeOffRequestList() {
+        return timeOffRequestList;
     }
 
-    public void setUnavailableList(List<Unavailable> unavailableList) {
-        this.unavailableList = unavailableList;
-    }
-
-    @XmlTransient
-    public List<Shift> getShiftList() {
-        return shiftList;
-    }
-
-    public void setShiftList(List<Shift> shiftList) {
-        this.shiftList = shiftList;
+    public void setTimeOffRequestList(List<TimeOffRequest> timeOffRequestList) {
+        this.timeOffRequestList = timeOffRequestList;
     }
 
     @XmlTransient
-    public List<Availability> getAvailabilityList() {
-        return availabilityList;
+    public List<OrganizationUserSchedule> getOrganizationUserScheduleList() {
+        return organizationUserScheduleList;
     }
 
-    public void setAvailabilityList(List<Availability> availabilityList) {
-        this.availabilityList = availabilityList;
+    public void setOrganizationUserScheduleList(List<OrganizationUserSchedule> organizationUserScheduleList) {
+        this.organizationUserScheduleList = organizationUserScheduleList;
     }
 
     @Override
@@ -219,5 +285,5 @@ public class OrganizationUser implements Serializable {
     public String toString() {
         return "model.OrganizationUser[ organizationUserID=" + organizationUserID + " ]";
     }
-
+    
 }

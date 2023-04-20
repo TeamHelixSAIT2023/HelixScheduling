@@ -40,7 +40,7 @@ teamLogo {
     overflow-x: hidden;
     align-items:center;
     justify-content:center;
-   
+
 }
 
 button{
@@ -49,7 +49,7 @@ button{
     display: inline-block;
     margin: auto;  
 
-    }
+}
 
 
 button:hover{
@@ -60,20 +60,42 @@ button:hover{
 
 .homeButton{
     top: 70px;
-    
+
     border:none;
     position: fixed;
     cursor: pointer;
     width: 180px;
     margin: auto;  
- 
-    
+
+
 }
 .form{
-        top: 150px;
+    top: 150px;
     border:none;
     position: fixed;
     cursor: pointer;
     width: 180px;
     margin: auto;  
+}
+
+.nav-tabs .nav-item .nav-link {
+    background-color: white;
+    color: #424949;
+    border: 1px solid #F2F3F4;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    background-color: #F2F3F4;
+    color: #424949;
+    border: 1px solid #F2F3F4;
+
+}
+
+.tab-content {
+    border: 1px #F2F3F4;
+
+    padding: 15px;
+    background-color: #F2F3F4;
+    border-radius: 0px 0px 7px 7px;
+
 }

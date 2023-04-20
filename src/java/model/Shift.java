@@ -39,7 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Shift.findByShiftID", query = "SELECT s FROM Shift s WHERE s.shiftID = :shiftID")
     , @NamedQuery(name = "Shift.findByStartDate", query = "SELECT s FROM Shift s WHERE s.startDate = :startDate")
     , @NamedQuery(name = "Shift.findByEndDate", query = "SELECT s FROM Shift s WHERE s.endDate = :endDate")
-    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")})
+    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")
+    , @NamedQuery(name = "Shift.findByOrgUserSchedule", query = "SELECT s FROM Shift s WHERE s.organizationUserSchedule = :organizationUserSchedule")
+    , @NamedQuery(name = "Shift.findByUpcoming", query = "SELECT s FROM Shift s WHERE s.organizationUserSchedule = :organizationUserSchedule AND s.startDate >= CURRENT_DATE")})
 public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,14 +60,13 @@ public class Shift implements Serializable {
     private Date endDate;
     @Column(name = "shiftType")
     private String shiftType;
-    @JoinColumn(name = "organizationUser", referencedColumnName = "organizationUserID")
+    @JoinColumn(name = "organizationUserSchedule", referencedColumnName = "organizationUserScheduleID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private OrganizationUser organizationUser;
-    @JoinColumn(name = "schedule", referencedColumnName = "scheduleID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Schedule schedule;
+    private OrganizationUserSchedule organizationUserSchedule;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift", fetch = FetchType.EAGER)
     private List<ShiftSwapBoard> shiftSwapBoardList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift", fetch = FetchType.EAGER)
+    private List<ShiftSwapRequest> shiftSwapRequestList;
 
     public Shift() {
     }
@@ -112,20 +113,12 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
-    public OrganizationUser getOrganizationUser() {
-        return organizationUser;
+    public OrganizationUserSchedule getOrganizationUserSchedule() {
+        return organizationUserSchedule;
     }
 
-    public void setOrganizationUser(OrganizationUser organizationUser) {
-        this.organizationUser = organizationUser;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void setOrganizationUserSchedule(OrganizationUserSchedule organizationUserSchedule) {
+        this.organizationUserSchedule = organizationUserSchedule;
     }
 
     @XmlTransient
@@ -135,6 +128,15 @@ public class Shift implements Serializable {
 
     public void setShiftSwapBoardList(List<ShiftSwapBoard> shiftSwapBoardList) {
         this.shiftSwapBoardList = shiftSwapBoardList;
+    }
+
+    @XmlTransient
+    public List<ShiftSwapRequest> getShiftSwapRequestList() {
+        return shiftSwapRequestList;
+    }
+
+    public void setShiftSwapRequestList(List<ShiftSwapRequest> shiftSwapRequestList) {
+        this.shiftSwapRequestList = shiftSwapRequestList;
     }
 
     @Override
