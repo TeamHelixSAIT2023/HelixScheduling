@@ -139,6 +139,14 @@
             <p>${errorMessage}</p>
         </div>
 
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        <form id="joinForm" action="joinOrganization" method="POST">
+            <label for="orgName">Enter organization name:</label>
+            <input class="form-control" style="margin-top: 10px; margin-bottom: 10px;" type="text" id="orgName" name="orgName">
+            <input class="btn btn-primary" type="submit" value="Join Organization">
+        </form>
+    </div>
 
     </body>
 </html>

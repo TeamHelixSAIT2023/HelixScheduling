@@ -25,6 +25,23 @@ public class TaskServlet extends HttpServlet {
         TaskService ts = new TaskService();
         User user = (User) session.getAttribute("user");
 
+        String[] priorityList = {"High", "Medium", "Low"};
+        String[] statusList = {"Not Started", "In-Progress", "Completed"};
+        
+        String action = request.getParameter("action");
+        if (action != null && action.equals("updateStatus")) {
+            try {
+                int taskID = Integer.parseInt(request.getParameter("task"));
+                String status = request.getParameter("status");
+                
+                if (status != null && (status.equals("Not Started") || status.equals("In-Progress") || status.equals("Completed"))){
+                    ts.updateStatus(taskID, status);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
         List<Task> taskList = ts.getByUser(user);
         List<Task> currentTaskList = ts.getByUserUpcoming(user);
         List<Task> previousTaskList = ts.getByUserPrevious(user);
@@ -33,8 +50,7 @@ public class TaskServlet extends HttpServlet {
         session.setAttribute("currentTaskList", currentTaskList);
         session.setAttribute("archivedTaskList", previousTaskList);
 
-        String[] priorityList = {"High", "Medium", "Low"};
-        String[] statusList = {"Not Started", "In-Progress", "Completed"};
+        
 
         session.setAttribute("priorityList", priorityList);
         session.setAttribute("statusList", statusList);
