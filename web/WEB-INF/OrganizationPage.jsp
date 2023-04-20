@@ -295,10 +295,11 @@
                                     <h4>${dept.title}</h4>
                                     <p>${dept.deptNo}</p>
                                     <p>${dept.description}</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-dept-${dept.deptNo}">
-                                        Edit ${dept.title}
-                                    </button>
-
+                                    <c:if test="${orgUser.admin}">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-dept-${dept.deptNo}">
+                                            Edit ${dept.title}
+                                        </button>
+                                    </c:if>
 
 
                                     <div id="edit-dept-${dept.deptNo}" class="modal">
