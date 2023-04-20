@@ -41,12 +41,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/gannt" class="nav-link text-white">
-                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                                Gantt Chart
-                            </a>
-                        </li>
-                        <li>
                             <a href="/availability" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                                 Availability
