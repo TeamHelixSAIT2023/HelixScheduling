@@ -61,6 +61,19 @@ public class ScheduleDB {
         return schedules;
     }
     
+    public List<Schedule> getByOrgDept (Organization org, Department dept){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        List<Schedule> scheduleList;
+        
+        try {
+            scheduleList = em.createNamedQuery("Schedule.findByOrgDeptStartDate", Schedule.class).setParameter("organization", org).setParameter("dept", dept).getResultList();
+        } finally {
+            em.close();
+        }
+        
+        return scheduleList;
+    }
+    
     public Schedule getByOrgDeptStartDate (Organization org, Department dept, Date startDate){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         Schedule schedule;

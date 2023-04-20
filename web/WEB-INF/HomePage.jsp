@@ -13,69 +13,65 @@
         <title>Home</title>
     </head>
     <body>
-
-        <div>
-            <div class="row" style="height: 100%;">
-                <div class="col-4">
-                    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
-                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                            <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
-                        </a>
-                        <hr>
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li>
-                                <a href="/home" class="nav-link active" aria-current="page">Home</a></li>
-                            <li>
-                                <a href="/task" class="nav-link text-white">Task view</a>
-                            </li>
-                            <li>
-                                <a href="/schedule" class="nav-link text-white">Schedule</a>
-                            </li>
-                            <li>
-                                <a href="/availability" class="nav-link text-white"> Availability</a>
-                            </li>
-                            <li>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Organization
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                        <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
-                                        <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
-                                        <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
+        <div class="d-flex" style="height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20%; height: 100vh;">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li>
+                        <a href="/home" class="nav-link active" aria-current="page">Home</a></li>
+                    <li>
+                        <a href="/task" class="nav-link text-white">Task view</a>
+                    </li>
+                    <li>
+                        <a href="/schedule" class="nav-link text-white">Schedule</a>
+                    </li>
+                    <li>
+                        <a href="/availability" class="nav-link text-white"> Availability</a>
+                    </li>
+                    <li>
                         <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                <strong>${user.firstName}</strong>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                <li><a class="dropdown-item" href="/account">Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                            <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Organization
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark dropup text-small shadow">
+                                <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                                <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                                <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <strong>${user.firstName}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="/account">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                    </ul>
                 </div>
-                <div class="col-6">
-                    <div class="mt-5 d-flex justify-content-center">
-                        <div class="h-20 mt-4 d-flex flex-column">
-                            <a class="text-decoration-none text-dark" href="/schedule">
-                                <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
-                                    <h2>Shifts</h2>
-                                    <c:choose>
-                                        <c:when test="${empty shiftList}">
-                                            <p>No upcoming shifts</p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <table class="table table-striped table-hover">
-                                                <c:forEach var="shift" items="${shiftList}">
-                                                    <a href="/schedule?organization${shift.organizationUserSchedule.schedule.organization.name}"
-                                                    <tr class="p-1">
+            </div>
+            <div class="w-100 mx-auto d-flex justify-content-center">
+                <div class="w-75 h-75">
+                    <div class="h-20 mt-4 d-flex flex-column">
+                        <a class="text-decoration-none text-dark" href="/schedule">
+                            <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
+                                <h2>Shifts</h2>
+                                <c:choose>
+                                    <c:when test="${empty shiftList}">
+                                        <p>No upcoming shifts</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <table class="table table-striped table-hover">
+                                            <c:forEach var="shift" items="${shiftList}">
+                                                <a href="/schedule?organization${shift.organizationUserSchedule.schedule.organization.name}"
+                                                   <tr class="p-1">
                                                         <td>${shift.organizationUserSchedule.schedule.organization.name}</td>
                                                         <td><fmt:formatDate type="both" pattern="MMM. dd, yyyy h:ss a" value="${shift.startDate}"/></td>
                                                         <td>
@@ -86,39 +82,38 @@
                                                         <td>${shift.shiftType}</td>
                                                     </tr>
                                                 </c:forEach>
-                                            </table>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </a>
-                            <a class="text-decoration-none text-dark" href="/task">
-                                <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
-                                    <h2>Tasks</h2>
-                                    <c:choose>
-                                        <c:when test="${empty taskList}">
-                                            <p>No upcoming tasks</p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <table class="table table-striped table-hover">
-                                                <c:forEach var="task" items="${taskList}">
-                                                    <tr class="p-1">
-                                                        <td>${task.title}</td>
-                                                        <td><fmt:formatDate type="date" pattern="MMM. dd, yyyy" value="${task.startDate}"/></td>
-                                                        <td>
-                                                            <c:if test="${task.endDate != null}">
-                                                                <fmt:formatDate type="date" pattern="MMM. dd, yyyy" value="${task.endDate}"/>
-                                                            </c:if>
-                                                        </td>
-                                                        <td>${task.priority}</td>
-                                                        <td>${task.status}</td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </table>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </a>
-                        </div>
+                                        </table>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </a>
+                        <a class="text-decoration-none text-dark" href="/task">
+                            <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
+                                <h2>Tasks</h2>
+                                <c:choose>
+                                    <c:when test="${empty taskList}">
+                                        <p>No upcoming tasks</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <table class="table table-striped table-hover">
+                                            <c:forEach var="task" items="${taskList}">
+                                                <tr class="p-1">
+                                                    <td>${task.title}</td>
+                                                    <td><fmt:formatDate type="date" pattern="MMM. dd, yyyy" value="${task.startDate}"/></td>
+                                                    <td>
+                                                        <c:if test="${task.endDate != null}">
+                                                            <fmt:formatDate type="date" pattern="MMM. dd, yyyy" value="${task.endDate}"/>
+                                                        </c:if>
+                                                    </td>
+                                                    <td>${task.priority}</td>
+                                                    <td>${task.status}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </table>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

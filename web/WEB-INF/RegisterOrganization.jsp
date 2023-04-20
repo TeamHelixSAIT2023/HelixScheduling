@@ -16,91 +16,86 @@
         <title>Register For a Organization</title>
     </head>
     <body>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li>
-                    <a href="/home" class="nav-link text-white" aria-current="page">
-                        
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="/task" class="nav-link text-white">
-                        
-                        Task view
-                    </a>
-                </li>
-                <li>
-                    <a href="/schedule" class="nav-link text-white">
-                       
-                        Schedule
-                    </a>
-                </li>
-                <li>
-                    <a href="/availability" class="nav-link text-white">
-                        
-                        Availability
-                    </a>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Organization
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
-                            <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
-                            <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-                    <strong>${user.firstName}</strong>
+        <div class="d-flex" style="height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20%; height: 100vh;">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="/account">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li>
+                        <a href="/home" class="nav-link text-white" aria-current="page">
+
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/task" class="nav-link text-white">
+
+                            Task view
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/schedule" class="nav-link text-white">
+
+                            Schedule
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/availability" class="nav-link text-white">
+
+                            Availability
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Organization
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                                <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                                <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <strong>${user.firstName}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="/account">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-
-
-        
-        <div class="d-flex justify-content-center mt-5" style="position:  static">
-            <div>
-                <h1 class="text-center p-2" style="color:black">Create Organization</h1>
-                <form method="POST" action="/registerOrganization">
-                    <div>
-                        <label>Organization Name:</label>
+            <div class="w-50 mx-auto d-flex justify-content-center">
+                <div class="w-50 mt-5 h-50 mainBody">
+                    <h1 class="text-center p-2" style="color:black">Create Organization</h1>
+                    <form method="POST" action="/registerOrganization">
                         <div>
-                            <input class="form-control" style="margin-bottom: 10px;" name="orgName" placeholder="Organization Name">
+                            <label for=orgName"">Organization Name:</label>
+                            <div>
+                                <input class="form-control" style="margin-bottom: 10px;" name="orgName" placeholder="Organization Name">
+                            </div>
                         </div>
-                    </div>
-                    <div >
-                        <label>Organization Description:</label>
                         <div >
-                            <input class="form-control" style="margin-bottom: 10px;" type="text" name="orgDesc" placeholder="Organization Description">
+                            <label for="orgDesc">Organization Description:</label>
+                            <div >
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="orgDesc" placeholder="Organization Description">
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <label>Public Organization:</label>
-                        <div>
-                            <input style="margin-bottom: 10px;" type="checkbox" name="public" value="public"/>
+                        <div class="mb-3 form-check form-switch">
+                            <label class="mr-5 form-check-label" for="public">Public Organization</label>
+                            <input class="form-check-input" type="checkbox" name="public" value="public" checked/>
                         </div>
-                    </div>
-
-                    <input class="btn btn-primary" type="submit" value="Create Organization" name="submit">
-                </form>
-
+                        <input class="btn btn-primary" type="submit" value="Create Organization" name="submit">
+                    </form>
+                </div>
             </div>
         </div>
     </body>

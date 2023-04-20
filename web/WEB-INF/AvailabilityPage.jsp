@@ -18,8 +18,8 @@
         <title>Availability</title>
     </head>
     <body>
-        <div>
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
+        <div class="d-flex" style="height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark fixed-top" style="width: 20%; height: 100vh;">
                 <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
                 </a>
@@ -63,92 +63,94 @@
                     </ul>
                 </div>
             </div>
+            <div class="w-100 d-flex justify-content-center" style="width: 75%; margin-left: 20%">
+                <div class="w-75 h-100 mainBody">
+                    <c:choose>
+                        <c:when  test="${(orgList == null) || (empty orgList)}"> 
+                            <h1>This user isn't a part of any organizations</h1>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="dropdown mt-5 mb-5">
+                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Organization
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <c:forEach var="org" items="${orgList}">
+                                        <li><a class="dropdown-item" href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></li>
+                                        </c:forEach>
+                                </ul>
+                            </div>
+                            <section>
+                                <div class="mb-5">
+                                    <h2>Availability</h2>
+                                    <form method="POST">
+                                        <div class="mb-3 d-flex flex-wrap justify-content-center">
+                                            <c:forEach var="day" items="${orgUser.availabilityList}">
+                                                <div class="p-3 m-1 border border-primary rounded shadow">
+                                                    <p>${day.dayOfWeek}</p>
+                                                    <div class="mb-2 form-check form-switch">
+                                                        <fmt:formatDate type="time" var="startTime" pattern="HH:mm" value="${day.startTime}"/>
+                                                        <fmt:formatDate type="time" var="endTime" pattern="HH:mm" value="${day.endTime}"/>
+                                                        <label class="form-check-label" for="${day.dayOfWeek}-unavailable">Unavailable:</label>
+                                                        <input class="form-check-input" type="checkbox" id="${day.dayOfWeek}-unavailable" name="${day.dayOfWeek}-unavailable"
+                                                               <c:if test="${(startTime == '00:00') && (endTime == '00:00')}">
+                                                                   checked
+                                                               </c:if>
+                                                               >
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <label class="col-4" for="${day.dayOfWeek}-start">Start:</label>
+                                                        <input class="col-8" type="time" id="${day.dayOfWeek}-start" name="${day.dayOfWeek}-start" value="${startTime}">
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-4" for="${day.dayOfWeek}-end">End:</label>
+                                                        <input class="col-8" type="time" id="${day.dayOfWeek}-end" name="${day.dayOfWeek}-end"  value="${endTime}">
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div style="margin-top: 10px;">
+                                            <input class="btn btn-primary" type="hidden" name="action" value="availability">
+                                            <input class="btn btn-primary" type="submit" value="Update">
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <c:if test="${availabilityUpdateMessage != null}">
+                                            <p>${availabilityUpdateMessage}</p>
+                                        </c:if>
+                                    </div>
 
-        </div>
-        <main class="container">
-            <c:choose>
-                <c:when  test="${(orgList == null) || (empty orgList)}"> 
-                    <h1>This user isn't a part of any organizations</h1>
-                </c:when>
-                <c:otherwise>
-                    <div class="dropdown mt-5 mb-5">
-                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Organization
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <c:forEach var="org" items="${orgList}">
-                                <li><a class="dropdown-item" href="<c:url value='/availability?organization=${org.name}'/>">${org.name}</a></li>
+                            </section>
+                            <section>
+                                <h2>Unavailable Dates</h2>
+                                <c:forEach var="unavailable" items="${orgUser.unavailableList}">
+                                    <div>
+                                        <p><fmt:formatDate type="date" dateStyle="short" value="${unavailable.date}"/></p>
+                                        <p>${unavailable.reason}</p>
+                                    </div>
                                 </c:forEach>
-                        </ul>
-                    </div>
-                    <section>
-                        <div class="mb-5">
-                            <h2>Availability</h2>
-                            <form method="POST">
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <c:forEach var="day" items="${orgUser.availabilityList}">
-                                        <div class="p-3 m-1 border border-primary rounded shadow">
-                                            <p>${day.dayOfWeek}</p>
-                                            <div class="mb-2 form-check form-switch">
-                                                <fmt:formatDate type="time" var="startTime" pattern="HH:mm" value="${day.startTime}"/>
-                                                <fmt:formatDate type="time" var="endTime" pattern="HH:mm" value="${day.endTime}"/>
-                                                <label class="form-check-label" for="${day.dayOfWeek}-unavailable">Unavailable:</label>
-                                                <input class="form-check-input" type="checkbox" id="${day.dayOfWeek}-unavailable" name="${day.dayOfWeek}-unavailable"
-                                                       <c:if test="${(startTime == '00:00') && (endTime == '00:00')}">
-                                                           checked
-                                                       </c:if>
-                                                       >
+                                <form method="POST">
+                                    <div class="w-50 pb-5 inline-block">
+                                        <div class="mb-3">
+                                            <div class="">
+                                                <!-- would be nice to use bootstraps datepicker here -->
+                                                <label class="col-2" for="date">Date:</label>
+                                                <input class="col-3" type="date" name="date" id="date" required>
                                             </div>
-                                            <div class="row mb-2">
-                                                <label class="col-4" for="${day.dayOfWeek}-start">Start:</label>
-                                                <input class="col-8" type="time" id="${day.dayOfWeek}-start" name="${day.dayOfWeek}-start" value="${startTime}">
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-4" for="${day.dayOfWeek}-end">End:</label>
-                                                <input class="col-8" type="time" id="${day.dayOfWeek}-end" name="${day.dayOfWeek}-end"  value="${endTime}">
+                                            <div>
+                                                <label class="col-2" for="reason">Reason (optional):</label>
+                                                <input class="col-3" type="text" name="reason" id="reason">
                                             </div>
                                         </div>
-                                    </c:forEach>
-                                </div>
-                                <div style="margin-top: 10px;">
-                                    <input class="btn btn-primary" type="hidden" name="action" value="availability">
-                                    <input class="btn btn-primary" type="submit" value="Update">
-                                </div>
-                            </form>
-                            <div>
-                                <c:if test="${availabilityUpdateMessage != null}">
-                                    <p>${availabilityUpdateMessage}</p>
-                                </c:if>
-                            </div>
-
-                    </section>
-                    <section>
-                        <h2>Unavailable Dates</h2>
-                        <c:forEach var="unavailable" items="${orgUser.unavailableList}">
-                            <div>
-                                <p><fmt:formatDate type="date" dateStyle="short" value="${unavailable.date}"/></p>
-                                <p>${unavailable.reason}</p>
-                            </div>
-                        </c:forEach>
-                        <form method="POST">
-                            <div class="w-50 inline-block">
-                                <div class="mb-3">
-                                    <div class="">
-                                        <!-- would be nice to use bootstraps datepicker here -->
-                                        <label class="col-2" for="date">Date:</label>
-                                        <input class="col-3" type="date" name="date" id="date" required>
+                                        <input class="btn btn-primary" type="hidden" name="action" value="unavailable">
+                                        <input class="btn btn-primary" type="submit" value="Submit">
                                     </div>
-                                    <div>
-                                        <label class="col-2" for="reason">Reason (optional):</label>
-                                        <input class="col-3" type="text" name="reason" id="reason">
-                                    </div>
-                                </div>
-                                <input class="btn btn-primary" type="hidden" name="action" value="unavailable">
-                                <input class="btn btn-primary" type="submit" value="Submit">
-                            </div>
-                        </form>
-                    </section>
-                </c:otherwise>
-            </c:choose>
-        </main>
+                                </form>
+                            </section>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </div>
+    </main>
 </html>
