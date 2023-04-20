@@ -18,92 +18,91 @@
         <title>Organization List</title>
     </head>
     <body>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li>
-                    <a href="/home" class="nav-link text-white" aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="/task" class="nav-link text-white">Task view</a>
-                </li>
-                <li>
-                    <a href="/schedule" class="nav-link text-white">Schedule</a>
-                </li>
-                <li>
-                    <a href="/availability" class="nav-link text-white">Availability</a>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Organization
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
-                            <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
-                            <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-                    <strong>${user.firstName}</strong>
+        <div class="d-flex" style="height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20%; height: 100vh;">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="/account">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li>
+                        <a href="/home" class="nav-link text-white" aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="/task" class="nav-link text-white">Task view</a>
+                    </li>
+                    <li>
+                        <a href="/schedule" class="nav-link text-white">Schedule</a>
+                    </li>
+                    <li>
+                        <a href="/availability" class="nav-link text-white">Availability</a>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Organization
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                                <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                                <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
-            </div>
-        </div>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 
-        <div class="d-flex justify-content-center">
-            <div class="mt-5">
-                <h1 class="mb-5">Organization List</h1>
-                <c:if test="${empty user.organizationUserList}">
-                    <h2>You are not a part of any organizations</h2>
-                     <div class="col-6">
-                   
-                        <div class="h-20 mt-4 d-flex flex-column">
-                            <a class="text-decoration-none text-dark" href="/joinOrganization">
-                                <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
-                                    <h2>Join Organization</h2>
-                            </a>
-                                  
-                        </div>
-                                </div>
-                        </div>
-                        
-                                 <div class="col-6">
-                   
-                        <div class="h-20 mt-4 d-flex flex-column">
-                                  <a class="text-decoration-none text-dark" href="/registerOrganization">
-                                <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
-                                    <h2>Create a Organization</h2>
-                                    </a>
-                                </div>
-                                    
-                        </div>
-                    </div>
-                                 
-                        
-                   
-                    
-                </c:if>
-                <c:forEach var="orgUser" items="${user.organizationUserList}">
-                    <a class="link-primary text-decoration-none" href="<c:url value='/organization?organization=${orgUser.organization.name}'/>">
-                        <div class="border border-primary rounded m-2 p-3 bg-light">
-                            <h2>${orgUser.organization.name}</h2>
-                            <p>${orgUser.organization.description}</p>
-                        </div>
+                        <strong>${user.firstName}</strong>
                     </a>
-                </c:forEach>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="/account">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="w-50 mx-auto d-flex justify-content-center">
+                <div class="w-50 h-100 mainBody">
+                    <div class="mt-5">
+                        <h1 class="mb-5">Organization List</h1>
+                        <c:if test="${empty user.organizationUserList}">
+                            <h2>You are not a part of any organizations</h2>
+                             <div class="col-6">
+                           
+                                <div class="h-20 mt-4 d-flex flex-column">
+                                    <a class="text-decoration-none text-dark" href="/joinOrganization">
+                                        <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
+                                            <h2>Join Organization</h2>
+                                    </a>
+                                          
+                                </div>
+                                        </div>
+                                </div>
+                                
+                                         <div class="col-6">
+                           
+                                <div class="h-20 mt-4 d-flex flex-column">
+                                          <a class="text-decoration-none text-dark" href="/registerOrganization">
+                                        <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
+                                            <h2>Create a Organization</h2>
+                                            </a>
+                                        </div>
+                                            
+                                </div>
+                </c:if>
+                        <c:forEach var="orgUser" items="${user.organizationUserList}">
+                            <a class="link-primary text-decoration-none" href="<c:url value='/organization?organization=${orgUser.organization.name}'/>">
+                                <div class="border border-primary rounded m-2 p-3 bg-light">
+                                    <h2>${orgUser.organization.name}</h2>
+                                    <p>${orgUser.organization.description}</p>
+                                </div>
+                            </a>
+                        </c:forEach>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

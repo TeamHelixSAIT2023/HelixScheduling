@@ -93,6 +93,24 @@ public class ScheduleService {
         return scheduleList;
     }
 
+    public Schedule getByOrgDeptMostRecent(Organization org, Department dept) {
+        ScheduleDB sDB = new ScheduleDB();
+        List<Schedule> scheduleList = sDB.getByOrgDept(org, dept);
+        Schedule schedule = null;
+
+        Date date = new Date();
+        if (scheduleList != null && !scheduleList.isEmpty()) {
+            schedule = scheduleList.get(0);
+            for (Schedule s : scheduleList) {
+                if (s.getStartDate().before(date) && s.getStartDate().after(schedule.getStartDate())) {
+                    schedule = s;
+
+                }
+            }
+        }
+        return schedule;
+    }
+
     public Schedule insert(Organization org, Department dept, Date startDate, Date endDate) throws Exception {
         ScheduleDB sDB = new ScheduleDB();
         Schedule schedule = new Schedule();
@@ -109,6 +127,21 @@ public class ScheduleService {
         }
         return schedule;
     }
+
+//    public Schedule insertCarryForward(Organization org, Department dept, Date startDate, Date endDate) {
+//        ScheduleDB sDB = new ScheduleDB();
+//        Schedule carryForwardSchedule = getByOrgDeptMostRecent(org, dept);
+//
+//        try {
+//            Schedule schedule = insert(org, dept, startDate, endDate);
+//
+//            for (OrganizationUserSchedule ous : carryForwardSchedule.getOrganizationUserScheduleList()) {
+//                schedule.get
+//            }
+//        } catch (Exception e){
+//            
+//        }
+    //}
 
     public void update(int scheduleID, Department dept, Date startDate, Date endDate) {
         ScheduleDB sDB = new ScheduleDB();

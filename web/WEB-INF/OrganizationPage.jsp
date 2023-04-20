@@ -21,57 +21,55 @@
     </head>
 
     <body>
-        <div>
-            <div class="row" style="height: 100%;">
-                <div class="col-4">
-
-                    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
-                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                            <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
-                        </a>
-                        <hr>
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li>
-                                <a href="/home" class="nav-link text-white" aria-current="page">Home</a>
-                            </li>
-                            <li>
-                                <a href="/task" class="nav-link text-white">Task view</a>
-                            </li>
-                            <li>
-                                <a href="/schedule" class="nav-link text-white">Schedule</a>
-                            </li>
-                            <li>
-                                <a href="/availability" class="nav-link text-white">Availability</a>
-                            </li>
-                            <li>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-dark dropdown-toggle active" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Organization
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                        <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
-                                        <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
-                                        <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
+        <div class="d-flex" style="height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark fixed-top" style="width: 20%; height: 100vh;">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li>
+                        <a href="/home" class="nav-link text-white" aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="/task" class="nav-link text-white">Task view</a>
+                    </li>
+                    <li>
+                        <a href="/schedule" class="nav-link text-white">Schedule</a>
+                    </li>
+                    <li>
+                        <a href="/availability" class="nav-link text-white">Availability</a>
+                    </li>
+                    <li>
                         <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                <strong>${user.firstName}</strong>
-                            </a>
+                            <button type="button" class="btn btn-dark dropdown-toggle active" data-bs-toggle="dropdown" aria-expanded="false">
+                                Organization
+                            </button>
                             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                <li><a class="dropdown-item" href="/account">Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                                <li><a class="dropdown-item" href="/joinOrganization">Join Organization</a></li>
+                                <li><a class="dropdown-item" href="/registerOrganization">Create Organization</a></li>
+                                <li><a class="dropdown-item" href="/organizationList">List Organizations</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 
+                        <strong>${user.firstName}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="/account">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/login">Sign out</a></li>
+                    </ul>
                 </div>
-                <div class="col-6 mt-5">
+            </div>
+
+
+            <div class="d-flex justify-content-center" style="width: 60%; margin-left: 30%">
+                <div class="w-100 h-100 pt-3 mainBody">
                     <h1 class="mb-3">${org.name}</h1>
                     <c:if test="${orgUser.admin}">
                         <div class="mb-3">
@@ -223,7 +221,7 @@
                                     <p>${orgMember.user.email}</p>
 
                                     <c:if test="${orgUser.admin}">
-
+                                        <p>$${orgMember.hourly}</p>
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-${orgMember.organizationUserID}">
                                             Edit User
                                         </button>
@@ -379,7 +377,7 @@
                                                         <input type="number" name="dept-no" min="0" max="99" step="1"> 
                                                     </div>
                                                     <input type="hidden" name="action" value="new-dept"><br>
-                                                    
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <input class="btn btn-primary" type="submit" value="Add New Department">

@@ -16,8 +16,8 @@
         <title>Join a Organization</title>
     </head>
     <body>
-        <div>
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed; top: 0px;">
+        <div class="d-flex" style="height: 100%;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20%; height: 100vh;">
                 <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <svg class="bi pe-none me-2" width="10" height="12"><img src="/img/logo.png" style="width: 70%; height: auto;"></svg>
                 </a>
@@ -62,19 +62,22 @@
                 </div>
             </div>
 
-        </div>
-        <div class="d-flex justify-content-center mt-5">
+            <div class="w-50 mx-auto d-flex justify-content-center">
+                <div class="w-50 mt-5 h-50 mainBody">
+                    <div class="d-flex justify-content-center mt-5">
 
-            <form id="joinForm" action="joinOrganization" method="POST">
-                <label for="orgName">Enter organization name:</label>
-                <input class="form-control" style="margin-top: 10px; margin-bottom: 10px;" type="text" id="orgName" name="orgName" required>
-                <button class="btn btn-primary" type="submit">Join organization</button>
-            </form>
+                        <form id="joinForm" action="joinOrganization" method="POST">
+                            <label for="orgName">Enter organization name:</label>
+                            <input class="form-control" style="margin-top: 10px; margin-bottom: 10px;" type="text" id="orgName" name="orgName" required>
+                            <button class="btn btn-primary" type="submit">Join organization</button>
+                        </form>
+                    </div>
+                    <div class="d-flex justify-content-center mt-5">
+                        <p>${orgmsg}</p>
+                        <p>${errorMessage}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d-flex justify-content-center mt-5">
-            <p>${orgmsg}</p>
-            <p>${errorMessage}</p>
-        </div>
-
     </body>
 </html>
