@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; position: fixed;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12%; height: 100%; top: 0px; position: fixed;">
             <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi pe-none me-2" width="10" height="12"><img src="/css/logo.png" style="width: 70%; height: auto;"></svg>
             </a>
@@ -77,7 +77,7 @@
         </div>
 
         <!--Main content area-->
-        <div class="col-6">
+        <div class="col-6" style="margin-left: 13%;">
 
             <!-- Dropdown -->
             <div class="dropdown mt-5">
