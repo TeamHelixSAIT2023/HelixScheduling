@@ -40,8 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Task.findByStatus", query = "SELECT t FROM Task t WHERE t.status = :status")
     , @NamedQuery(name = "Task.findByPriority", query = "SELECT t FROM Task t WHERE t.priority = :priority")
     , @NamedQuery(name = "Task.findByOrgUser", query = "SELECT t FROM Task t WHERE t.organizationUser = :organizationUser")
-    , @NamedQuery(name = "Task.findByUpcoming", query = "SELECT t FROM Task t WHERE t.organizationUser = :organizationUser AND (t.endDate IS NULL OR t.startDate >= CURRENT_DATE)")
-    , @NamedQuery(name = "Task.findByPrevious", query = "SELECT t FROM Task t WHERE t.organizationUser = :organizationUser AND t.startDate < CURRENT_DATE")})
+    , @NamedQuery(name = "Task.findByUpcoming", query = "SELECT t FROM Task t WHERE t.organizationUser = :organizationUser AND (t.endDate IS NULL OR (t.startDate >= CURRENT_DATE AND t.status != 'Complete'))")
+    , @NamedQuery(name = "Task.findByPrevious", query = "SELECT t FROM Task t WHERE t.organizationUser = :organizationUser AND t.status = 'Completed' AND t.endDate < CURRENT_DATE")})
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
