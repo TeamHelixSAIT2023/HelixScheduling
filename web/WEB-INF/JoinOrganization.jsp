@@ -85,7 +85,7 @@
         <form id="joinForm" action="joinOrganization" method="POST">
             <label for="orgName">Enter organization name:</label>
             <input class="form-control" style="margin-top: 10px; margin-bottom: 10px;" type="text" id="orgName" name="orgName">
-            <button class="btn btn-primary" type="submit">Join organization</button>
+            <input class="btn btn-primary" type="submit" value="Join Organization">
         </form>
     </div>
 

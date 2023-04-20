@@ -148,17 +148,30 @@
                                     <c:if test="${message != null}">
                                         <p>${message}</p>
                                     </c:if>
-                                    <ul class="dropdown-menu">
-                                        <c:forEach var="orgUser" items="${user.organizationUserList}">
-                                            <li><a href="/schedule?organization=${orgUser.organization.name}">${orgUser.organization.name}</a></li>
-                                            </c:forEach>
-                                    </ul>
-                                    <ul class="dropdown-menu">
-                                        <c:forEach var="orgSchedule" items="${orgScheduleList}">
-                                            <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="orgScheduledate" value="${orgSchedule.startDate}"/> 
-                                            <li><a href="<c:url value="/schedule?organization=${org}&startDate=${orgScheduledate}}"/>"><fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${orgSchedule.startDate}"/> - <fmt:formatDate type="date" dateStyle="short" value="${orgSchedule.endDate}"/></a></li>
-                                            </c:forEach>
-                                    </ul>
+                                    <!--                                        Select organization and schedule period-->
+                                    <div class="d-flex justify-content-start">
+                                        <div class="dropdown me-10">
+                                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Organization
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark">
+                                                <c:forEach var="orgUser" items="${user.organizationUserList}">
+                                                    <li><a class="dropdow-item" href="/schedule?organization=${orgUser.organization.name}">${orgUser.organization.name}</a></li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown ">
+                                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Schedule Period
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <c:forEach var="orgSchedule" items="${orgScheduleList}">
+                                                    <fmt:formatDate type="date" pattern="yyyy-MM-dd" var="orgScheduledate" value="${orgSchedule.startDate}"/> 
+                                                    <li><a class="dropdown-item" href="<c:url value="/schedule?organization=${org}&startDate=${orgScheduledate}}"/>"><fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${orgSchedule.startDate}"/> - <fmt:formatDate type="date" dateStyle="short" value="${orgSchedule.endDate}"/></a></li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <table class="table table-striped table-hover">
                                         <tr class="table-dark">
                                             <th></th>
@@ -306,7 +319,7 @@
                                         <!--deleted "add shift" and "create schedule" form-->
 
                                     </c:if>
-                                        
+
                                 </div>
                         </main>
                     </div>

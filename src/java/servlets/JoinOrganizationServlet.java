@@ -18,7 +18,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Organization;
+import model.User;
+import services.OrganizationUserService;
 
 /**
  *
@@ -54,7 +57,7 @@ public class JoinOrganizationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-         getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
     }
 
     /**
@@ -68,44 +71,30 @@ public class JoinOrganizationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              String organizationName = request.getParameter("orgName");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-        OrganizationDB orgDB = new OrganizationDB();
-        Organization org = orgDB.getByName(organizationName);
-        
-        if (org != null && org.getName().equals(organizationName)) {
-            request.setAttribute("orgName", org);
-            getServletContext().getRequestDispatcher("/joinConfirmation").forward(request, response);
+        String organizationName = request.getParameter("orgName");
+
+        if (organizationName != null && !organizationName.equals("")) {
+            OrganizationDB orgDB = new OrganizationDB();
+            Organization org = orgDB.getByName(organizationName);
+
+            if (org != null) {
+                // request.setAttribute("orgName", org);
+
+                OrganizationUserService ous = new OrganizationUserService();
+                ous.insert(org, user, null, null, 0, false, false);
+
+                response.sendRedirect("/joinConfirmation");
+            } else {
+                request.setAttribute("errorMessage", "Organization not found.");
+                getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
+            }
+
         } else {
-            request.setAttribute("errorMessage", "Organization not found.");
+            request.setAttribute("errorMessage", "Nothing entered");
             getServletContext().getRequestDispatcher("/WEB-INF/JoinOrganization.jsp").forward(request, response);
         }
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
-
-    
-
- 
-    
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
-
