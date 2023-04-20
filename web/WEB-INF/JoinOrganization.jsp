@@ -42,12 +42,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/gannt" class="nav-link text-white">
-                        
-                        Gannt Chart
-                    </a>
-                </li>
-                <li>
                     <a href="/availability" class="nav-link text-white">
                         
                         Availability

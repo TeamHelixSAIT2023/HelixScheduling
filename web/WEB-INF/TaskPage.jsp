@@ -14,7 +14,6 @@
         <title>Task View</title>
     </head>
     <body>
-
         <div class="row" style="height: 100%;">
             <div class="col-4">
 

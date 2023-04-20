@@ -50,12 +50,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/gannt" class="nav-link text-white">
-
-                                    Gantt Chart
-                                </a>
-                            </li>
-                            <li>
                                 <a href="/availability" class="nav-link text-white">
 
                                     Availability
