@@ -352,10 +352,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </c:forEach>
                         </div>
-
                         <div>
                             <c:if test="${orgUser.admin}">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-dept-modal">
