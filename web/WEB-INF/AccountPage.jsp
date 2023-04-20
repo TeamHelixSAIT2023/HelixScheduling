@@ -75,7 +75,7 @@
                                     <label for="public" class="form-check-label">Public</label>
                                     <input class="form-check-input" type="checkbox" name="public" 
                                            <c:if test="${user.public1 == true}">checked
-                                           </c:if>>
+                                           </c:if>
                                 </div>
                                 <div class="mb-3 d-flex justify-content-between form-check form-switch">
                                     <label for="active" class="form-check-label">Active</label>

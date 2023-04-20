@@ -66,6 +66,7 @@
 
         </div>
         <main class="container">
+           
             <c:choose>
                 <c:when  test="${(orgList == null) || (empty orgList)}"> 
                     <h1>This user isn't a part of any organizations</h1>

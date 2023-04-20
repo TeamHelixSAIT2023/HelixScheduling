@@ -66,6 +66,36 @@
         <div class="d-flex justify-content-center">
             <div class="mt-5">
                 <h1 class="mb-5">Organization List</h1>
+                <c:if test="${empty user.organizationUserList}">
+                    <h2>You are not a part of any organizations</h2>
+                     <div class="col-6">
+                   
+                        <div class="h-20 mt-4 d-flex flex-column">
+                            <a class="text-decoration-none text-dark" href="/joinOrganization">
+                                <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
+                                    <h2>Join Organization</h2>
+                            </a>
+                                  
+                        </div>
+                                </div>
+                        </div>
+                        
+                                 <div class="col-6">
+                   
+                        <div class="h-20 mt-4 d-flex flex-column">
+                                  <a class="text-decoration-none text-dark" href="/registerOrganization">
+                                <div class="mt-5 p-3 border border-primary border-2 rounded shadow">
+                                    <h2>Create a Organization</h2>
+                                    </a>
+                                </div>
+                                    
+                        </div>
+                    </div>
+                                 
+                        
+                   
+                    
+                </c:if>
                 <c:forEach var="orgUser" items="${user.organizationUserList}">
                     <a class="link-primary text-decoration-none" href="<c:url value='/organization?organization=${orgUser.organization.name}'/>">
                         <div class="border border-primary rounded m-2 p-3 bg-light">
